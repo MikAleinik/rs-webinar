@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events</title>
 </head>
+
 <body>
-  
+  <!-- Добавление/удаление обработчиков событий -->
+  <!-- <div class="container">
+    <button id="buttonInline" class="button" onclick="inlineHandler()">Добавлен в разметке</button>
+    <button id="buttonProperty" class="button">Добавлен на свойство</button>
+    <button id="buttonTargetFunc" class="button">Добавлен на целевой элемент, обработка функция</button>
+    <button id="buttonTargetObj" class="button">Добавлен на целевой элемент, обработка объект</button>
+    <button id="buttonRemove" class="button">Удаление всех обработчиков</button>
+  </div>
+  <div class="container">
+    <ul id="log"></ul>
+  </div>
+  <script>
+    function inlineHandler() {
+      const logElement = document.getElementById('log');
+      const logItem = document.createElement('li');
+      logItem.textContent = 'Сработал обработчик добавленный инлайн (1).';
+      logElement.append(logItem);
+    }
+  </script> -->
+
+  <!-- Всплытие/погружение, делегирование -->
+  <!-- <div id="container" class="container">
+    <div id="innerContainer" class="container">
+      <div id="firstField" class="field">
+        <input id="firstCheckbox" type="checkbox" value="1">
+        <label id="firstLabel" for="firstCheckbox">Первый чекбокс</label>
+      </div>
+      <div id="secondField" class="field">
+        <input id="secondCheckbox" type="checkbox" value="2">
+        <label id="secondLabel" for="secondCheckbox">Второй чекбокс</label>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <ul id="log"></ul>
+  </div> -->
 </body>
+
 </html>

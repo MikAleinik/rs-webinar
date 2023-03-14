@@ -1,4 +1,40 @@
 body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   height: 100vh;
   width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 80%;
+  width: 40%;
+
+  margin: 5%;
+
+  border: 1px solid;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin: 2%;
+
+  border: 1px solid;
+}
+
+.button {
+  width: 50%;
+
+  margin: 1%;
 }
