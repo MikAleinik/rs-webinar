@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webinar Events</title>
+    <link rel="stylesheet" href="./reveal/plugin/highlight/an-old-hope.min.css">
     <link rel="stylesheet" href="./reveal/dist/reveal.css">
     <link rel="stylesheet" href="./reveal/dist/theme/black.css">
     <link rel="stylesheet" href="./style.css">
@@ -21,17 +22,21 @@
             <section>
                 <h5>События.</h5>
                 <ul>
-                    <li class="fragment">Это действия или случаи, возникающие в программируемой вами системе, о которых система сообщает вам для того,
+                    <li class="fragment">Это действия или случаи, возникающие в программируемой вами системе, о которых
+                        система сообщает вам для того,
                         чтобы вы могли с ними взаимодействовать. (MDN)</li>
-                    <li class="fragment">Это один из способов взаимодействия объектов, компонентов или частей приложения.</li>
+                    <li class="fragment">Это один из способов взаимодействия объектов, компонентов или частей
+                        приложения.</li>
                     <li class="fragment">Это объект, обладающий свойствами и методами.</li>
                 </ul>
             </section>
             <section>
                 <h5>Интерфейсы.</h5>
                 <ul>
-                    <li class="fragment">Интерфейс это декларация действия или контракт - что может делать объект и какими признаками он обладает.</li>
-                    <li class="fragment">Одни и те же действия, описанные в интерфейсе, могут иметь различную реализацию у разных событий.</li>
+                    <li class="fragment">Интерфейс это декларация действия или контракт - что может делать объект и
+                        какими признаками он обладает.</li>
+                    <li class="fragment">Одни и те же действия, описанные в интерфейсе, могут иметь различную реализацию
+                        у разных событий.</li>
                     <li class="fragment">Позволяют использовать объекты не зная подробностей их реализации.</li>
                 </ul>
             </section>
@@ -49,30 +54,119 @@
                 </ul>
             </section>
             <section>
-                <h5>Функции обратного вызова.</h5>
-                <ul>
-                    <li class="fragment">Это функция, переданная в другую функцию в качестве аргумента, которая затем вызывается по завершению какого-либо действия. (MDN)</li>
-                    <li class="fragment">Это становится возможно, т.к. любая функция это объект класса Function</li>
-                    <li class="fragment">Чаще всего используются для продолжения выполнения кода после завершения асинхронной операции.</li>
-                    <li class="fragment">Не разумное применение может приводить к адской пирамиде вызовов.</li>
-                </ul>
+                <section>
+                    <h5>Функции обратного вызова.</h5>
+                    <ul>
+                        <li class="fragment">Это функция, переданная в другую функцию в качестве аргумента, которая
+                            затем
+                            вызывается по завершению какого-либо действия. (MDN)</li>
+                        <li class="fragment">Это становится возможно, т.к. любая функция это объект класса Function</li>
+                        <li class="fragment">Чаще всего используются для продолжения выполнения кода после завершения
+                            асинхронной операции.</li>
+                        <li class="fragment">Не разумное применение может приводить к адской пирамиде вызовов.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Пример функции обратного вызова.</h5>
+                    <pre><code data-line-numbers="1-7|8-16|17-18|19|8|11|13|2-4|5-7">
+function summ(numberOne, numberTwo) {
+    return numberOne + numberTwo;
+}
+function difference(numberOne, numberTwo) {
+    return numberOne - numberTwo;
+}
+function action(numbers, callbacks) {
+    let result = numbers[0];
+    for (let i = 1; i < numbers.length; i += 1) {
+        const currentCallback = callbacks[i - 1];
+        const number = numbers[i];
+        result = currentCallback(result, number);
+    }
+    return result;
+}
+const numbers = [1, 2, 3, 4];
+const callbacks = [ summ, difference, summ ];
+action(numbers, callbacks);
+                        </code></pre>
+                </section>
             </section>
             <section>
-                <h5>Асинхронное программирование.</h5>
-                <ul>
-                    <li class="fragment">Асинхронность это концепция, которая заключается в том, что результат выполнения функции доступен не сразу же, а через некоторое время в виде некоторого асинхронного вызова (нарушающего обычный последовательный порядок выполнения). (MDN)</li>
-                    <li class="fragment">Асинхронность это ситуация при которой наш алгоритм разветвляется и одна его часть продолжает исполняться, а другая ожидает результата завершения какого-либо действия и продолжает выполняться после этого.</li>
-                    <li class="fragment">Механизм определения последовательности обработки этих “веток” регулируется циклом событий.</li>
-                    <li class="fragment">Необходимость асинхронности обусловлена однопоточностью языка в браузерной среде исполнения.</li>
-                </ul>
+                <section>
+                    <h5>Асинхронное программирование.</h5>
+                    <ul>
+                        <li class="fragment">Асинхронность это концепция, которая заключается в том, что результат
+                            выполнения функции доступен не сразу же, а через некоторое время в виде некоторого
+                            асинхронного
+                            вызова (нарушающего обычный последовательный порядок выполнения). (MDN)</li>
+                        <li class="fragment">Асинхронность это ситуация при которой наш алгоритм разветвляется и одна
+                            его
+                            часть продолжает исполняться, а другая ожидает результата завершения какого-либо действия и
+                            продолжает выполняться после этого.</li>
+                        <li class="fragment">Механизм определения последовательности обработки этих “веток” регулируется
+                            циклом событий.</li>
+                        <li class="fragment">Необходимость асинхронности обусловлена однопоточностью языка в браузерной
+                            среде исполнения.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Пример синхронного исполнения.</h5>
+                    <pre><code data-line-numbers="2-9|10-12|10|11|2|3-7|8|12">
+function summ() {
+    let counter = 0;
+    for (let i = 0; i < 100000; i += 1) {
+        //Какие-то вычисления
+        counter += 1;
+    }
+    console.log('Завершение длительных вычислений.(2)', counter);
+}
+console.log('Начало выполнения кода.(1)');
+summ();
+console.log('Завершение выполнения кода.(3)');
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="syncLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="syncBtn">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Пример асинхронного исполнения.</h5>
+                    <pre><code data-line-numbers="2-12|13-15|13|14|2|3|15|4-8|9|11">
+async function summ() {
+    let result = await function () {
+        let counter = 0;
+        for (let i = 0; i < 100000; i += 1) {
+            //Какие-то вычисления
+            counter += 1;
+        }
+        return counter;
+    }();
+    console.log('Завершение длительных вычислений.(2)', result);
+}
+console.log('Начало выполнения кода.(1)');
+summ();
+console.log('Завершение выполнения кода.(3)');
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="asyncLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="asyncBtn">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
             </section>
             <section>
-                <h5>Обработчики событий.</h5>
-                <ul>
-                    <li class="fragment">Атрибутом в HTML разметке с указанием функции-обработчика.</li>
-                    <li class="fragment">Свойству DOM элемента назначить функцию-обработчик.</li>
-                    <li class="fragment">С использованием метода addEventlistener</li>
-                </ul>
+                <section>
+                    <h5>Обработчики событий.</h5>
+                    <ul class="fragment">
+                        <li class="fragment">Атрибутом в HTML разметке с указанием функции-обработчика.</li>
+                        <li class="fragment">Свойству DOM элемента назначить функцию-обработчик.</li>
+                        <li class="fragment">С использованием метода addEventlistener</li>
+                    </ul>
+                </section>
             </section>
             <section>
                 <h5>Всплытие и погружение.</h5>
@@ -88,7 +182,8 @@
                 <h5>Делегирование.</h5>
                 <ul>
                     <li class="fragment">Основано на механизме погружения и всплытия событий.</li>
-                    <li class="fragment">Позволяет одним подписчиком на событие обрабатывать события дочерних элементов.</li>
+                    <li class="fragment">Позволяет одним подписчиком на событие обрабатывать события дочерних элементов.
+                    </li>
                 </ul>
             </section>
             <section>
@@ -96,14 +191,17 @@
                 <ul>
                     <li class="fragment">Генерируются объектом класса Event.</li>
                     <li class="fragment">Генерируются объектом класса CustomEvent.</li>
-                    <li class="fragment">Обладают всеми теми же признаками, что и события унаследованные от интефейса Event.</li>
-                    <li class="fragment">Объект класса CustomEvent позволяет передать дополнительные данные подписчикам.</li>
+                    <li class="fragment">Обладают всеми теми же признаками, что и события унаследованные от интефейса
+                        Event.</li>
+                    <li class="fragment">Объект класса CustomEvent позволяет передать дополнительные данные подписчикам.
+                    </li>
                 </ul>
             </section>
             <section>
                 <h5>Изменения свойств элементов.</h5>
                 <ul>
-                    <li class="fragment">Объект класса MutationObserver позволяет наблюдать за изменениями DOM дерева.</li>
+                    <li class="fragment">Объект класса MutationObserver позволяет наблюдать за изменениями DOM дерева.
+                    </li>
                     <li class="fragment">Добавление/удаление элементов.</li>
                     <li class="fragment">Изменение свойств элементов.</li>
                     <li class="fragment">Изменение текстового содержимого элементов.</li>
@@ -112,13 +210,10 @@
             <section>Вопросы и ответы.</section>
         </div>
     </div>
-    <script type="module">
-        import Reveal from './reveal/dist/reveal.esm.js';
-        import Markdown from './reveal/plugin/markdown/markdown.esm.js';
-        Reveal.initialize({
-            plugins: [Markdown]
-        });
-    </script>
+    <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
+    <script src="./reveal/dist/reveal.esm.js" type="module"></script>
+    <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
+    <script src="./index.js" type="module"></script>
 </body>
 
 </html>

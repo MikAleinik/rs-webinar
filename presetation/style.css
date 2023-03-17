@@ -2,3 +2,62 @@ li,
 p {
     font-size: 26px;
 }
+
+.hljs {
+    background: #191919;
+}
+
+.console {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 100px;
+    width: 100%;
+
+    margin: 5%;
+
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.console__log {
+    height: 100%;
+    width: 80%;
+
+    overflow-y: scroll;
+}
+
+.console__log>* {
+    color: #4fb4d7;
+
+    font-family: var(--r-code-font);
+    text-transform: none;
+    tab-size: 2;
+    font-size: 0.55em;
+    line-height: 1.2em;
+}
+
+.console__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 100%;
+    width: 20%;
+
+    color: #4fb4d7;
+}
+
+.console__button {
+    width: 80%;
+
+    color: #4fb4d7;
+    background: #191919;
+}
+
+.console__button:hover {
+    cursor: pointer;
+}
