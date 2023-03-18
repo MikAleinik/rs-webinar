@@ -22,57 +22,66 @@
             <section>
                 <h5>События.</h5>
                 <ul>
-                    <li class="fragment">Это действия или случаи, возникающие в программируемой вами системе, о которых
+                    <li class="fragment fade-up">Это действия или случаи, возникающие в программируемой вами системе, о
+                        которых
                         система сообщает вам для того,
                         чтобы вы могли с ними взаимодействовать. (MDN)</li>
-                    <li class="fragment">Это один из способов взаимодействия объектов, компонентов или частей
+                    <li class="fragment fade-up">Это один из способов взаимодействия объектов, компонентов или частей
                         приложения.</li>
-                    <li class="fragment">Это объект, обладающий свойствами и методами.</li>
+                    <li class="fragment fade-up">Это объект, обладающий свойствами и методами.</li>
                 </ul>
             </section>
             <section>
                 <h5>Интерфейсы.</h5>
                 <ul>
-                    <li class="fragment">Интерфейс это декларация действия или контракт - что может делать объект и
+                    <li class="fragment fade-up">Интерфейс это декларация действия или контракт - что может делать
+                        объект и
                         какими признаками он обладает.</li>
-                    <li class="fragment">Одни и те же действия, описанные в интерфейсе, могут иметь различную реализацию
+                    <li class="fragment fade-up">Одни и те же действия, описанные в интерфейсе, могут иметь различную
+                        реализацию
                         у разных событий.</li>
-                    <li class="fragment">Позволяют использовать объекты не зная подробностей их реализации.</li>
+                    <li class="fragment fade-up">Позволяют использовать объекты не зная подробностей их реализации.</li>
                 </ul>
             </section>
             <section>
                 <h5>Интерфейсы основанные на Event.</h5>
                 <ul>
-                    <li class="fragment">События мыши MouseEvent.</li>
-                    <li class="fragment">События клавиатуры KeyboardEvent.</li>
-                    <li class="fragment">События анимации AnimationEvent.</li>
-                    <li class="fragment">События запросов FetchEvent.</li>
-                    <li class="fragment">События таймеров TimeEvent.</li>
-                    <li class="fragment">События ошибок ErrorEvent.</li>
-                    <li class="fragment">Пользовательские события CustomEvent.</li>
-                    <li class="fragment">Множество иных предопределенных событий.</li>
+                    <li class="fragment fade-up">События мыши MouseEvent.</li>
+                    <li class="fragment fade-up">События клавиатуры KeyboardEvent.</li>
+                    <li class="fragment fade-up">События анимации AnimationEvent.</li>
+                    <li class="fragment fade-up">События запросов FetchEvent.</li>
+                    <li class="fragment fade-up">События таймеров TimeEvent.</li>
+                    <li class="fragment fade-up">События ошибок ErrorEvent.</li>
+                    <li class="fragment fade-up">Пользовательские события CustomEvent.</li>
+                    <li class="fragment fade-up">Множество иных предопределенных событий.</li>
                 </ul>
             </section>
             <section>
                 <section>
                     <h5>Функции обратного вызова.</h5>
                     <ul>
-                        <li class="fragment">Это функция, переданная в другую функцию в качестве аргумента, которая
+                        <li class="fragment fade-up">Это функция, переданная в другую функцию в качестве аргумента,
+                            которая
                             затем
                             вызывается по завершению какого-либо действия. (MDN)</li>
-                        <li class="fragment">Это становится возможно, т.к. любая функция это объект класса Function</li>
-                        <li class="fragment">Чаще всего используются для продолжения выполнения кода после завершения
+                        <li class="fragment fade-up">Это становится возможно, т.к. любая функция это объект класса
+                            Function</li>
+                        <li class="fragment fade-up">Чаще всего используются для продолжения выполнения кода после
+                            завершения
                             асинхронной операции.</li>
-                        <li class="fragment">Не разумное применение может приводить к адской пирамиде вызовов.</li>
+                        <li class="fragment fade-up">Не разумное применение может приводить к адской пирамиде вызовов.
+                        </li>
                     </ul>
                 </section>
                 <section>
                     <h5>Пример функции обратного вызова.</h5>
-                    <pre><code data-line-numbers="1-7|8-16|17-18|19|8|11|13|2-4|5-7">
+                    <pre><code data-line-numbers="1-9|10-19|20-21|22|10|12|13|14|15|2-5|6-9|18|23" class="javascript">
 function summ(numberOne, numberTwo) {
+    console.log(`${numberOne} + ${numberTwo}`);
     return numberOne + numberTwo;
 }
 function difference(numberOne, numberTwo) {
+    console.log(`${numberOne} - ${numberTwo}`);
     return numberOne - numberTwo;
 }
 function action(numbers, callbacks) {
@@ -81,36 +90,49 @@ function action(numbers, callbacks) {
         const currentCallback = callbacks[i - 1];
         const number = numbers[i];
         result = currentCallback(result, number);
+        console.log(`${result}`);
     }
     return result;
 }
 const numbers = [1, 2, 3, 4];
 const callbacks = [ summ, difference, summ ];
-action(numbers, callbacks);
+const result = action(numbers, callbacks);
+console.log(`Результат = ${result}`);
                         </code></pre>
+                        <div class="console">
+                            <ul class="console__log" id="callbackLog"></ul>
+                            <div class="console__panel">
+                                <button class="console__button" id="callbackBtn">Выполнить</button>
+                                <button class="console__button button__clear">Очистить</button>
+                            </div>
+                        </div>
                 </section>
             </section>
             <section>
                 <section>
                     <h5>Асинхронное программирование.</h5>
                     <ul>
-                        <li class="fragment">Асинхронность это концепция, которая заключается в том, что результат
+                        <li class="fragment fade-up">Асинхронность это концепция, которая заключается в том, что
+                            результат
                             выполнения функции доступен не сразу же, а через некоторое время в виде некоторого
                             асинхронного
                             вызова (нарушающего обычный последовательный порядок выполнения). (MDN)</li>
-                        <li class="fragment">Асинхронность это ситуация при которой наш алгоритм разветвляется и одна
+                        <li class="fragment fade-up">Асинхронность это ситуация при которой наш алгоритм разветвляется и
+                            одна
                             его
                             часть продолжает исполняться, а другая ожидает результата завершения какого-либо действия и
                             продолжает выполняться после этого.</li>
-                        <li class="fragment">Механизм определения последовательности обработки этих “веток” регулируется
+                        <li class="fragment fade-up">Механизм определения последовательности обработки этих “веток”
+                            регулируется
                             циклом событий.</li>
-                        <li class="fragment">Необходимость асинхронности обусловлена однопоточностью языка в браузерной
+                        <li class="fragment fade-up">Необходимость асинхронности обусловлена однопоточностью языка в
+                            браузерной
                             среде исполнения.</li>
                     </ul>
                 </section>
                 <section>
                     <h5>Пример синхронного исполнения.</h5>
-                    <pre><code data-line-numbers="2-9|10-12|10|11|2|3-7|8|12">
+                    <pre><code data-line-numbers="2-9|10-12|10|11|2|3-7|8|12" class="javascript">
 function summ() {
     let counter = 0;
     for (let i = 0; i < 100000; i += 1) {
@@ -133,7 +155,7 @@ console.log('Завершение выполнения кода.(3)');
                 </section>
                 <section>
                     <h5>Пример асинхронного исполнения.</h5>
-                    <pre><code data-line-numbers="2-12|13-15|13|14|2|3|15|4-8|9|11">
+                    <pre><code data-line-numbers="2-12|13-15|13|14|2|3|15|4-8|9|11" class="javascript">
 async function summ() {
     let result = await function () {
         let counter = 0;
@@ -157,14 +179,219 @@ console.log('Завершение выполнения кода.(3)');
                         </div>
                     </div>
                 </section>
+                <section>
+                    <h5>Пример aсинхронного исполнения.</h5>
+                    <pre><code data-line-numbers="1-6|7-9|7|8|2|3-5|9" class="javascript">
+function timer() {
+    setTimeout(() => {
+        console.log('Завершение длительных вычислений.(2)');
+    }, 1000);
+}
+console.log('Начало выполнения кода.(1)');
+timer();
+console.log('Завершение выполнения кода.(3)');
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="timerLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="timerBtn">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Где возникает асинхронный код.</h5>
+                    <ul>
+                        <li class="fragment fade-up">В функциях таймеров и интервалов.</li>
+                        <li class="fragment fade-up">В функциях анимаций.</li>
+                        <li class="fragment fade-up">В обработчиках событий.</li>
+                        <li class="fragment fade-up">В объектах Promise.</li>
+                        <li class="fragment fade-up">В конструкциях async/await.</li>
+                    </ul>
+                </section>
             </section>
             <section>
                 <section>
                     <h5>Обработчики событий.</h5>
-                    <ul class="fragment">
-                        <li class="fragment">Атрибутом в HTML разметке с указанием функции-обработчика.</li>
-                        <li class="fragment">Свойству DOM элемента назначить функцию-обработчик.</li>
-                        <li class="fragment">С использованием метода addEventlistener</li>
+                    <ul>
+                        <li class="fragment fade-up">Атрибутом в HTML разметке с указанием функции-обработчика.</li>
+                        <li class="fragment fade-up">Свойству DOM элемента назначить функцию-обработчик.</li>
+                        <li class="fragment fade-up">С использованием метода addEventlistener</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Атрибутом в HTML разметке.</h5>
+                    <pre class="fragment fade-up"><code>
+<button onclick="counter+=1; if(counter>3) this.setAttribute('disabled', true)">
+    Добавлен в разметке
+</button>
+                    </code></pre>
+                    <pre class="fragment fade-up"><code>
+<button onclick="inlineHandler()">Добавлен в разметке</button>
+                    </code></pre>
+                    <ul>
+                        <li class="fragment fade-up">Может быть добавлен единожды.</li>
+                        <li class="fragment fade-up">Код обработки смешивается с разметкой.</li>
+                        <li class="fragment fade-up">Трудно поддерживать в дальнейшем.</li>
+                        <li class="fragment fade-up">Является устаревшим.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Свойству DOM элемента.</h5>
+                    <pre class="fragment fade-up"><code class="javascript">
+let button = document.getElementById('buttonProperty');
+button.onclick = function propertyHandler() {
+  //Обработка события
+};
+                    </code></pre>
+                    <ul>
+                        <li class="fragment fade-up">Сработает только последнее присвоение.</li>
+                        <li class="fragment fade-up">По сути - равноценнен предшествующему.</li>
+                        <li class="fragment fade-up">Является устаревшим.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Отменить обработчик.</h5>
+                    <pre class="fragment fade-up"><code class="javascript">
+let button = document.getElementById('buttonProperty');
+button.onclick = null;
+                    </code></pre>
+                    <ul>
+                        <li class="fragment fade-up">Атрибут в HTML разметке.</li>
+                        <li class="fragment fade-up">Свойство DOM элемента.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Регистрация слушателя события.</h5>
+                    <pre class="fragment"><code class="javascript">
+let button = document.getElementById('buttonTargetFunc');
+button.addEventListener('click', () => {
+  //Обработка события
+});
+                    </code></pre>
+                    <pre class="fragment fade-up"><code class="javascript">
+let button = document.getElementById('buttonTargetFunc');
+button.addEventListener('click', clickHandler);
+function clickHandler() {
+  //Обработка события
+}
+                    </code></pre>
+                    <pre class="fragment fade-up"><code class="javascript">
+const clickObject = {
+  handleEvent: function (event) {
+    //Обработка события
+  }
+}
+let button = document.getElementById('buttonTargetFunc');
+button.addEventListener('click', clickObject);
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Множество обработчиков.</h5>
+                    <pre><code data-line-numbers="2|3-5|6-8|9-11|3,6,9" class="javascript">
+let button = document.getElementById('buttonManyListener');
+button.addEventListener('click', () => {
+  console.log('Первый обработчик.(1)');
+});
+button.addEventListener('click', () => {
+  console.log('Второй обработчик.(2)');
+});
+button.addEventListener('click', () => {
+  console.log('Третий обработчик.(3)');
+});
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="addManyListenerLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="buttonManyListener">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Разные события элемента.</h5>
+                    <pre><code data-line-numbers="2|3-5|6-8|9-11|3,6,9" class="javascript">
+let button = document.getElementById('buttonDifferentEvent');
+button.addEventListener('click', () => {
+  console.log('Первый обработчик.(1)');
+});
+button.addEventListener('mouseenter', () => {
+  console.log('Второй обработчик.(2)');
+});
+button.addEventListener('mouseout', () => {
+  console.log('Третий обработчик.(3)');
+});
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="differentEventLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="buttonDifferentEvent">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Отменить обработчик события.</h5>
+                    <pre><code data-line-numbers="2-4|5-10|11-13" class="javascript">
+let button = document.getElementById('buttonRemoveFunc');
+button.addEventListener('mouseenter', mouseEnterHandler);
+button.addEventListener('mouseout', mouseOutHandler);
+function mouseEnterHandler() {
+    console.log('Первый обработчик.(1)');
+}
+function mouseOutHandler() {
+    console.log('Второй обработчик.(2)');
+}
+button.addEventListener('click', () => {
+    button.removeEventListener('mouseenter', mouseEnterHandler);
+});
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="removeFuncLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="buttonRemoveFunc">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Отменить обработчик события.</h5>
+                    <pre><code data-line-numbers="2,3,6|3-5,7-9|10-15|11-13|14|3-5" class="javascript">
+let button = document.getElementById('buttonRemoveFunc');
+button.addEventListener('mouseenter', () => {
+    console.log('Первый обработчик.(1)');
+});
+button.addEventListener('mouseout', mouseOutHandler);
+function mouseOutHandler() {
+    console.log('Второй обработчик.(2)');
+}
+button.addEventListener('click', () => {
+    button.removeEventListener('mouseenter', () => {
+        console.log('Первый обработчик.(1)');
+    });
+    button.removeEventListener('mouseout', mouseOutHandler);
+});
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="removeFuncTwoLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="buttonRemoveFuncTwo">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Слушатели событий. Резюмируя.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Атрибут в HTML разметке.</li>
+                        <li class="fragment fade-up">Свойство DOM элемента.</li>
+                        <li class="fragment fade-up">Регистрация слушателя события.</li>
+                        <li class="fragment fade-up">На одном элементе одно событие может обрабатываться несколько раз.</li>
+                        <li class="fragment fade-up">На одном элементе возникают разные события.</li>
+                        <li class="fragment fade-up">Обработчиком может быть анонимная, стрелочная или именованная функция.</li>
+                        <li class="fragment fade-up">Обработчиком может быть объект, который реализовывает метод handleEvent()</li>
+                        <li class="fragment fade-up">Обработчики исполняются в очередности их регистрации.</li>
+                        <li class="fragment fade-up">Нельзя удалить обработчик с анонимной или стрелочной функцией.</li>
                     </ul>
                 </section>
             </section>

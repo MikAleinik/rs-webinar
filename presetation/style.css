@@ -56,6 +56,12 @@ p {
 
     color: #4fb4d7;
     background: #191919;
+    
+    font-family: var(--r-code-font);
+    text-transform: none;
+    tab-size: 2;
+    font-size: 0.55em;
+    line-height: 1.2em;
 }
 
 .console__button:hover {
