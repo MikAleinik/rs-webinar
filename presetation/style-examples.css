@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 20%;
+  width: 100%;
+
+  padding: 2%;
+  box-sizing: border-box;
+
+  border: 1px solid;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  height: 10%;
+  width: 100%;
+
+  margin: 1%;
+  padding: 0.5%;
+  box-sizing: border-box;
+
+  border: 1px solid;
+}
+
+.button {
+  width: 50%;
+
+  margin: 1%;
+}
+
+.checkbox {
+  color: #4fb4d7;
+  background: #191919;
+
+  font-family: var(--r-code-font);
+  text-transform: none;
+  tab-size: 2;
+  font-size: 0.55em;
+  line-height: 1.2em;
+}

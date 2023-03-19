@@ -12,18 +12,18 @@ window.addEventListener('load', () => {
 
 });
 
-function addLog(id, message) {
-  const logElement = document.getElementById(id);
-  const logItem = document.createElement('li');
-  logItem.textContent = message;
-  logElement.append(logItem);
-}
-function clearAllConsoles() {
-  const elementsLog = document.querySelectorAll('.console__log');
-  elementsLog.forEach((element) => {
-    element.innerHTML = '';
-  });
-}
+// function addLog(id, message) {
+//   const logElement = document.getElementById(id);
+//   const logItem = document.createElement('li');
+//   logItem.textContent = message;
+//   logElement.append(logItem);
+// }
+// function clearAllConsoles() {
+//   const elementsLog = document.querySelectorAll('.console__log');
+//   elementsLog.forEach((element) => {
+//     element.innerHTML = '';
+//   });
+// }
 
 let buttonRemoveFuncTwo = document.getElementById('buttonRemoveFuncTwo');
 buttonRemoveFuncTwo.addEventListener('mouseenter', () => {

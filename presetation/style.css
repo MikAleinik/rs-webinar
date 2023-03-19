@@ -7,6 +7,14 @@ p {
     background: #191919;
 }
 
+.fragment.display {
+    display: none;
+}
+
+.fragment.display.visible {
+    display: flex;
+}
+
 .console {
     display: flex;
     flex-direction: row;
@@ -16,7 +24,8 @@ p {
     height: 100px;
     width: 100%;
 
-    margin: 5%;
+    margin: 5% 0%;
+    box-sizing: border-box;
 
     border: 1px solid;
     border-radius: 5px;
@@ -56,7 +65,7 @@ p {
 
     color: #4fb4d7;
     background: #191919;
-    
+
     font-family: var(--r-code-font);
     text-transform: none;
     tab-size: 2;

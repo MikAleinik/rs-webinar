@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./reveal/dist/reveal.css">
     <link rel="stylesheet" href="./reveal/dist/theme/black.css">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style-examples.css">
 </head>
 
 <body>
@@ -396,14 +397,342 @@ button.addEventListener('click', () => {
                 </section>
             </section>
             <section>
-                <h5>Всплытие и погружение.</h5>
-                <ul>
-                    <li class="fragment">Возникает на корневом элементе страницы.</li>
-                    <li class="fragment">Погружается через все дочерние элементы до целевого элемента.</li>
-                    <li class="fragment">Всплывает через все родительские элементы до корневого элемента.</li>
-                    <li class="fragment">Прекращает свое существование.</li>
-                    <li class="fragment">Имеет три стадии: погружения, целевую, всплытия.</li>
-                </ul>
+                <h5>Всплытие и перехват событий.</h5>
+                <section>
+                    <ul>
+                        <li class="fragment fade-up">Всплытие и перехват событий — два механизма, описывающих, что
+                            происходит, когда два обработчика одного и того же события активируются на одном элементе.
+                            (MDN)</li>
+                        <li class="fragment fade-up">Событие имеет три стадии: погружения, целевую, всплытия.</li>
+                        <li class="fragment fade-up">Событие возникает на корневом элементе страницы.</li>
+                        <li class="fragment fade-up">Погружается через все дочерние элементы до целевого элемента.</li>
+                        <li class="fragment fade-up">Выполняется на целевом элементе.</li>
+                        <li class="fragment fade-up">Всплывает через все родительские элементы до корневого элемента.
+                        </li>
+                        <li class="fragment fade-up">Прекращает свое существование.</li>                    </ul>
+                </section>
+                <section>
+                    <div class="fragment fade-up container">
+                            <div class="field">
+                                <input id="firstCheckboxTemp" class="checkbox" type="checkbox" value="1">
+                                <label for="firstCheckboxTemp" class="checkbox">Первый чекбокс</label>
+                            </div>
+                            <div class="field">
+                                <input id="secondCheckboxTemp" class="checkbox" type="checkbox" value="2">
+                                <label for="secondCheckboxTemp" class="checkbox">Второй чекбокс</label>
+                            </div>
+                        </div>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-3|4-5|6-7" class="javascript">
+const firstCheckBox = document.getElementById('firstCheckbox');
+const secondCheckBox = document.getElementById('secondCheckbox');
+const firstField = document.getElementById('firstField');
+const secondField = document.getElementById('secondField');
+const container = document.getElementById('container');
+                    </code></pre>
+                </section>
+                <section>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-7|8-13|14-16" class="javascript">
+firstCheckBox.addEventListener('change', () => { 
+    console.log('Первый чекбокс.(1)')
+});
+secondCheckbox.addEventListener('change', () => { 
+    console.log('Второй чекбокс.(2)')
+});
+firstField.addEventListener('change', () => {
+    console.log('Первое поле.(3)')
+});
+secondField.addEventListener('change', () => {
+    console.log('Второе поле.(4)')
+});
+container.addEventListener('change', () => {
+    console.log('Внешний контейнер.(5)')
+});
+                    </code></pre>
+                </section>
+                <section>
+                    <div id="container" class="container">
+                        <div id="firstField" class="field">
+                            <input id="firstCheckbox" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckbox" class="checkbox">Первый чекбокс</label>
+                        </div>
+                        <div id="secondField" class="field">
+                            <input id="secondCheckbox" class="checkbox" type="checkbox" value="2">
+                            <label for="secondCheckbox" class="checkbox">Второй чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleOneLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment fade-up">Мы видим всплытие события.</li>
+                        <li class="fragment fade-up">Но не видим погружения события.</li>
+                    </ul>
+                    <script>
+                        const firstCheckBox = document.getElementById('firstCheckbox');
+                        const secondCheckBox = document.getElementById('secondCheckbox');
+                        const firstField = document.getElementById('firstField');
+                        const secondField = document.getElementById('secondField');
+                        const container = document.getElementById('container');
+                        firstCheckBox.addEventListener('change', () => {
+                            addLog('bubbleOneLog', 'Первый чекбокс.(1)')
+                        });
+                        secondCheckbox.addEventListener('change', () => {
+                            addLog('bubbleOneLog', 'Второй чекбокс.(2)')
+                        });
+                        firstField.addEventListener('change', () => {
+                            addLog('bubbleOneLog', 'Первое поле.(3)')
+                        });
+                        secondField.addEventListener('change', () => {
+                            addLog('bubbleOneLog', 'Второе поле.(4)')
+                        });
+                        container.addEventListener('change', () => {
+                            addLog('bubbleOneLog', 'Внешний контейнер.(5)')
+                        });
+                    </script>
+                </section>
+                <section>
+                    <pre class="fragment fade-up"><code data-line-numbers="5-10|11|12|2-4|13" class="javascript">
+const options = {
+    capture: true,
+}
+function firstFieldHandler() {
+    console.log('Первое поле.(3)');
+}
+function secondFieldHandler() {
+    console.log('Второе поле.(4)');
+}
+firstField.addEventListener('change', firstFieldHandler);
+firstField.addEventListener('change', firstFieldHandler, options);
+secondField.addEventListener('change', secondFieldHandler, true);
+                    </code></pre>
+                </section>
+                <section>
+                    <div id="containerTwo" class="container">
+                        <div id="firstFieldTwo" class="field">
+                            <input id="firstCheckboxTwo" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckboxTwo" class="checkbox">Первый чекбокс</label>
+                        </div>
+                        <div id="secondFieldTwo" class="field">
+                            <input id="secondCheckboxTwo" class="checkbox" type="checkbox" value="2">
+                            <label for="secondCheckboxTwo" class="checkbox">Второй чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleTwoLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment fade-up">С помощью объекта options мы можем менять поведение подписчика.</li>
+                        <li class="fragment fade-up">Вместо объекта options мы можем задать параметр useCapture.</li>
+                    </ul>
+                    <script>
+                        const firstCheckBoxTwo = document.getElementById('firstCheckboxTwo');
+                        const secondCheckBoxTwo = document.getElementById('secondCheckboxTwo');
+                        const firstFieldTwo = document.getElementById('firstFieldTwo');
+                        const secondFieldTwo = document.getElementById('secondFieldTwo');
+                        const containerTwo = document.getElementById('containerTwo');
+                        firstCheckBoxTwo.addEventListener('change', () => {
+                            addLog('bubbleTwoLog', 'Первый чекбокс.(1)');
+                        });
+                        secondCheckBoxTwo.addEventListener('change', () => {
+                            addLog('bubbleTwoLog', 'Второй чекбокс.(2)');
+                        });
+                        const options = {
+                            capture: true,
+                        };
+                        function firstFieldHandlerTwo() {
+                            addLog('bubbleTwoLog', 'Первое поле.(2)');
+                        };
+                        function secondFieldHandlerTwo() {
+                            addLog('bubbleTwoLog', 'Второе поле.(2)');
+                        };
+                        firstFieldTwo.addEventListener('change', firstFieldHandlerTwo);
+                        firstFieldTwo.addEventListener('change', firstFieldHandlerTwo, options);
+                        secondFieldTwo.addEventListener('change', secondFieldHandlerTwo, true);
+                        containerTwo.addEventListener('change', () => {
+                            addLog('bubbleTwoLog', 'Внешний контейнер.(5)')
+                        });
+                    </script>
+                </section>
+                <section>
+                    <pre class="fragment fade-up"><code data-line-numbers="5-7,11-13" class="javascript">
+firstCheckBox.addEventListener('click', () => { 
+    console.log('Первый чекбокс.(1.1)');
+});
+firstCheckBox.addEventListener('click', () => { 
+    console.log('Первый чекбокс.(1.2)');
+});
+secondCheckbox.addEventListener('click', () => { 
+    console.log('Второй чекбокс.(2.1)');
+});
+secondCheckbox.addEventListener('click', () => { 
+    console.log('Второй чекбокс.(2.2)');
+});
+firstField.addEventListener('click', () => {
+    console.log('Первое поле.(3)');
+});
+secondField.addEventListener('click', () => {
+    console.log('Второе поле.(4)');
+});
+container.addEventListener('click', () => {
+    console.log('Внешний контейнер.(5)');
+});
+                    </code></pre>
+                </section>
+                <section>
+                    <div id="containerThree" class="container">
+                        <div id="firstFieldThree" class="field">
+                            <input id="firstCheckboxThree" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckboxThree" class="checkbox">Первый чекбокс</label>
+                        </div>
+                        <div id="secondFieldThree" class="field">
+                            <input id="secondCheckboxThree" class="checkbox" type="checkbox" value="2">
+                            <label for="secondCheckboxThree" class="checkbox">Второй
+                                чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleThreeLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <script>
+                        const firstCheckBoxThree = document.getElementById('firstCheckboxThree');
+                        const secondCheckBoxThree = document.getElementById('secondCheckboxThree');
+                        const firstFieldThree = document.getElementById('firstFieldThree');
+                        const secondFieldThree = document.getElementById('secondFieldThree');
+                        const containerThree = document.getElementById('containerThree');
+                        firstCheckBoxThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Первый чекбокс.(1.1)');
+                        });
+                        firstCheckBoxThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Первый чекбокс.(1.2)');
+                        });
+                        secondCheckBoxThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Второй чекбокс.(2.1)');
+                        });
+                        secondCheckBoxThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Второй чекбокс.(2.2)');
+                        });
+                        firstFieldThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Второе поле.(3)');
+                        });
+                        secondFieldThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Второе поле.(4)');
+                        });
+                        containerThree.addEventListener('change', () => {
+                            addLog('bubbleThreeLog', 'Внешний контейнер.(5)')
+                        });
+                    </script>
+                </section>
+                <section>
+                    <pre class="fragment fade-up"><code data-line-numbers="4,11" class="javascript">
+firstCheckBox.addEventListener('click', (event) => { 
+    console.log('Первый чекбокс.(1.1)');
+    event.stopPropagation();
+});
+firstCheckBox.addEventListener('click', () => { 
+    console.log('Первый чекбокс.(1.2)');
+});
+secondCheckbox.addEventListener('click', (event) => { 
+    console.log('Второй чекбокс.(2.1)');
+    event.stopImmediatePropagation();
+});
+secondCheckbox.addEventListener('click', () => { 
+    console.log('Второй чекбокс.(2.2)');
+});
+                    </code></pre>
+                </section>
+                <section>
+                    <div id="containerFour" class="container">
+                        <div id="firstFieldFour" class="field">
+                            <input id="firstCheckboxFour" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckboxFour" class="checkbox">Первый чекбокс</label>
+                        </div>
+                        <div id="secondFieldFour" class="field">
+                            <input id="secondCheckboxFour" class="checkbox" type="checkbox" value="2">
+                            <label for="secondCheckboxFour" class="checkbox">Второй
+                                чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleFourLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment fade-up">Метод stopPropagation() - блокирует обработчики после текущего
+                            элемента.</li>
+                        <li class="fragment fade-up">Метод stopImmediatePropagation() - блокирует все последующие
+                            обработчики.</li>
+                        <li class="fragment fade-up">Использование крайне не желательно.</li>
+                    </ul>
+                    <script>
+                        const firstCheckBoxFour = document.getElementById('firstCheckboxFour');
+                        const secondCheckBoxFour = document.getElementById('secondCheckboxFour');
+                        const firstFieldFour = document.getElementById('firstFieldFour');
+                        const secondFieldFour = document.getElementById('secondFieldFour');
+                        const containerFour = document.getElementById('containerFour');
+                        firstCheckBoxFour.addEventListener('change', (event) => {
+                            addLog('bubbleFourLog', 'Первый чекбокс.(1.1)');
+                            event.stopPropagation();
+                        });
+                        firstCheckBoxFour.addEventListener('change', () => {
+                            addLog('bubbleFourLog', 'Первый чекбокс.(1.2)');
+                        });
+                        secondCheckBoxFour.addEventListener('change', (event) => {
+                            addLog('bubbleFourLog', 'Второй чекбокс.(2.1)');
+                            event.stopImmediatePropagation();
+                        });
+                        secondCheckBoxFour.addEventListener('change', () => {
+                            addLog('bubbleFourLog', 'Второй чекбокс.(2.2)');
+                        });
+                        firstFieldFour.addEventListener('change', () => {
+                            addLog('bubbleFourLog', 'Второе поле.(3)');
+                        });
+                        secondFieldFour.addEventListener('change', () => {
+                            addLog('bubbleFourLog', 'Второе поле.(4)');
+                        });
+                    </script>
+                </section>
+                <section>
+                    <div id="containerFive" class="container">
+                        <div id="firstFieldFive" class="field">
+                            <input id="firstCheckboxFive" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckboxFive" class="checkbox">Первый чекбокс</label>
+                        </div>
+                    </div>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-5|4" class="javascript">
+firstCheckBox.addEventListener('click', (event) => { 
+    console.log('Первый чекбокс.(1)');
+    event.preventDefault();
+});
+                    </code></pre>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleFiveLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment fade-up">Метод preventDefault() отменяет поведение (действия) элемента по умолчанию.</li>
+                        <li class="fragment fade-up">Это применительно к чекбоксам, ссылкам, формам, контекстное меню...</li>
+                    </ul>
+                    <script>
+                        const firstCheckBoxFive = document.getElementById('firstCheckboxFive');
+                        firstCheckBoxFive.addEventListener('click', (event) => {
+                            addLog('bubbleFiveLog', 'Первый чекбокс.(1)');
+                            event.preventDefault();
+                        });
+                    </script>
+                </section>
             </section>
             <section>
                 <h5>Делегирование.</h5>
@@ -440,7 +769,23 @@ button.addEventListener('click', () => {
     <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
     <script src="./reveal/dist/reveal.esm.js" type="module"></script>
     <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
+
     <script src="./index.js" type="module"></script>
+
+    <script>
+        function addLog(id, message) {
+            const logElement = document.getElementById(id);
+            const logItem = document.createElement('li');
+            logItem.textContent = message;
+            logElement.append(logItem);
+        }
+        function clearAllConsoles() {
+            const elementsLog = document.querySelectorAll('.console__log');
+            elementsLog.forEach((element) => {
+                element.innerHTML = '';
+            });
+        }
+    </script>
 </body>
 
 </html>
