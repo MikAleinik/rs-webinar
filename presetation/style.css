@@ -15,16 +15,27 @@ p {
     display: flex;
 }
 
+::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    border: 1px solid;
+}
+
+::-webkit-scrollbar-thumb {
+    
+    border-radius: 1px;
+    background-color: #c0c5ce;
+}
+
 .console {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
-    height: 100px;
+    height: 200px;
     width: 100%;
 
-    margin: 5% 0%;
     box-sizing: border-box;
 
     border: 1px solid;
