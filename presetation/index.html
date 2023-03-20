@@ -36,11 +36,9 @@
                 <h5>Интерфейсы.</h5>
                 <ul>
                     <li class="fragment fade-up">Интерфейс это декларация действия или контракт - что может делать
-                        объект и
-                        какими признаками он обладает.</li>
+                        объект и какими признаками он обладает.</li>
                     <li class="fragment fade-up">Одни и те же действия, описанные в интерфейсе, могут иметь различную
-                        реализацию
-                        у разных событий.</li>
+                        реализацию у разных событий.</li>
                     <li class="fragment fade-up">Позволяют использовать объекты не зная подробностей их реализации.</li>
                 </ul>
             </section>
@@ -58,8 +56,8 @@
                 </ul>
             </section>
             <section>
+                <h5>Функции обратного вызова (callback).</h5>
                 <section>
-                    <h5>Функции обратного вызова.</h5>
                     <ul>
                         <li class="fragment fade-up">Это функция, переданная в другую функцию в качестве аргумента,
                             которая
@@ -70,12 +68,12 @@
                         <li class="fragment fade-up">Чаще всего используются для продолжения выполнения кода после
                             завершения
                             асинхронной операции.</li>
-                        <li class="fragment fade-up">Не разумное применение может приводить к адской пирамиде вызовов.
+                        <li class="fragment fade-up">Не разумное применение может приводить к callback hell или адской
+                            пирамиде вызовов.
                         </li>
                     </ul>
                 </section>
                 <section>
-                    <h5>Пример функции обратного вызова.</h5>
                     <pre><code data-line-numbers="1-9|10-19|20-21|22|10|12|13|14|15|2-5|6-9|18|23" class="javascript">
 function summ(numberOne, numberTwo) {
     console.log(`${numberOne} + ${numberTwo}`);
@@ -100,13 +98,39 @@ const callbacks = [ summ, difference, summ ];
 const result = action(numbers, callbacks);
 console.log(`Результат = ${result}`);
                         </code></pre>
-                        <div class="console">
-                            <ul class="console__log" id="callbackLog"></ul>
-                            <div class="console__panel">
-                                <button class="console__button" id="callbackBtn">Выполнить</button>
-                                <button class="console__button button__clear">Очистить</button>
-                            </div>
+                    <div class="console">
+                        <ul class="console__log" id="callbackLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button" id="callbackBtn">Выполнить</button>
+                            <button class="console__button button__clear">Очистить</button>
                         </div>
+                    </div>
+                    <script>
+                        document.getElementById('callbackBtn').addEventListener('click', runCallback);
+                        function runCallback() {
+                            function summ(numberOne, numberTwo) {
+                                addLog('callbackLog', `${numberOne} + ${numberTwo}`);
+                                return numberOne + numberTwo;
+                            }
+                            function difference(numberOne, numberTwo) {
+                                addLog('callbackLog', `${numberOne} - ${numberTwo}`);
+                                return numberOne - numberTwo;
+                            }
+                            function action(numbers, callbacks) {
+                                let result = numbers[0];
+                                for (let i = 1; i < numbers.length; i += 1) {
+                                    const currentCallback = callbacks[i - 1];
+                                    const number = numbers[i];
+                                    result = currentCallback(result, number);
+                                    addLog('callbackLog', `${result}`);
+                                }
+                                return result;
+                            }
+                            const numbers = [1, 2, 3, 4];
+                            const callbacks = [summ, difference, summ];
+                            addLog('callbackLog', `Результат = ${action(numbers, callbacks)}`);
+                        }
+                    </script>
                 </section>
             </section>
             <section>
@@ -153,6 +177,22 @@ console.log('Завершение выполнения кода.(3)');
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        document.getElementById('syncBtn').addEventListener('click', runSync);
+                        function runSync() {
+                            function summ() {
+                                let counter = 0;
+                                for (let i = 0; i < 100000; i += 1) {
+                                    //Какие-то вычисления
+                                    counter += 1;
+                                }
+                                addLog('syncLog', 'Завершение длительных вычислений.(2) 100000');
+                            }
+                            addLog('syncLog', 'Начало выполнения кода.(1)');
+                            summ();
+                            addLog('syncLog', 'Завершение выполнения кода.(3)');
+                        }
+                    </script>
                 </section>
                 <section>
                     <h5>Пример асинхронного исполнения.</h5>
@@ -179,10 +219,29 @@ console.log('Завершение выполнения кода.(3)');
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        document.getElementById('asyncBtn').addEventListener('click', runAsync);
+                        function runAsync() {
+                            async function summ() {
+                                let result = await function () {
+                                    let counter = 0;
+                                    for (let i = 0; i < 100000; i += 1) {
+                                        //Какие-то вычисления
+                                        counter += 1;
+                                    }
+                                    return counter;
+                                }();
+                                addLog('asyncLog', 'Завершение длительных вычислений.(2) 100000');
+                            }
+                            addLog('asyncLog', 'Начало выполнения кода.(1)');
+                            summ();
+                            addLog('asyncLog', 'Завершение выполнения кода.(3)');
+                        }
+                    </script>
                 </section>
                 <section>
                     <h5>Пример aсинхронного исполнения.</h5>
-                    <pre><code data-line-numbers="1-6|7-9|7|8|2|3-5|9" class="javascript">
+                    <pre><code data-line-numbers="1-6|7-9|7|8|2|3-5|9|4" class="javascript">
 function timer() {
     setTimeout(() => {
         console.log('Завершение длительных вычислений.(2)');
@@ -199,6 +258,19 @@ console.log('Завершение выполнения кода.(3)');
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        document.getElementById('timerBtn').addEventListener('click', runAsyncTimer);
+                        function runAsyncTimer() {
+                            function timer() {
+                                setTimeout(() => {
+                                    addLog('timerLog', 'Завершение длительных вычислений.(2)');
+                                }, 1000);
+                            }
+                            addLog('timerLog', 'Начало выполнения кода.(1)');
+                            timer();
+                            addLog('timerLog', 'Завершение выполнения кода.(3)');
+                        }
+                    </script>
                 </section>
                 <section>
                     <h5>Где возникает асинхронный код.</h5>
@@ -308,6 +380,18 @@ button.addEventListener('click', () => {
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        let buttonManyListener = document.getElementById('buttonManyListener');
+                        buttonManyListener.addEventListener('click', () => {
+                            addLog('addManyListenerLog', 'Первый обработчик.(1)');
+                        });
+                        buttonManyListener.addEventListener('click', () => {
+                            addLog('addManyListenerLog', 'Второй обработчик.(2)');
+                        });
+                        buttonManyListener.addEventListener('click', () => {
+                            addLog('addManyListenerLog', 'Третий обработчик.(3)');
+                        });
+                    </script>
                 </section>
                 <section>
                     <h5>Разные события элемента.</h5>
@@ -330,6 +414,18 @@ button.addEventListener('mouseout', () => {
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        let buttonDifferentEvent = document.getElementById('buttonDifferentEvent');
+                        buttonDifferentEvent.addEventListener('click', () => {
+                            addLog('differentEventLog', 'Первый обработчик.(1)');
+                        });
+                        buttonDifferentEvent.addEventListener('mouseenter', () => {
+                            addLog('differentEventLog', 'Второй обработчик.(2)');
+                        });
+                        buttonDifferentEvent.addEventListener('mouseout', () => {
+                            addLog('differentEventLog', 'Третий обработчик.(3)');
+                        });
+                    </script>
                 </section>
                 <section>
                     <h5>Отменить обработчик события.</h5>
@@ -354,6 +450,20 @@ button.addEventListener('click', () => {
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        let buttonRemoveFunc = document.getElementById('buttonRemoveFunc');
+                        buttonRemoveFunc.addEventListener('mouseenter', mouseEnterHandler);
+                        buttonRemoveFunc.addEventListener('mouseout', mouseOutHandler);
+                        function mouseEnterHandler() {
+                            addLog('removeFuncLog', 'Первый обработчик.(1)');
+                        }
+                        function mouseOutHandler() {
+                            addLog('removeFuncLog', 'Второй обработчик.(2)');
+                        }
+                        buttonRemoveFunc.addEventListener('click', () => {
+                            buttonRemoveFunc.removeEventListener('mouseenter', mouseEnterHandler);
+                        });
+                    </script>
                 </section>
                 <section>
                     <h5>Отменить обработчик события.</h5>
@@ -380,6 +490,22 @@ button.addEventListener('click', () => {
                             <button class="console__button button__clear">Очистить</button>
                         </div>
                     </div>
+                    <script>
+                        let buttonRemoveFuncTwo = document.getElementById('buttonRemoveFuncTwo');
+                        buttonRemoveFuncTwo.addEventListener('mouseenter', () => {
+                            addLog('removeFuncTwoLog', 'Первый обработчик.(1)');
+                        });
+                        buttonRemoveFuncTwo.addEventListener('mouseout', mouseOutTwoHandler);
+                        function mouseOutTwoHandler() {
+                            addLog('removeFuncTwoLog', 'Второй обработчик.(2)');
+                        }
+                        buttonRemoveFuncTwo.addEventListener('click', () => {
+                            buttonRemoveFuncTwo.removeEventListener('mouseenter', () => {
+                                addLog('removeFuncTwoLog', 'Первый обработчик.(1)');
+                            });
+                            buttonRemoveFuncTwo.removeEventListener('mouseout', mouseOutTwoHandler);
+                        });
+                    </script>
                 </section>
                 <section>
                     <h5>Слушатели событий. Резюмируя.</h5>
@@ -387,10 +513,13 @@ button.addEventListener('click', () => {
                         <li class="fragment fade-up">Атрибут в HTML разметке.</li>
                         <li class="fragment fade-up">Свойство DOM элемента.</li>
                         <li class="fragment fade-up">Регистрация слушателя события.</li>
-                        <li class="fragment fade-up">На одном элементе одно событие может обрабатываться несколько раз.</li>
+                        <li class="fragment fade-up">На одном элементе одно событие может обрабатываться несколько раз.
+                        </li>
                         <li class="fragment fade-up">На одном элементе возникают разные события.</li>
-                        <li class="fragment fade-up">Обработчиком может быть анонимная, стрелочная или именованная функция.</li>
-                        <li class="fragment fade-up">Обработчиком может быть объект, который реализовывает метод handleEvent()</li>
+                        <li class="fragment fade-up">Обработчиком может быть анонимная, стрелочная или именованная
+                            функция.</li>
+                        <li class="fragment fade-up">Обработчиком может быть объект, который реализовывает метод
+                            handleEvent()</li>
                         <li class="fragment fade-up">Обработчики исполняются в очередности их регистрации.</li>
                         <li class="fragment fade-up">Нельзя удалить обработчик с анонимной или стрелочной функцией.</li>
                     </ul>
@@ -409,19 +538,20 @@ button.addEventListener('click', () => {
                         <li class="fragment fade-up">Выполняется на целевом элементе.</li>
                         <li class="fragment fade-up">Всплывает через все родительские элементы до корневого элемента.
                         </li>
-                        <li class="fragment fade-up">Прекращает свое существование.</li>                    </ul>
+                        <li class="fragment fade-up">Прекращает свое существование.</li>
+                    </ul>
                 </section>
                 <section>
-                    <div class="fragment fade-up container">
-                            <div class="field">
-                                <input id="firstCheckboxTemp" class="checkbox" type="checkbox" value="1">
-                                <label for="firstCheckboxTemp" class="checkbox">Первый чекбокс</label>
-                            </div>
-                            <div class="field">
-                                <input id="secondCheckboxTemp" class="checkbox" type="checkbox" value="2">
-                                <label for="secondCheckboxTemp" class="checkbox">Второй чекбокс</label>
-                            </div>
+                    <div class="container">
+                        <div class="field">
+                            <input id="firstCheckboxTemp" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckboxTemp" class="checkbox">Первый чекбокс</label>
                         </div>
+                        <div class="field">
+                            <input id="secondCheckboxTemp" class="checkbox" type="checkbox" value="2">
+                            <label for="secondCheckboxTemp" class="checkbox">Второй чекбокс</label>
+                        </div>
+                    </div>
                     <pre class="fragment fade-up"><code data-line-numbers="2-3|4-5|6-7" class="javascript">
 const firstCheckBox = document.getElementById('firstCheckbox');
 const secondCheckBox = document.getElementById('secondCheckbox');
@@ -431,7 +561,7 @@ const container = document.getElementById('container');
                     </code></pre>
                 </section>
                 <section>
-                    <pre class="fragment fade-up"><code data-line-numbers="2-7|8-13|14-16" class="javascript">
+                    <pre><code data-line-numbers="2-7|8-13|14-16" class="javascript">
 firstCheckBox.addEventListener('change', () => { 
     console.log('Первый чекбокс.(1)')
 });
@@ -439,10 +569,10 @@ secondCheckbox.addEventListener('change', () => {
     console.log('Второй чекбокс.(2)')
 });
 firstField.addEventListener('change', () => {
-    console.log('Первое поле.(3)')
+    console.log('Первый контейнер.(3)')
 });
 secondField.addEventListener('change', () => {
-    console.log('Второе поле.(4)')
+    console.log('Второй контейнер.(4)')
 });
 container.addEventListener('change', () => {
     console.log('Внешний контейнер.(5)')
@@ -483,10 +613,10 @@ container.addEventListener('change', () => {
                             addLog('bubbleOneLog', 'Второй чекбокс.(2)')
                         });
                         firstField.addEventListener('change', () => {
-                            addLog('bubbleOneLog', 'Первое поле.(3)')
+                            addLog('bubbleOneLog', 'Первый контейнер.(3)')
                         });
                         secondField.addEventListener('change', () => {
-                            addLog('bubbleOneLog', 'Второе поле.(4)')
+                            addLog('bubbleOneLog', 'Второй контейнер.(4)')
                         });
                         container.addEventListener('change', () => {
                             addLog('bubbleOneLog', 'Внешний контейнер.(5)')
@@ -494,17 +624,16 @@ container.addEventListener('change', () => {
                     </script>
                 </section>
                 <section>
-                    <pre class="fragment fade-up"><code data-line-numbers="5-10|11|12|2-4|13" class="javascript">
+                    <pre><code data-line-numbers="5-10|11|12|2-4|13" class="javascript">
 const options = {
     capture: true,
 }
 function firstFieldHandler() {
-    console.log('Первое поле.(3)');
+    console.log('Первый контейнер.(3)');
 }
 function secondFieldHandler() {
-    console.log('Второе поле.(4)');
+    console.log('Второй контейнер.(4)');
 }
-firstField.addEventListener('change', firstFieldHandler);
 firstField.addEventListener('change', firstFieldHandler, options);
 secondField.addEventListener('change', secondFieldHandler, true);
                     </code></pre>
@@ -527,7 +656,8 @@ secondField.addEventListener('change', secondFieldHandler, true);
                         </div>
                     </div>
                     <ul>
-                        <li class="fragment fade-up">С помощью объекта options мы можем менять поведение подписчика.</li>
+                        <li class="fragment fade-up">С помощью объекта options мы можем менять поведение подписчика.
+                        </li>
                         <li class="fragment fade-up">Вместо объекта options мы можем задать параметр useCapture.</li>
                     </ul>
                     <script>
@@ -546,12 +676,11 @@ secondField.addEventListener('change', secondFieldHandler, true);
                             capture: true,
                         };
                         function firstFieldHandlerTwo() {
-                            addLog('bubbleTwoLog', 'Первое поле.(2)');
+                            addLog('bubbleTwoLog', 'Первый контейнер.(2)');
                         };
                         function secondFieldHandlerTwo() {
-                            addLog('bubbleTwoLog', 'Второе поле.(2)');
+                            addLog('bubbleTwoLog', 'Второй контейнер.(2)');
                         };
-                        firstFieldTwo.addEventListener('change', firstFieldHandlerTwo);
                         firstFieldTwo.addEventListener('change', firstFieldHandlerTwo, options);
                         secondFieldTwo.addEventListener('change', secondFieldHandlerTwo, true);
                         containerTwo.addEventListener('change', () => {
@@ -560,7 +689,7 @@ secondField.addEventListener('change', secondFieldHandler, true);
                     </script>
                 </section>
                 <section>
-                    <pre class="fragment fade-up"><code data-line-numbers="5-7,11-13" class="javascript">
+                    <pre><code data-line-numbers="5-7,11-13" class="javascript">
 firstCheckBox.addEventListener('click', () => { 
     console.log('Первый чекбокс.(1.1)');
 });
@@ -574,10 +703,10 @@ secondCheckbox.addEventListener('click', () => {
     console.log('Второй чекбокс.(2.2)');
 });
 firstField.addEventListener('click', () => {
-    console.log('Первое поле.(3)');
+    console.log('Первый контейнер.(3)');
 });
 secondField.addEventListener('click', () => {
-    console.log('Второе поле.(4)');
+    console.log('Второй контейнер.(4)');
 });
 container.addEventListener('click', () => {
     console.log('Внешний контейнер.(5)');
@@ -621,10 +750,10 @@ container.addEventListener('click', () => {
                             addLog('bubbleThreeLog', 'Второй чекбокс.(2.2)');
                         });
                         firstFieldThree.addEventListener('change', () => {
-                            addLog('bubbleThreeLog', 'Второе поле.(3)');
+                            addLog('bubbleThreeLog', 'Первый контейнер.(3)');
                         });
                         secondFieldThree.addEventListener('change', () => {
-                            addLog('bubbleThreeLog', 'Второе поле.(4)');
+                            addLog('bubbleThreeLog', 'Второй контейнер.(4)');
                         });
                         containerThree.addEventListener('change', () => {
                             addLog('bubbleThreeLog', 'Внешний контейнер.(5)')
@@ -632,7 +761,7 @@ container.addEventListener('click', () => {
                     </script>
                 </section>
                 <section>
-                    <pre class="fragment fade-up"><code data-line-numbers="4,11" class="javascript">
+                    <pre><code data-line-numbers="4,11" class="javascript">
 firstCheckBox.addEventListener('click', (event) => { 
     console.log('Первый чекбокс.(1.1)');
     event.stopPropagation();
@@ -695,26 +824,26 @@ secondCheckbox.addEventListener('click', () => {
                             addLog('bubbleFourLog', 'Второй чекбокс.(2.2)');
                         });
                         firstFieldFour.addEventListener('change', () => {
-                            addLog('bubbleFourLog', 'Второе поле.(3)');
+                            addLog('bubbleFourLog', 'Первый контейнер.(3)');
                         });
                         secondFieldFour.addEventListener('change', () => {
-                            addLog('bubbleFourLog', 'Второе поле.(4)');
+                            addLog('bubbleFourLog', 'Второй контейнер.(4)');
                         });
                     </script>
                 </section>
                 <section>
+                    <pre><code data-line-numbers="2-5|4" class="javascript">
+firstCheckBox.addEventListener('click', (event) => { 
+    console.log('Первый чекбокс.(1)');
+    event.preventDefault();
+});
+                    </code></pre>
                     <div id="containerFive" class="container">
                         <div id="firstFieldFive" class="field">
                             <input id="firstCheckboxFive" class="checkbox" type="checkbox" value="1">
                             <label for="firstCheckboxFive" class="checkbox">Первый чекбокс</label>
                         </div>
                     </div>
-                    <pre class="fragment fade-up"><code data-line-numbers="2-5|4" class="javascript">
-firstCheckBox.addEventListener('click', (event) => { 
-    console.log('Первый чекбокс.(1)');
-    event.preventDefault();
-});
-                    </code></pre>
                     <div class="console">
                         <ul class="console__log" id="bubbleFiveLog"></ul>
                         <div class="console__panel">
@@ -722,8 +851,10 @@ firstCheckBox.addEventListener('click', (event) => {
                         </div>
                     </div>
                     <ul>
-                        <li class="fragment fade-up">Метод preventDefault() отменяет поведение (действия) элемента по умолчанию.</li>
-                        <li class="fragment fade-up">Это применительно к чекбоксам, ссылкам, формам, контекстное меню...</li>
+                        <li class="fragment fade-up">Метод preventDefault() отменяет поведение (действия) элемента по
+                            умолчанию.</li>
+                        <li class="fragment fade-up">Это применительно к чекбоксам, ссылкам, формам, контекстное меню...
+                        </li>
                     </ul>
                     <script>
                         const firstCheckBoxFive = document.getElementById('firstCheckboxFive');
@@ -736,32 +867,315 @@ firstCheckBox.addEventListener('click', (event) => {
             </section>
             <section>
                 <h5>Делегирование.</h5>
-                <ul>
-                    <li class="fragment">Основано на механизме погружения и всплытия событий.</li>
-                    <li class="fragment">Позволяет одним подписчиком на событие обрабатывать события дочерних элементов.
-                    </li>
-                </ul>
+                <section>
+                    <ul>
+                        <li class="fragment">Основано на механизме погружения и всплытия событий.</li>
+                        <li class="fragment">Позволяет подписчиком родительского элемета обрабатывать события дочерних
+                            элементов.
+                        </li>
+                        <li class="fragment">Возникает необходимость определять на каком дочернем элементе возникло
+                            событие.</li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="container">
+                        <div class="field">
+                            <input id="firstCheckboxFive" class="checkbox" type="checkbox" value="1">
+                            <label for="firstCheckboxFive" class="checkbox">Первый чекбокс</label>
+                        </div>
+                        <div class="field">
+                            <input id="secondCheckboxFive" class="checkbox" type="checkbox" value="2">
+                            <label for="secondCheckboxFive" class="checkbox">Второй чекбокс</label>
+                        </div>
+                    </div>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-7|2,5" class="javascript">
+firstCheckBox.addEventListener('click', () => { 
+    console.log('Первый чекбокс.(1)');
+});
+secondCheckBox.addEventListener('click', () => { 
+    console.log('Второй чекбокс.(2)');
+});
+                    </code></pre>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-6|2" class="javascript">
+container.addEventListener('click', (event) => {
+    const container = event.currentTarget.id;
+    const element = event.target.id;
+    console.log('Контейнер ${container}. Элемент ${element}.(1)');
+});
+                    </code></pre>
+                </section>
+                <section>
+                    <div id="containerSix" class="container">
+                        <div id="firstFieldSix" class="field">
+                            <input id="firstCheckboxSix" class="checkbox" type="checkbox" value="1">
+                            <label id="firstLabelboxSix" for="firstCheckboxSix" class="checkbox">Первый чекбокс</label>
+                        </div>
+                        <div id="secondFieldSix" class="field">
+                            <input id="secondCheckboxSix" class="checkbox" type="checkbox" value="2">
+                            <label id="secondLabelboxSix" for="secondCheckboxSix" class="checkbox">Второй
+                                чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleSixLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <pre class="fragment fade-up"><code data-line-numbers="3|4" class="javascript">
+container.addEventListener('click', (event) => {
+    const container = event.currentTarget.id;
+    const element = event.target.id;
+    console.log('Контейнер ${container}. Элемент ${element}.(1)');
+});
+                    </code></pre>
+                    <script>
+                        const firstCheckboxSix = document.getElementById('firstCheckboxSix');
+                        const secondCheckboxSix = document.getElementById('secondCheckboxSix');
+                        const containerSix = document.getElementById('containerSix');
+                        containerSix.addEventListener('click', (event) => {
+                            addLog('bubbleSixLog', `Контейнер ${event.currentTarget.id}. Элемент ${event.target.id}.(1)`);
+                        });
+                    </script>
+                </section>
             </section>
             <section>
                 <h5>Пользовательские события.</h5>
-                <ul>
-                    <li class="fragment">Генерируются объектом класса Event.</li>
-                    <li class="fragment">Генерируются объектом класса CustomEvent.</li>
-                    <li class="fragment">Обладают всеми теми же признаками, что и события унаследованные от интефейса
-                        Event.</li>
-                    <li class="fragment">Объект класса CustomEvent позволяет передать дополнительные данные подписчикам.
-                    </li>
-                </ul>
+                <section>
+                    <ul>
+                        <li class="fragment fade-up">Позволяют создать события с пользовательским именем.</li>
+                        <li class="fragment fade-up">Генерируются объектом класса Event.</li>
+                        <li class="fragment fade-up">Генерируются объектом класса CustomEvent.</li>
+                        <li class="fragment fade-up">Объект класса CustomEvent позволяет передать дополнительные данные
+                            подписчикам.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <pre><code data-line-numbers="6|2-5|7|9-11" class="javascript">
+const options = {
+    bubbles: true,
+    cancelable: true,
+};
+const myEvent = new Event('nameEvent', options);
+element.dispatchEvent(myEvent);
+//.....
+container.addEventListener('nameEvent', () => {
+    console.log('Событие nameEvent перехвачено.');
+});
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-line-numbers="2-9|3-6|7|8|10-12" class="javascript">
+firstCheckbox.addEventListener('click', (event) => {
+    const options = {
+        bubbles: true,
+        cancelable: true,
+    };
+    const myEvent = new Event('nameEvent', options);
+    event.target.dispatchEvent(myEvent);
+});
+container.addEventListener('nameEvent', (event) => {
+    console.log(`Событие nameEvent перехвачено.`);
+});
+                    </code></pre>
+                    <div id="containerSeven" class="container">
+                        <div id="firstFieldSeven" class="field">
+                            <input id="firstCheckboxSeven" class="checkbox" type="checkbox" value="1">
+                            <label id="firstLabelboxSeven" for="firstCheckboxSeven" class="checkbox">Первый
+                                чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleSevenLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <script>
+                        const firstCheckboxSeven = document.getElementById('firstCheckboxSeven');
+                        firstCheckboxSeven.addEventListener('click', (event) => {
+                            const options = {
+                                bubbles: true,
+                                cancelable: true,
+                            };
+                            const myEvent = new Event('nameEvent', options);
+                            event.target.dispatchEvent(myEvent);
+                        });
+                        const containerSeven = document.getElementById('containerSeven');
+                        containerSeven.addEventListener('nameEvent', (event) => {
+                            addLog('bubbleSevenLog', `Событие nameEvent перехвачено.`);
+                        });
+                    </script>
+                </section>
+                <section>
+                    <pre><code data-line-numbers="2-13|6-9|11|12|14-17|16" class="javascript">
+firstCheckbox.addEventListener('click', (event) => {
+    const options = {
+        bubbles: true,
+        cancelable: true,
+        detail: {
+            message: 'Данные для передачи',
+            //Иные поля для передачи данных
+        }
+    };
+    const customEvent = new CustomEvent('nameCustomEvent', options);
+    event.target.dispatchEvent(customEvent);
+});
+container.addEventListener('nameCustomEvent', (event) => {
+    console.log('Событие nameCustomEvent перехвачено.');
+    console.log('Детали события - ', event.detail.message);
+});
+                    </code></pre>
+                </section>
+                <section>
+                    <div id="containerEight" class="container">
+                        <div id="firstFieldEight" class="field">
+                            <input id="firstCheckboxEight" class="checkbox" type="checkbox" value="1">
+                            <label id="firstLabelboxEight" for="firstCheckboxEight" class="checkbox">Первый
+                                чекбокс</label>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="bubbleEightLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <script>
+                        const firstCheckboxEight = document.getElementById('firstCheckboxEight');
+                        firstCheckboxEight.addEventListener('click', (event) => {
+                            const options = {
+                                bubbles: true,
+                                cancelable: true,
+                                detail: {
+                                    message: 'Данные для передачи'
+                                }
+                            };
+                            const customEvent = new CustomEvent('nameCustomEvent', options);
+                            event.target.dispatchEvent(customEvent);
+                        });
+                        const containerEight = document.getElementById('containerEight');
+                        containerEight.addEventListener('nameCustomEvent', (event) => {
+                            addLog('bubbleEightLog', `Событие nameCustomEvent перехвачено.`);
+                            addLog('bubbleEightLog', `Детали события - ${event.detail.message}`);
+                        });
+                    </script>
+                </section>
             </section>
             <section>
                 <h5>Изменения свойств элементов.</h5>
-                <ul>
-                    <li class="fragment">Объект класса MutationObserver позволяет наблюдать за изменениями DOM дерева.
-                    </li>
-                    <li class="fragment">Добавление/удаление элементов.</li>
-                    <li class="fragment">Изменение свойств элементов.</li>
-                    <li class="fragment">Изменение текстового содержимого элементов.</li>
-                </ul>
+                <section>
+                    <ul>
+                        <li class="fragment fade-up">Объект класса MutationObserver позволяет наблюдать за изменениями
+                            DOM дерева.
+                        </li>
+                        <li class="fragment fade-up">Добавление/удаление элементов.</li>
+                        <li class="fragment fade-up">Изменение свойств элементов.</li>
+                        <li class="fragment fade-up">Изменение текстового содержимого элементов.</li>
+                    </ul>
+                </section>
+                <section>
+                    <pre><code data-line-numbers="2|3-5|7-12|13|8|9|10|11" class="javascript">
+const mutationObserver = new MutationObserver(mutationHandler);
+function mutationHandler(mutationRecords) {
+  //Обработчик события изменений
+}
+
+const options = {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  characterData: true,
+}
+mutationObserver.observe(element, options);
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code data-line-numbers="2|3|4-6|7-12|13|15-17|18-20|21-26|27-30|31-34" class="javascript">
+const container = document.getElementById('mutationContainer');
+const mutationObserver = new MutationObserver(mutationHandler);
+function mutationHandler(mutationRecords) {
+  console.log("Изменения в объекте.");
+}
+const options = {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  characterData: true,
+}
+mutationObserver.observe(container, options);
+
+const buttonAdd = document.getElementById('buttonMutationAdd');
+const buttonChangeText = document.getElementById('buttonMutationChangeText');
+const buttonChangeColor = document.getElementById('buttonMutationChangeColor');
+buttonAdd.addEventListener('click', addElementHandler);
+buttonChangeText.addEventListener('click', changeTextHandler);
+buttonChangeColor.addEventListener('click', changeColorHandler);
+function addElementHandler(event) {
+  const newLabel = document.createElement('label');
+  newLabel.textContent = 'Новый элемент';
+  const container = document.getElementById('mutationContainer');
+  container.append(newLabel);
+}
+function changeTextHandler(event) {
+  const container = document.getElementById('mutationContainer');
+  container.lastElementChild.textContent = 'Измененный элемент';
+}
+function changeColorHandler(event) {
+  const container = document.getElementById('mutationContainer');
+  container.lastElementChild.style.color = '#bee4fd';
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <button id="buttonMutationAdd" class="console__button">Добавить элемент</button>
+                    <button id="buttonMutationChangeText" class="console__button">Изменить текст</button>
+                    <button id="buttonMutationChangeColor" class="console__button">Изменить цвет</button>
+                    <div id="mutationContainer" class="container large">
+                    </div>
+                    <div class="console">
+                        <ul class="console__log" id="mutationLog"></ul>
+                        <div class="console__panel">
+                            <button class="console__button button__clear">Очистить</button>
+                        </div>
+                    </div>
+                    <script>
+                        const mutationContainer = document.getElementById('mutationContainer');
+                        const mutationObserver = new MutationObserver(mutationHandler);
+                        function mutationHandler(mutationRecords) {
+                            addLog('mutationLog', 'Изменения в объекте.');
+                        }
+                        const option = {
+                            childList: true,
+                            subtree: true,
+                            attributes: true,
+                            characterData: true,
+                        }
+                        mutationObserver.observe(mutationContainer, option);
+
+                        const buttonAdd = document.getElementById('buttonMutationAdd');
+                        const buttonChangeText = document.getElementById('buttonMutationChangeText');
+                        const buttonChangeColor = document.getElementById('buttonMutationChangeColor');
+                        buttonAdd.addEventListener('click', buttonAddHandler);
+                        function buttonAddHandler(event) {
+                            const newLabel = document.createElement('label');
+                            newLabel.textContent = 'Новый элемент';
+                            const container = document.getElementById('mutationContainer');
+                            container.append(newLabel);
+                        }
+                        buttonChangeText.addEventListener('click', changeTextHandler);
+                        function changeTextHandler(event) {
+                            const container = document.getElementById('mutationContainer');
+                            container.lastElementChild.textContent = 'Измененный элемент';
+                        }
+                        buttonChangeColor.addEventListener('click', changeColorHandler);
+                        function changeColorHandler(event) {
+                            const container = document.getElementById('mutationContainer');
+                            container.lastElementChild.style.color = '#bee4fd';
+                        }
+                    </script>
+                </section>
             </section>
             <section>Вопросы и ответы.</section>
         </div>

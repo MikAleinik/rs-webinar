@@ -7,10 +7,17 @@
   height: 20%;
   width: 100%;
 
+  margin-bottom: 0.5%;
   padding: 2%;
   box-sizing: border-box;
 
   border: 1px solid;
+}
+
+.container.large {
+  height: 250px;
+
+  overflow-y: scroll;
 }
 
 .field {

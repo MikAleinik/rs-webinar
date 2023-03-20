@@ -22,7 +22,6 @@ p {
 }
 
 ::-webkit-scrollbar-thumb {
-    
     border-radius: 1px;
     background-color: #c0c5ce;
 }
@@ -49,7 +48,8 @@ p {
     overflow-y: scroll;
 }
 
-.console__log>* {
+.console__log>*,
+.container label {
     color: #4fb4d7;
 
     font-family: var(--r-code-font);
