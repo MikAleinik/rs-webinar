@@ -3,6 +3,11 @@ p {
     font-size: 26px;
 }
 
+.reveal ::selection {
+    color: #c91e1e;
+    background: #191919;
+}
+
 .hljs {
     background: #191919;
 }
