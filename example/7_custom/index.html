@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <section class="example">
+        <div id="firstContainer" class="container">
+            <div id="firstField" class="field">
+                <input id="firstCheckbox" class="checkbox" type="checkbox">
+                <label for="firstCheckbox" class="checkbox">Первый чекбокс. Генерирует событие Event.</label>
+            </div>
+            <div id="secondField" class="field">
+                <input id="secondCheckbox" class="checkbox" type="checkbox">
+                <label for="secondCheckbox" class="checkbox">Второй чекбокс. Генерирует событие CustomEvent.</label>
+            </div>
+        </div>
+        <div class="console">
+            <ul class="console__log"></ul>
+            <div class="console__panel">
+                <button class="console__button button__clear">Очистить</button>
+            </div>
+        </div>
+    </section>
+    <script src="./example.js"></script>
+    <script src="../index.js"></script>
+</body>
+
+</html>
