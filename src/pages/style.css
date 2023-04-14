@@ -1,0 +1,37 @@
+:root {
+    --color-text: #000000;
+    --background-card: #FAFAFA;
+    --background-page: #F6F6F6;
+    --color-hover: #F1CDB3;
+    --background-hover: #F1CDB3;
+
+    --max-width: 1280px;
+}
+
+body {
+    max-width: var(--max-width);
+
+    background: var(--background-page);
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    height: 10%;
+    width: 100%;
+    max-width: var(--max-width);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    height: 10%;
+    width: 100%;
+    max-width: var(--max-width);
+}

@@ -1,0 +1,47 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    height: 400px;
+    width: 250px;
+
+    margin: 0%;
+    padding: 0%;
+
+    color: var(--color-text);
+    background-color: var(--background-card);
+    border-radius: 10px;
+}
+
+.card__item {
+    height: 80%;
+    width: max-content;
+}
+
+.item__image {
+    height: 70%;
+    width: 100%;
+    padding: 0%;
+}
+
+.item__header {
+    height: 30%;
+    width: 100%;
+    padding: 0%;
+
+    text-align: center;
+}
+
+.card__button {
+    height: 10%;
+    width: 100%;
+    max-width: 120px;
+
+    text-align: center;
+}
+
+.card__button:hover {
+    background: var(--color-primary);
+}
