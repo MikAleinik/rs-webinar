@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webinar Shelter</title>
+    <link rel="stylesheet" href="./reveal/plugin/highlight/an-old-hope.min.css">
+    <link rel="stylesheet" href="./reveal/dist/reveal.css">
+    <link rel="stylesheet" href="./reveal/dist/theme/black.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h4>RS School. JS/FE 2023Q1.</h4>
+                <h3>Shelter</h3>
+            </section>
+            <section>
+                <h5>Содержание.</h5>
+                <ul>
+                    <li class="fragment fade-up">Компонент слайдер изображений.</li>
+                    <li class="fragment fade-up">Компонент пагинации страниц.</li>
+                    <li class="fragment fade-up">Просмотр решений студентов.</li>
+                </ul>
+            </section>
+            <section>
+                <h5>Что попробуем.</h5>
+                <ul>
+                    <li class="fragment fade-up">Разделение кода на модули.</li>
+                    <li class="fragment fade-up">Создание компонентов страницы в коде.</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h5>Модули.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Разделяют код на отдельные части.</li>
+                        <li class="fragment fade-up">Структурируют код.</li>
+                        <li class="fragment fade-up">Увеличивают переиспользование кода.</li>
+                        <li class="fragment fade-up">Убирают дублирование кода.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Синтаксис.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2|3-5|6|" class="javascript">
+//file my-library.js
+function someFunction() {
+    //Какой-то код...
+}
+export { someFunction };
+                    </code></pre>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-3|2|5|3|6" class="javascript">
+import { someFunction } from './my-library';
+import * as MyLibrary from './my-library';
+
+someFunction();
+MyLibrary.someFunction();
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Особенности.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Требуют правильной последовательности подключения скриптов.</li>
+                        <li class="fragment fade-up">Или использования сборщиков :) .</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <h5>Создание компонентов в коде.</h5>
+                <ul>
+                    <li class="fragment fade-up">"Разбиваем" наш html на модули/элементы.</li>
+                    <li class="fragment fade-up">Создаем и добавляем наш элемент с актуальным состоянием.</li>
+                    <li class="fragment fade-up">Избегаем поиска элементов при инициализации.</li>
+                    <li class="fragment fade-up">Создаем и/или изменяем страницу на лету.</li>
+                    <li class="fragment fade-up">Можем сохранять состояние приложения при переходах на другие страницы (SPA).</li>
+                </ul>
+            </section>
+            <section>Вопросы и ответы.</section>
+        </div>
+    </div>
+    <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
+    <script src="./reveal/dist/reveal.esm.js" type="module"></script>
+    <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
+
+    <script src="./index.js" type="module"></script>
+</body>
+
+</html>
