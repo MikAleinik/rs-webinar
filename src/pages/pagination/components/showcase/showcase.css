@@ -1,0 +1,25 @@
+.pagination {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.showcase {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 10px;
+
+    height: 80%;
+    width: 100%;
+    max-width: calc(var(--max-width) - 80px);
+
+    opacity: 1;
+}
+
+.card {
+    width: 20%;
+}

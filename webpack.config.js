@@ -7,8 +7,8 @@ const { merge } = require('webpack-merge');
 
 const baseConfig = {
     entry: {
-        slider: './src/pages/slider/slider.js',
-        pagination: './src/pages/pagination/pagination.js',
+        slider: './src/pages/slider/app-slider.js',
+        pagination: './src/pages/pagination/app-pagination.js',
     },
     output: {
         path: path.resolve(__dirname, "dist"),

@@ -3,9 +3,9 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    box-sizing: border-box;
 
     height: 400px;
-    width: 250px;
 
     margin: 0%;
     padding: 0%;
@@ -15,20 +15,31 @@
     border-radius: 10px;
 }
 
+.card:hover {
+    cursor: pointer;
+    background-color: var(--background-card-hover);
+    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
 .card__item {
     height: 80%;
     width: max-content;
+
+    margin: 0% 5%;
 }
 
 .item__image {
     height: 70%;
     width: 100%;
+
     padding: 0%;
 }
 
 .item__header {
     height: 30%;
     width: 100%;
+
+    margin-top: 10%;
     padding: 0%;
 
     text-align: center;
@@ -39,9 +50,15 @@
     width: 100%;
     max-width: 120px;
 
+    padding: 0%;
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+
     text-align: center;
 }
 
 .card__button:hover {
-    background: var(--color-primary);
+    cursor: pointer;
+    background: var(--background-hover);
 }

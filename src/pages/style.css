@@ -1,14 +1,23 @@
 :root {
     --color-text: #000000;
-    --background-card: #FAFAFA;
     --background-page: #F6F6F6;
-    --color-hover: #F1CDB3;
+
+    --background-card: #FAFAFA;
+    --background-card-hover: #FFFFFF;
+
+    --border-color: #F1CDB3;
     --background-hover: #F1CDB3;
+    --color-disabled: #CDCDCD;
 
     --max-width: 1280px;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
     max-width: var(--max-width);
 
     background: var(--background-page);
@@ -34,4 +43,29 @@ body {
     height: 10%;
     width: 100%;
     max-width: var(--max-width);
+}
+
+.round__button {
+    width: 40px;
+    height: 40px;
+
+    padding: 0%;
+
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+}
+
+.round__button:not(.not-clickable):not(:disabled):hover {
+    cursor: pointer;
+    background: var(--background-hover);
+}
+
+.round__button:disabled {
+    cursor: default;
+
+    color: var(--color-disabled);
+    border-color: var(--color-dark-s);
+
+    background: var(--background-card);
 }
