@@ -23,6 +23,10 @@ function showPage(number) {
     showcaseElement.style.opacity = '1';
 }
 function createComponent(petsJSON) {
+    if (!Array.isArray(petsJSON)) {
+        throw TypeError(`Pagination error. Pets array is invalid.`);
+    }
+
     const component = document.createElement('section');
     component.classList.add(CssClasses.CONTAINER);
 

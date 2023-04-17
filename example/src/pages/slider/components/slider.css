@@ -38,6 +38,10 @@
   transition: 1s;
 }
 
+.container__no-transition {
+    transition: none;
+}
+
 .card__group {
   display: flex;
   flex-direction: row;
@@ -57,4 +61,12 @@
   width: 27%;
 
   margin: 0% 3%;
+}
+
+.animate__left {
+  transform: translateX(-200%);
+}
+
+.animate__right {
+  transform: translateX(0%);
 }

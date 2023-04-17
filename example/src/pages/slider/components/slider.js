@@ -7,10 +7,10 @@ const CssClasses = {
 	WRAPPER: 'slider__wrapper',
 	CARD_CONTAINER: 'card__container',
 	CARD_GROUP: 'card__group',
+    ANIMATE_LEFT: 'animate__left',
+    ANIMATE_RIGHT: 'animate__right',
+    NO_TRANSITION: 'container__no-transition',
 }
-
-const TIME_TRANSITION = '1s';
-const DEFAULT_TRANSLATE = -100;
 
 const TEXT_BUTTON_LEFT = '<';
 const TEXT_BUTTON_RIGHT = '>';
@@ -28,6 +28,10 @@ let isRightClick = false;
 let isLeftClick = false;
 
 function createComponent(petsJSON) {
+    if (!Array.isArray(petsJSON)) {
+        throw TypeError(`Slider error. Pets array is invalid.`);
+    }
+
 	const component = createElement('section', CssClasses.SLIDER);
 
 	buttonLeft = createElement('button', CssClasses.BUTTON);
@@ -75,7 +79,7 @@ function buttonLeftClickHandler() {
 	if (!isRightClick) {
 		let rightCardGroup = null;
 		for (let group of cardContainer.children) {
-			if (group.style.order == INDEX_VISIBLE_GROUP + 1) {
+			if (group.style.order === INDEX_VISIBLE_GROUP + 1) {
 				rightCardGroup = group;
 				break;
 			}
@@ -95,14 +99,14 @@ function buttonLeftClickHandler() {
 	isRightClick = !isLeftClick;
 
 	deltaOrder = -1;
-	cardContainer.style.transform = `translate(${DEFAULT_TRANSLATE + DEFAULT_TRANSLATE}%)`;
+	cardContainer.classList.add(CssClasses.ANIMATE_LEFT);
 	disableButtons();
 };
 function buttonRightClickHandler() {
 	if (!isLeftClick) {
 		let leftCardGroup = null;
 		for (let group of cardContainer.children) {
-			if (group.style.order == INDEX_VISIBLE_GROUP - 1) {
+			if (group.style.order === INDEX_VISIBLE_GROUP - 1) {
 				leftCardGroup = group;
 				break;
 			}
@@ -122,19 +126,19 @@ function buttonRightClickHandler() {
 	isLeftClick = !isRightClick;
 
 	deltaOrder = 1;
-	cardContainer.style.transform = `translate(${DEFAULT_TRANSLATE - DEFAULT_TRANSLATE}%)`;
+	cardContainer.classList.add(CssClasses.ANIMATE_RIGHT);
 	disableButtons();
 };
 function disableButtons() {
 	buttonLeft.setAttribute('disabled', true);
-	buttonLeft.setAttribute('disabled', true);
+	buttonRight.setAttribute('disabled', true);
 }
 function enableButtons() {
 	buttonLeft.removeAttribute('disabled');
-	buttonLeft.removeAttribute('disabled');
+	buttonRight.removeAttribute('disabled');
 }
 function endTransitionHandler() {
-	cardContainer.style.transition = 'none';
+    cardContainer.classList.add(CssClasses.NO_TRANSITION);
 	for (const group of cardContainer.children) {
 		let order = Number(group.style.order);
 		order = order + deltaOrder;
@@ -146,20 +150,18 @@ function endTransitionHandler() {
 		group.style.order = order;
 	}
 
-	cardContainer.style.transform = `translate(${DEFAULT_TRANSLATE}%)`;
+    cardContainer.classList.remove(CssClasses.ANIMATE_LEFT, CssClasses.ANIMATE_RIGHT);
 	setTimeout(() => {
-		cardContainer.style.transition = TIME_TRANSITION;
+        cardContainer.classList.remove(CssClasses.NO_TRANSITION);
 		enableButtons();
 	}, 1);
 };
 function getCardsToShow() {
 	let cardsToShow = new Array();
-	let counter = 0;
-	while (counter < COUNT_CARD) {
+	while (cardsToShow.length < COUNT_CARD) {
 		const index = getRandomNumber(0, cards.length - 1);
 		if (!visibleCards.includes(cards[index]) && !cardsToShow.includes(cards[index])) {
 			cardsToShow.push(cards[index]);
-			counter += 1;
 		}
 	}
 	return cardsToShow;
