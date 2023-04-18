@@ -34,6 +34,12 @@ const baseConfig = {
         }),
         new CleanWebpackPlugin(),
     ],
+    optimization: {
+        splitChunks: {
+            name: "common",
+            chunks: "all"
+        }
+    },
     module: {
         rules: [
             {

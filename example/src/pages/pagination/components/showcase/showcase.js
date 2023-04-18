@@ -44,7 +44,7 @@ function createComponent(petsJSON) {
         cardComponents.push(cardComponent);
     });
 
-    const counterComponent = Counter.createComponent(6);
+    const counterComponent = Counter.createComponent(COUNT_PAGE);
     component.append(showcaseElement, counterComponent);
 
     return component;
