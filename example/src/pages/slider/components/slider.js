@@ -79,7 +79,7 @@ function buttonLeftClickHandler() {
 	if (!isRightClick) {
 		let rightCardGroup = null;
 		for (let group of cardContainer.children) {
-			if (group.style.order === INDEX_VISIBLE_GROUP + 1) {
+			if (Number(group.style.order) === INDEX_VISIBLE_GROUP + 1) {
 				rightCardGroup = group;
 				break;
 			}
@@ -106,7 +106,7 @@ function buttonRightClickHandler() {
 	if (!isLeftClick) {
 		let leftCardGroup = null;
 		for (let group of cardContainer.children) {
-			if (group.style.order === INDEX_VISIBLE_GROUP - 1) {
+			if (Number(group.style.order) === INDEX_VISIBLE_GROUP - 1) {
 				leftCardGroup = group;
 				break;
 			}
