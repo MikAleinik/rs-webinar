@@ -10,7 +10,7 @@ const CssClasses = {
     ANIMATE_LEFT: 'animate__left',
     ANIMATE_RIGHT: 'animate__right',
     NO_TRANSITION: 'container__no-transition',
-}
+};
 
 const TEXT_BUTTON_LEFT = '<';
 const TEXT_BUTTON_RIGHT = '>';
@@ -44,7 +44,7 @@ function createComponent(petsJSON) {
     wrapper.append(cardContainer);
 
     petsJSON.forEach((pet) => {
-        const cardComponent = Card.createComponent(pet);
+        const cardComponent = Card.createComponent(pet).card;
         cards.push(cardComponent);
     });
 
@@ -69,7 +69,7 @@ function createComponent(petsJSON) {
     cardContainer.addEventListener('transitionend', endTransitionHandler);
 
     return component;
-};
+}
 function createElement(tagName, className) {
     const element = document.createElement(tagName);
     element.classList.add(className);
@@ -101,7 +101,7 @@ function buttonLeftClickHandler() {
     deltaOrder = -1;
     cardContainer.classList.add(CssClasses.ANIMATE_LEFT);
     disableButtons();
-};
+}
 function buttonRightClickHandler() {
     if (!isLeftClick) {
         let leftCardGroup = null;
@@ -128,7 +128,7 @@ function buttonRightClickHandler() {
     deltaOrder = 1;
     cardContainer.classList.add(CssClasses.ANIMATE_RIGHT);
     disableButtons();
-};
+}
 function disableButtons() {
     buttonLeft.setAttribute('disabled', true);
     buttonRight.setAttribute('disabled', true);
@@ -155,7 +155,7 @@ function endTransitionHandler() {
         cardContainer.classList.remove(CssClasses.NO_TRANSITION);
         enableButtons();
     }, 1);
-};
+}
 function getCardsToShow() {
     let cardsToShow = new Array();
     while (cardsToShow.length < COUNT_CARD) {
@@ -165,11 +165,11 @@ function getCardsToShow() {
         }
     }
     return cardsToShow;
-};
+}
 function getRandomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
-};
+}
 
 export { createComponent };
