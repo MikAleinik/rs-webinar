@@ -1,6 +1,6 @@
-const path = require("path");
+const path = require('path');
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { merge } = require('webpack-merge');
@@ -11,53 +11,53 @@ const baseConfig = {
         pagination: './src/pages/pagination/app-pagination.js',
     },
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/pages/slider/slider.html',
             filename: 'slider.html',
-            chunks: ['common', 'slider']
+            chunks: ['common', 'slider'],
         }),
         new HtmlWebpackPlugin({
             template: 'src/pages/pagination/pagination.html',
             filename: 'pagination.html',
-            chunks: ['common', 'pagination']
+            chunks: ['common', 'pagination'],
         }),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, "src", "assets"),
-                    to: path.resolve(__dirname, "dist", "assets")
+                    from: path.resolve(__dirname, 'src', 'assets'),
+                    to: path.resolve(__dirname, 'dist', 'assets'),
                 },
-            ]
+            ],
         }),
         new CleanWebpackPlugin(),
     ],
     optimization: {
         splitChunks: {
-            name: "common",
-            chunks: "all"
-        }
+            name: 'common',
+            chunks: 'all',
+        },
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.html$/i,
-                use: "html-loader"
-            }
+                use: 'html-loader',
+            },
         ],
     },
     resolve: {
-        extensions: [".js"],
+        extensions: ['.js'],
     },
 };
 
-module.exports = ({ }, { mode }) => {
+module.exports = ({}, { mode }) => {
     const isProductionMode = mode === 'production';
     const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
 

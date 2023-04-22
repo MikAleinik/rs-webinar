@@ -7,6 +7,7 @@
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production --env outdir=distprod",
+    "lint": "eslint . --ext .js --fix",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
@@ -17,6 +18,9 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",
     "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "^2.8.1",

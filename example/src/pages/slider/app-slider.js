@@ -1,5 +1,5 @@
 import '../style.css';
-import { petsJSON } from '../../pets/pets';
+import { petsJSON } from '../../data/pets';
 import * as Slider from './components/slider';
 
 const sliderComponent = Slider.createComponent(petsJSON);

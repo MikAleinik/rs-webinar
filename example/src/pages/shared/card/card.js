@@ -1,5 +1,7 @@
 import './card.css';
-import * as Pet from '../pet/pet';
+import * as Pet from '../../../utils/is-valid-pet';
+import { createElement } from '../../../utils/create-element';
+import { createImage } from '../image/create-image';
 
 const CssClasses = {
     CARD: 'card',
@@ -7,40 +9,69 @@ const CssClasses = {
     IMAGE: 'item__image',
     HEADER: 'item__header',
     BUTTON: 'card__button',
-}
+};
 const TEXT_BUTTON = 'More info';
-const TEXT_ALT_IMAGE = 'Foto';
+const TEXT_ALT_IMAGE = 'Photo';
 
+/**
+ * @typedef {{
+ * card: HTMLElement;
+ * image: HTMLImageElement;
+ * name: HTMLElement;
+ * updateImage({ src, alt }: {src: string; alt: string;}): void;
+ * updateName({ textContent }: { textContent: string;}): void;
+ * }} ICardState
+ */
+
+/**
+ * @param {import('../../pagination/components/showcase/showcase').IPet} pet
+ * @returns {ICardState}
+ */
 function createComponent(pet) {
-    Pet.validatePet(pet);
+    if (!Pet.isValidPet(pet)) {
+        return null;
+    }
+    const component = createElement({
+        tagName: 'li',
+        className: CssClasses.CARD,
+    });
+    const info = createElement({
+        tagName: 'figure',
+        className: CssClasses.ITEM,
+    });
+    const image = createImage({
+        src: pet.img,
+        alt: TEXT_ALT_IMAGE,
+        className: CssClasses.IMAGE,
+    });
+    const name = createElement({
+        tagName: 'figcaption',
+        className: CssClasses.HEADER,
+        textContent: pet.name,
+    });
+    const button = createElement({
+        tagName: 'button',
+        className: CssClasses.BUTTON,
+        textContent: TEXT_BUTTON,
+    });
 
-    const component = document.createElement('li');
-    component.classList.add(CssClasses.CARD);
-
-    const info = document.createElement('figure');
-    info.classList.add(CssClasses.ITEM);
-    const image = document.createElement('img');
-    image.classList.add(CssClasses.IMAGE);
-    image.src = pet.img;
-    image.alt = TEXT_ALT_IMAGE;
-    const name = document.createElement('figcaption');
-    name.classList.add(CssClasses.HEADER);
-    name.textContent = pet.name;
+    const cardState = {
+        card: component,
+        image,
+        name,
+        updateImage({ src, alt }) {
+            this.image.src = src;
+            this.image.alt = alt;
+        },
+        updateName({ textContent }) {
+            this.name.textContent = textContent;
+        },
+    };
 
     info.append(image, name);
-
-    const button = document.createElement('button');
-    button.classList.add(CssClasses.BUTTON);
-    button.textContent = TEXT_BUTTON;
-
     component.append(info, button);
 
-    return component;
-}
-function changeComponent(card, pet) {
-    const cardInfo = card.firstElementChild;
-    cardInfo.firstElementChild.src = pet.img;
-    cardInfo.lastElementChild.textContent = pet.name;
+    return cardState;
 }
 
-export { createComponent, changeComponent };
+export { createComponent };

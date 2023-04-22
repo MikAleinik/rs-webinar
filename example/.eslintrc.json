@@ -1,10 +1,6 @@
 {
     "plugins": ["prettier", "import"],
-    "extends": [
-        "eslint:recommended",
-        "plugin:prettier/recommended",
-        "prettier"
-    ],
+    "extends": ["eslint:recommended", "plugin:prettier/recommended", "prettier"],
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module"
@@ -19,10 +15,10 @@
         "no-console": 0,
         "class-methods-use-this": "off",
         "prettier/prettier": [
-          "error",
-          {
-            "endOfLine": "auto"
-          }
+            "error",
+            {
+                "endOfLine": "auto"
+            }
         ]
     }
 }
