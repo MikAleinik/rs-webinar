@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "ES6",
+        "allowJs": true,
+        "checkJs": true,
+        "target": "ES2020",
+        "removeComments": true,
+        "sourceMap": true,
+        "strictNullChecks": false,
+        "strict": false
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+}
