@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Webinar SPA</title>
+        <link rel="stylesheet" href="./reveal/plugin/highlight/an-old-hope.min.css" />
+        <link rel="stylesheet" href="./reveal/dist/reveal.css" />
+        <link rel="stylesheet" href="./reveal/dist/theme/black.css" />
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h4>RS School. JS/FE 2023Q1.</h4>
+                    <h3>SPA</h3>
+                </section>
+                <section>
+                    <h5>Содержание.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Вкратце о SPA приложениях.</li>
+                        <li class="fragment fade-up">Реализация простого SPA.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5 class="fragment fade-up">Что такое SPA приложение.</h5>
+                    <ul>
+                        <li class="fragment fade-up">
+                            Это реализация веб-приложения, которое загружает только один веб-документ, а затем обновляет
+                            содержимое тела этого единственного документа с помощью API-интерфейсов JavaScript, таких
+                            как и Fetch, XMLHttpRequest когда нужно показать другой контент. (MDN)
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Признаки SPA приложения.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Маршрутизация между компонентами по строке запроса браузера.</li>
+                        <li class="fragment fade-up">Генерирует собственные элементы без участия сервера.</li>
+                        <li class="fragment fade-up">Хранит собственное состояние при переходах.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Особенности SPA приложения.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Трудности индексации страниц(ы) поисковыми системами.</li>
+                        <li class="fragment fade-up">Более сложная, при первоначальном знакомстве, реализация.</li>
+                        <li class="fragment fade-up">
+                            Требуется переадресация запросов на стороне сервера на единую точку входа.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Действия браузера при загрузке приложения.</h5>
+                    <ul>
+                        <li class="fragment fade-up fade-in-then-semi-out">Отправляет запрос на получение исходного html документа.</li>
+                        <li class="fragment fade-up fade-in-then-semi-out">Последовательный разбор (парсинг) полученного html документа.</li>
+                        <li class="fragment fade-up fade-in-then-semi-out">Загрузка файлов стилей.</li>
+                        <li class="fragment fade-up fade-in-then-semi-out">Загрузка файлов скриптов.</li>
+                        <li class="fragment fade-up">Создание DOM.</li>
+                        <li class="fragment fade-up">Создание CSSOM.</li>
+                        <li class="fragment fade-up fade-in-then-semi-out">Рендер, компоновка и отрисовка.</li>
+                    </ul>
+                    <p class="fragment fade-up">Выделенные пункты это то, на чем SPA может получить преимущество перед MPA. В остальных - будет зависеть от реализации приложения.</p>
+                </section>
+                <section>Вопросы и ответы.</section>
+            </div>
+        </div>
+        <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
+        <script src="./reveal/dist/reveal.esm.js" type="module"></script>
+        <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
+
+        <script src="./index.js" type="module"></script>
+    </body>
+</html>
