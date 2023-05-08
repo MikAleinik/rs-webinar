@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Webinar SPA</title>
-        <link rel="stylesheet" href="./reveal/plugin/highlight/an-old-hope.min.css" />
-        <link rel="stylesheet" href="./reveal/dist/reveal.css" />
-        <link rel="stylesheet" href="./reveal/dist/theme/black.css" />
-        <link rel="stylesheet" href="./style.css" />
-    </head>
 
-    <body>
-        <div class="reveal">
-            <div class="slides">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webinar SPA</title>
+    <link rel="stylesheet" href="./reveal/plugin/highlight/an-old-hope.min.css" />
+    <link rel="stylesheet" href="./reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="./reveal/dist/theme/black.css" />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h4>RS School. JS/FE 2023Q1.</h4>
+                <h3>SPA</h3>
+            </section>
+            <section>
+                <h5>Содержание.</h5>
+                <ul>
+                    <li class="fragment fade-up">Вкратце о SPA приложениях.</li>
+                    <li class="fragment fade-up">Реализация простого SPA.</li>
+                </ul>
+            </section>
+            <section>
                 <section>
-                    <h4>RS School. JS/FE 2023Q1.</h4>
-                    <h3>SPA</h3>
-                </section>
-                <section>
-                    <h5>Содержание.</h5>
-                    <ul>
-                        <li class="fragment fade-up">Вкратце о SPA приложениях.</li>
-                        <li class="fragment fade-up">Реализация простого SPA.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h5 class="fragment fade-up">Что такое SPA приложение.</h5>
+                    <h5>Что такое SPA приложение.</h5>
                     <ul>
                         <li class="fragment fade-up">
                             Это реализация веб-приложения, которое загружает только один веб-документ, а затем обновляет
@@ -35,6 +37,32 @@
                         </li>
                     </ul>
                 </section>
+                <section>
+                    <h5>Архитектура WEB приложений.</h5>
+                    <ul>
+                        <li class="fragment fade-up fade-in-then-semi-out">Многостраничное (MPA).</li>
+                        <li class="fragment fade-up fade-in-then-semi-out">Прогрессивно улучшенное многостраничное
+                            (PEMPA).</li>
+                        <li class="fragment fade-up">Одностраничное (SPA).</li>
+                        <li class="fragment fade-up fade-in-then-semi-out">Прогрессивно улучшенное одностраничное
+                            (PESPA).</li>
+                    </ul>
+                    <p class="fragment fade-up"></p>
+                </section>
+                <section>
+                    <h5>Архитектура WEB приложений.</h5>
+                    <p class="fragment fade-up">При этом каждый пункт предыдущего слайда не является полной
+                        характеристикой приложения, а лишь характеризует определенные признаки отдельной его части.</p>
+                    <p class="fragment fade-up">Кроме этого приложение может быть построено на:</p>
+                    <ul>
+                        <li class="fragment fade-up">различных архитектурных паттернах (MVC/MVP/MVVM и т.д.).</li>
+                        <li class="fragment fade-up">микросевисной или монолитной структуре.</li>
+                        <li class="fragment fade-up">серверной или бессерверной структуре.</li>
+                        <li class="fragment fade-up">........</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
                 <section>
                     <h5>Признаки SPA приложения.</h5>
                     <ul>
@@ -53,26 +81,64 @@
                         </li>
                     </ul>
                 </section>
+            </section>
+            <section>
                 <section>
-                    <h5>Действия браузера при загрузке приложения.</h5>
+                    <h5>Преимущества и недостатки SPA приложения.</h5>
+                    <p class="fragment fade-up">Каждая архитектура имеет свои сильные и слабые
+                        стороны. Рассмотрим плюсы и минусы SPA в сравнении с PEMPA
+                        приложением.</p>
+                    <p class="fragment fade-up">Действия браузера при загрузке страницы:</p>
                     <ul>
-                        <li class="fragment fade-up fade-in-then-semi-out">Отправляет запрос на получение исходного html документа.</li>
-                        <li class="fragment fade-up fade-in-then-semi-out">Последовательный разбор (парсинг) полученного html документа.</li>
-                        <li class="fragment fade-up fade-in-then-semi-out">Загрузка файлов стилей.</li>
-                        <li class="fragment fade-up fade-in-then-semi-out">Загрузка файлов скриптов.</li>
+                        <li class="fragment fade-up">Отправляет запрос на получение исходного html
+                            документа.</li>
+                        <li class="fragment fade-up">Последовательный разбор (парсинг) полученного
+                            html документа.</li>
+                        <li class="fragment fade-up">Загрузка файлов стилей.</li>
+                        <li class="fragment fade-up">Загрузка файлов скриптов.</li>
                         <li class="fragment fade-up">Создание DOM.</li>
                         <li class="fragment fade-up">Создание CSSOM.</li>
-                        <li class="fragment fade-up fade-in-then-semi-out">Рендер, компоновка и отрисовка.</li>
+                        <li class="fragment fade-up">Рендер, компоновка и отрисовка.</li>
                     </ul>
-                    <p class="fragment fade-up">Выделенные пункты это то, на чем SPA может получить преимущество перед MPA. В остальных - будет зависеть от реализации приложения.</p>
                 </section>
-                <section>Вопросы и ответы.</section>
-            </div>
+                <section>
+                    <h5>Преимущества SPA приложения.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Хранение состояния - улучшает отзывчивость приложения в тех частях,
+                            которые используют ранее загруженные/введенные данные.</li>
+                        <li class="fragment fade-up">Разделение клиент/сервер - на сервере не остается логики
+                            необходимой для отрисовки клиента.</li>
+                        <li class="fragment fade-up">Создание DOM - не требуется выполнять полностью при переходах между
+                            страницами, выполняется модификация существующей модели. Так же нет необходимости в
+                            повторной загрузке, парсинге и создании ранее использованных элементов/компонентов.</li>
+                        <li class="fragment fade-up">Создание CSSOM - не требуется выполнять полностью при переходах
+                            между страницами, при необходимости дополняется существующая модель.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Недостатки SPA приложения.</h5>
+                    <ul>
+                        <li class="fragment fade-up">Хранение состояния приложения - ответственность за актуальность
+                            состояния (данных) требует уделять этому больше внимания.</li>
+                        <li class="fragment fade-up">Размер приложения - из-за необходимости выполнения дополнительной
+                            логики, генерации компонентов, маршрутизации, хранения состояния появляется дополнительный
+                            код.</li>
+                        <li class="fragment fade-up">Производительность - большее количество кода может приводить к ее
+                            снижению на слабых устройствах.</li>
+                        <li class="fragment fade-up">Каскад зависимостей - приложение разбито на отдельные компоненты,
+                            что может приводить к необходимости ожидания загрузки компонентов перед загрузкой данных.
+                            Например: app.js -> component.js -> response.json -> image.webp</li>
+                    </ul>
+                </section>
+            </section>
+            <section>Вопросы и ответы.</section>
         </div>
-        <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
-        <script src="./reveal/dist/reveal.esm.js" type="module"></script>
-        <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
+    </div>
+    <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
+    <script src="./reveal/dist/reveal.esm.js" type="module"></script>
+    <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
 
-        <script src="./index.js" type="module"></script>
-    </body>
+    <script src="./index.js" type="module"></script>
+</body>
+
 </html>
