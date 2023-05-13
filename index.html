@@ -240,6 +240,49 @@ class AdminPage extends View {
                     </code></pre>
                 </section>
             </section>
+            <section>
+                <section>
+                    <h5>Структура класса.</h5>
+                    <p class="fragment fade-up">Для облегчения восприятия кода класса:</p>
+                    <ul>
+                        <li class="fragment fade-up">Давать значимые имена классов, методов, полей.</li>
+                        <li class="fragment fade-up">В именах классов (по возможности) использовать приставки, характеризующие
+                            принадлежность класса к группе. Например: View (PanelView, FieldView), Model (UserModel, CardModel).</li>
+                        <li class="fragment fade-up">В именах методов использовать общепринятые префиксы. Например: методы 
+                            возвращающие что-то get (getName, getElement), устанавливающие значение set (setName, setElement).
+                        </li>
+                        <li class="fragment fade-up">Все объявления полей группировать до конструктора. При этом - первыми указывать 
+                            приватные, после публичные.</li>
+                        <li class="fragment fade-up">Все объявления методов группировать после конструктора. При этом - первыми указывать 
+                            публичные, после приватные.</li>
+                        <li class="fragment fade-up">Методы и поля группировать по смежной/схожей функциональности/назначению.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Структура класса.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3-4|6-7|9-11|13-15|17-19|2-20" class="javascript">
+class View {
+    // Приватные поля
+    #privateField = '';
+
+    // Публичные поля
+    publicField = '';
+
+    constructor() {
+        
+    }
+
+    // Публичные методы
+    getField() {
+    }
+
+    // Приватные методы
+    #createView() {
+    }
+}
+                        </code></pre>
+                </section>
+            </section>
             <section>Вопросы и ответы.</section>
             <section>
                 <h5>Часть 2. Single Page Application</h5>
