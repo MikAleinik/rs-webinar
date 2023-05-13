@@ -17,10 +17,232 @@
         <div class="slides">
             <section>
                 <h4>RS School. JS/FE 2023Q1.</h4>
-                <h3>SPA</h3>
+                <h4>Classes, SPA</h4>
             </section>
             <section>
                 <h5>Содержание.</h5>
+                <ul>
+                    <li class="fragment fade-up">Часть 1 - Классы.</li>
+                    <li class="fragment fade-up">Часть 2 - Реализация SPA.</li>
+                </ul>
+            </section>
+            <section>
+                <h5>Часть 1. Классы</h5>
+                <ul>
+                    <li class="fragment fade-up">Синтаксис классов. Наследование.</li>
+                    <li class="fragment fade-up">Реализация приложения с использованием классов.</li>
+                    <li class="fragment fade-up">Рефакторинг кода.</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h5>Создание объектов в JS.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-4|5|7-9|10,11|13-17|18,19|13-19" class="javascript">
+const user = {
+    name: 'Иван',
+}
+console.log(user.name);
+
+function User() {
+    this.name = 'Иван';
+}
+const user = new User();
+console.log(user.name);
+
+class User {
+    constructor() {
+        this.name = 'Иван';
+    }
+}
+const user = new User();
+console.log(user.name);
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Определение классов в JS.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-6|8-12|8,13-16|2-16" class="javascript">
+// Объявление класса
+class User {
+    constructor() {
+    }
+}
+
+// Выражение класса
+const User = class {
+    constructor() {
+    }
+}
+const UserSecond = class User {
+    constructor() {
+    }
+}
+                    </code></pre>
+                    <p class="fragment fade-up">Объявление и выражение класса не всплывают (hoisting) - сначала необходимо определить класс и
+                        затем его использовать.</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Синтаксис классов.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2,14|5-6,9|3-4,7-8|10-13|2-14" class="javascript">
+class User {
+    // Поле класса
+    lastname = 'Иванов';
+    // Метод конструктор класса
+    constructor() {
+        // Поле класса
+        this.name = 'Иван';
+    }
+    // Метод класса
+    getFullName() {
+        return `${this.name} ${this.lastname}`;
+    }
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Поля класса.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3|5-6|9|11-12|15|16-21|23-25|2-25" class="javascript">
+class User {
+    lastname = 'Иванов';// Публичное поле класса
+}
+const user = new User();
+console.log(user.lastname);// Иванов
+
+class User {
+    #_lastname = 'Иванов';// Приватное поле класса
+}
+const user = new User();
+console.log(user.lastname);// undefined
+
+class User {
+    #_lastname = "Иванов";// Защищенное поле класса
+    get lastname() {
+        return this.#_lastname;
+    }
+    set lastname(value) {
+        this.#_lastname = value;
+    }
+}
+const user = new User();
+console.log(user._lastname);// undefined
+console.log(user.lastname);// Иванов
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Методы класса.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3-6|10-13" class="javascript">
+class User {
+    // Публичный метод класса
+    getFullName() {
+        return `${this.name} ${this.lastname}`;
+    }
+}
+
+class User {
+    // Приватный метод класса
+    #getFullName() {
+        return `${this.name} ${this.lastname}`;
+    }
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <p>Синтаксис # на текущий момент является экспериментальным.</p>
+                    <p class="fragment fade-up">В дальнейшем, при использовании TypeScript, вы будете использовать
+                        модификаторы доступа.</p>
+                    <ul>
+                        <li class="fragment fade-up">public - доступен для всех.</li>
+                        <li class="fragment fade-up">private - доступен только внутри класса.</li>
+                        <li class="fragment fade-up">protected - доступен внутри класса и классов наследников.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Статические поля и методы класса.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3-5|6-9|11,8|12|1-12" class="javascript">
+class User {
+    // Статическое поле
+    static name = 'Иван';
+    static lastname = 'Иванов';
+    // Статический метод
+    static getFullName() {
+        return `${User.name} ${User.lastname}`;
+    }
+}
+console.log(User.name);
+console.log(User.getFullName());
+                    </code></pre>
+                    <p class="fragment fade-up">Статика присуща утилитарным классам, которые выполняют
+                        различные манипуляции над объектами как своего, так и других классов (например: 
+                        сравнение, трансформация, копирование объектов).
+                    </p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Наследование классов.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="1-15|3-6,10-13" class="javascript">
+class MainPage {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+    // Логика главной страницы
+}
+class AdminPage {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+    // Логика страницы администрирования
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Наследование классов.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="1-15|3-6|8-13" class="javascript">
+class View {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+}
+class MainPage extends View {
+    // Логика главной страницы
+}
+class AdminPage extends View {
+    // Логика страницы администрирования
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Переопределение методов классов.</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="1-7|8,11|12-18" class="javascript">
+class View {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+}
+class MainPage extends View {
+    // Логика главной страницы
+}
+class AdminPage extends View {
+    getContent() {
+        if (isAdmin) {
+            return this.htmlElement;
+        } else {
+            // Действия если доступ запрещен на страницу
+        }
+    }
+    // Логика страницы администрирования
+}
+                    </code></pre>
+                </section>
+            </section>
+            <section>Вопросы и ответы.</section>
+            <section>
+                <h5>Часть 2. Single Page Application</h5>
                 <ul>
                     <li class="fragment fade-up">Вкратце о SPA приложениях.</li>
                     <li class="fragment fade-up">Реализация простого SPA.</li>
