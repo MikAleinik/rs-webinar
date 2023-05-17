@@ -11,9 +11,11 @@ export default class CardView extends View {
      */
     constructor(params) {
         super();
-        this.component = this.createView(params);
+
         this.callback = null;
         this.card = params;
+
+        this.component = this.createView(params);
     }
 
     /**

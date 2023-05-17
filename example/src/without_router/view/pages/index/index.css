@@ -10,4 +10,6 @@
     margin: 10px;
     padding: 10px;
     box-sizing: border-box;
+
+    overflow-y: scroll;
 }

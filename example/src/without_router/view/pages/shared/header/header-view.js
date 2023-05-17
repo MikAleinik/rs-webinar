@@ -6,25 +6,22 @@ const HeaderCssClasses = {
     ITEM_SELECTED: 'nav-item__selected',
 };
 
-/**
- * @typedef {{ path: string, callback: function }} Link
- */
 export default class HeaderView extends View {
     /**
-     * @param {Array<Link>} links
+     * @param {Array<import('../../../../app').Page>} pages
      */
-    constructor(links) {
+    constructor(pages) {
         super();
 
-        const changedLinks = links.map((link) => {
+        const changedLinks = pages.map((page) => {
             return {
-                path: link.path,
-                callback: this.linkClickHandler.bind(this, link.callback),
+                name: page.name,
+                callback: this.linkClickHandler.bind(this, page.callback),
             };
         });
 
         /**
-         * @typedef {{route: Link, element: HTMLElement}} HeaderItem
+         * @typedef {{name: string, element: HTMLElement}} HeaderItem
          * @type {Array<HeaderItem>}
          */
         this.headerItems = [];
@@ -32,14 +29,14 @@ export default class HeaderView extends View {
     }
 
     /**
-     * @param {Array<Link>} links
+     * @param {Array<import('../../../../app').Page>} pages
      */
-    createView(links) {
+    createView(pages) {
         const creatorLink = new ViewCreator();
-        links.forEach((linkItem) => {
-            const linkElement = creatorLink.createLinkButton(linkItem);
+        pages.forEach((page) => {
+            const linkElement = creatorLink.createLinkButton(page);
             const currentItem = {
-                route: linkItem,
+                name: page.name,
                 element: linkElement,
             };
             this.headerItems.push(currentItem);
@@ -68,7 +65,7 @@ export default class HeaderView extends View {
      */
     setSelectedItem(name) {
         this.headerItems.forEach((item) => {
-            if (item.route.path === name) {
+            if (item.name === name) {
                 item.element.classList.add(HeaderCssClasses.ITEM_SELECTED);
             }
         });

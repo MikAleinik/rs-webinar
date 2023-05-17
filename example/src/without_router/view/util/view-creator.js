@@ -56,12 +56,12 @@ export default class ViewCreator {
     }
 
     /**
-     * @param {import('../pages/shared/header/header-view').Link} link
+     * @param {import('../../app').Page} page
      * @returns {HTMLElement}
      */
-    createLinkButton(link) {
+    createLinkButton(page) {
         const builder = new ElementBuilder('a');
-        builder.setCssClasses([HeaderCssClasses.ITEM]).setTextContent(link.path).setClickCallback(link.callback);
+        builder.setCssClasses([HeaderCssClasses.ITEM]).setTextContent(page.name).setClickCallback(page.callback);
         return builder.getElement();
     }
 
