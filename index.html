@@ -17,121 +17,473 @@
         <div class="slides">
             <section>
                 <h4>RS School. JS/FE 2023Q1.</h4>
-                <h3>SPA</h3>
+                <h4>Classes, SPA</h4>
             </section>
             <section>
-                <h5>Содержание.</h5>
+                <h5>Классы</h5>
+                <p class="fragment fade-up">Краткое содержание:</p>
                 <ul>
-                    <li class="fragment fade-up">Вкратце о SPA приложениях.</li>
-                    <li class="fragment fade-up">Реализация простого SPA.</li>
+                    <li class="fragment fade-up">ООП</li>
+                    <li class="fragment fade-up">Создание объектов в JS</li>
+                    <li class="fragment fade-up">Синтаксис классов</li>
+                    <li class="fragment fade-up">Наследование</li>
                 </ul>
             </section>
             <section>
                 <section>
-                    <h5>Что такое SPA приложение.</h5>
+                    <h5>ООП</h5>
+                    <ul>
+                        <li class="fragment fade-up">ООП (Объектно-Ориентированное Программирование) это подход в программировании,
+                            согласно которому, данные инкапсулированы внутри объектов, а сам объект существует как составная часть
+                            целого (MDN)</li>
+                        <li class="fragment fade-up">Объект это совокупность связанных данных и/или функциональных возможностей.
+                            Обычно состоят из нескольких переменных и функций, которые называются свойства и методы, если они находятся
+                            внутри объектов (MDN)</li>
+                        <li class="fragment fade-up">Поля (свойства) содержат данные характеризующие объект, т.е. они характеризуют
+                            состояние этого объекта</li>
+                        <li class="fragment fade-up">Методы характеризуют функциональность объекта, т.е. что он может сделать</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>ООП в приложении</h5>
+                    <ul>
+                        <li class="fragment fade-up">Приложение является объектом, который реализовал определенную функциональность</li>
+                        <li class="fragment fade-up">Каждая часть приложения (меню, вкладка на экране, модальное окно, логика обращения
+                            к серверу, логика обработки полученных/введенных данных, взаимосвязи объектов) так же является или может быть
+                            объектом, отвечающим уже за более узкую часть функциональности приложения</li>
+                        <li class="fragment fade-up">Каждый объект может содержать другие объекты, отвечающие за еще более узкую 
+                            функциональность</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Виды взаимодействия объектов</h5>
+                    <ul>
+                        <li class="fragment fade-up">Композиция — первый объект создан и хранится внутри второго</li>
+                        <li class="fragment fade-up">Агрегация — первый объект создан вне второго, передан и хранится
+                            внутри другого</li>
+                        <li class="fragment fade-up">Ассоциация — первый объект передается второму объекту для взаимодействия,
+                            но при этом первый объект не хранится внутри второго
+                        </li>
+                        <li class="fragment fade-up">Наследование, реализация</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Композиция</h5>
+                    <p class="fragment fade-up">Композиция — первый объект создан и хранится внутри второго</p>
+                    <pre class="fragment fade-up"><code data-line-numbers="2,6|3-5|2-6" class="javascript">
+const car = {
+    engine: {
+        power: 100,
+    },
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Агрегация</h5>
+                    <p class="fragment fade-up">Агрегация — первый объект создан вне второго, передан и хранится
+                        внутри другого</p>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-3|5-7|2-7" class="javascript">
+const electricEngine = {
+    power: 100,
+}
+const car = {
+    engine: electricEngine,
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Ассоциация</h5>
+                    <p class="fragment fade-up">Ассоциация — первый объект передается второму объекту для взаимодействия,
+                        но при этом первый объект не хранится внутри второго
+                    </p>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-4|5-9|6-8|2-9" class="javascript">
+const car = {
+    repair: function() {}
+}
+const station = {
+    takeCar: function(car) {
+        car.repair();
+    },
+}
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Примеры создания объектов в JS</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-4|5|7-9|10,11|13-17|18,19|13-19" class="javascript">
+const user = {
+    name: 'Иван',
+}
+console.log(user.name);
+
+function User() {
+    this.name = 'Иван';
+}
+const user = new User();
+console.log(user.name);
+
+class User {
+    constructor() {
+        this.name = 'Иван';
+    }
+}
+const user = new User();
+console.log(user.name);
+                    </code></pre>
+                    <p class="fragment fade-up">Мы будем рассматривать создание и наследование объектов с использованием синтаксиса классов</p>
+                </section>
+                <section>
+                    <h5>Определение классов в JS</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-6|8-12|8,13-16|2-16" class="javascript">
+// Объявление класса
+class User {
+    constructor() {
+    }
+}
+
+// Выражение класса
+const User = class {
+    constructor() {
+    }
+}
+const UserSecond = class User {
+    constructor() {
+    }
+}
+                    </code></pre>
+                    <p class="fragment fade-up">Объявление класса не всплывают (hoisting) в отличии от объявления функции и
+                        если обратиться к классу до его определения — будет ошибка</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Синтаксис классов</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2,14|5-6,9|3-4,7-8|10-13|2-14" class="javascript">
+class User {
+    // Поле класса
+    lastname = 'Иванов';
+    // Метод конструктор класса
+    constructor() {
+        // Поле класса
+        this.name = 'Иван';
+    }
+    // Метод класса
+    getFullName() {
+        return `${this.name} ${this.lastname}`;
+    }
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Поля класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3|5-6|9|11-13|16|17-22|24-26|2-26" class="javascript">
+class User {
+    lastname = 'Иванов'; // Публичное поле класса
+}
+const user = new User();
+console.log(user.lastname); // Иванов
+
+class User {
+    #lastname = 'Иванов'; // Приватное поле класса
+}
+const user = new User();
+console.log(user.lastname); // undefined
+console.log(user.#lastname); // SyntaxError: Private field '#lastname' must be declared in an enclosing class
+
+class User {
+    #lastname = "Иванов"; // Приватное поле класса
+    get lastname() { // Метод get для получения значения приватного поля
+        return this.#lastname;
+    }
+    set lastname(value) { // Метод set для установки значения приватного поля
+        this.#lastname = value;
+    }
+}
+const user = new User();
+console.log(user.lastname);// Иванов
+                    </code></pre>
+                    <p class="fragment fade-up">Синтаксис # (ES2022) на текущий момент является экспериментальным, но поддерживается
+                        всеми браузерами
+                    </p>
+                </section>
+                <section>
+                    <h5>Методы класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3-6|10-13|2-14" class="javascript">
+class User {
+    // Публичный метод класса
+    getFullName() {
+        return `${this.name} ${this.lastname}`;
+    }
+}
+
+class User {
+    // Приватный метод класса
+    #getFullName() {
+        return `${this.name} ${this.lastname}`;
+    }
+}
+                    </code></pre>
+                    <p class="fragment fade-up">Синтаксис # (ES2022) на текущий момент является экспериментальным, но поддерживается
+                        всеми браузерами
+                    </p>
+                </section>
+                <section>
+                    <p>В дальнейшем, при использовании TypeScript, вы будете использовать
+                        модификаторы доступа</p>
+                    <ul>
+                        <li class="fragment fade-up">public — поле или метод доступны для всех</li>
+                        <li class="fragment fade-up">private — поле или метод доступны только внутри класса</li>
+                        <li class="fragment fade-up">protected — поле или метод доступны внутри класса и классов наследников</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Статические поля и методы класса</h5>
+                    <p class="fragment fade-up">Статическое поле (метод) это поле (метод) не требующие для использования
+                        создания объекта класса и они не принадлежат отдельному объекту, а принадлежат классу
+                    </p>
+                    <pre class="fragment fade-up"><code data-line-numbers="3-5|6-9|11,8|12|1-12" class="javascript">
+class User {
+    // Статическое поле
+    static name = 'Иван';
+    static lastname = 'Иванов';
+    // Статический метод
+    static getFullName() {
+        return `${User.name} ${User.lastname}`;
+    }
+}
+console.log(User.name);
+console.log(User.getFullName());
+                    </code></pre>
+                    <p class="fragment fade-up">Статика присуща утилитарным классам, которые выполняют
+                        различные манипуляции над объектами как своего, так и других классов (например: 
+                        сравнение, трансформация, копирование объектов)
+                    </p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Наследование классов</h5>
+                    <p class="fragment fade-up">Это отношение между классами, которое позволяет описать новый класс
+                        на основе уже существующего</p>
+                    <ul>
+                        <li class="fragment fade-up">Создает иерархию однотипных объектов со схожей функциональностью</li>
+                        <li class="fragment fade-up">Решает проблему дублирования кода</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Пример дублирования кода в классах</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="1-15|3-6,10-13" class="javascript">
+class MainPage {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+    // Логика главной страницы
+}
+class AdminPage {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+    // Логика страницы администрирования
+}
+                    </code></pre>
+                    <p class="fragment fade-up">Схожий функционал классов дублируется в каждом из классов</p>
+                </section>
+                <section>
+                    <h5>Решение дублирования кода наследованием</h5>
+                    <ul>
+                        <li class="fragment fade-up">Создать родительский класс BasePage в котором описана общая
+                            функциональность</li>
+                        <li class="fragment fade-up">Унаследовать классы MainPage и AdminPage от родительского</li>
+                    </ul>
+                    <pre class="fragment fade-up"><code data-line-numbers="1-15|3-6|8-13" class="javascript">
+class BasePage {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+}
+class MainPage extends BasePage {
+    // Логика главной страницы
+}
+class AdminPage extends BasePage {
+    // Логика страницы администрирования
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Переопределение методов классов</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="1-7|8,11|12-18" class="javascript">
+class BasePage {
+    htmlElement = document.createElement('main');
+    getContent() {
+        return this.htmlElement;
+    }
+}
+class MainPage extends BasePage {
+    // Логика главной страницы
+}
+class AdminPage extends BasePage {
+    getContent() {
+        if (isAdmin) {
+            return this.htmlElement;
+        } else {
+            return null;
+        }
+    }
+    // Логика страницы администрирования
+}
+                    </code></pre>
+                    <p class="fragment fade-up">Переопределение методов это реализация еще одной из парадигм ООП называемой
+                        полиморфизмом, когда однотипные объекты (в нашем случае это объекты класса BasePage) имеют различную
+                        реализацию одно и того же метода
+                    </p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Принципы чистого кода</h5>
+                    <p class="fragment fade-up">Для облегчения восприятия кода класса:</p>
+                    <ul>
+                        <li class="fragment fade-up">Давать описательные, исчерпывающие, предметные, имена для классов</li>
+                        <li class="fragment fade-up">В именах классов (по возможности) использовать приставки, характеризующие
+                            принадлежность класса к группе объектов, которые реализовывают однотипную функциональность. Например:
+                            View (PanelView, FieldView), Model (UserModel, CardModel)</li>
+                        <li class="fragment fade-up">В именах методов использовать общепринятые префиксы. Например: методы 
+                            возвращающие что-то get (getName, getElement), устанавливающие значение set (setName, setElement)
+                        </li>
+                        <li class="fragment fade-up">Все объявления полей группировать до конструктора. При этом — первыми указывать 
+                            приватные, после публичные</li>
+                        <li class="fragment fade-up">Все объявления методов группировать после конструктора. При этом — первыми указывать 
+                            публичные, после приватные</li>
+                        <li class="fragment fade-up">Методы и поля группировать по смежной/схожей функциональности/назначению</li>
+                    </ul>
+                    <p class="fragment fade-up">Указанные тезисы стиля кода могут быть другими в команде/компании и это лишь рекомендация
+                        к единообразной структуре класса
+                    </p>
+                </section>
+                <section>
+                    <h5>Пример кода класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="3-4|6-7|9-11|13-15|17-19|2-20" class="javascript">
+class View {
+    // Приватные поля
+    #privateField = '';
+
+    // Публичные поля
+    publicField = '';
+
+    constructor() {
+        
+    }
+
+    // Публичные методы
+    getField() {
+    }
+
+    // Приватные методы
+    #createView() {
+    }
+}
+                        </code></pre>
+                </section>
+            </section>
+            <section>Вопросы и ответы</section>
+            <section>
+                <h5>Single Page Application</h5>
+                <p class="fragment fade-up">Краткое содержание:</p>
+                <ul>
+                    <li class="fragment fade-up">Архитектура WEB приложений</li>
+                    <li class="fragment fade-up">Что такое SPA приложение</li>
+                    <li class="fragment fade-up">Плюсы/минусы SPA приложения</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h5>Архитектура WEB приложений</h5>
+                    <p class="fragment fade-up">Архитектура это искусство и наука строить и проектировать программное
+                        обеспечение таким образом, чтобы оно удовлетворяло всем заявленным к нему требованиям, а также
+                        обеспечивало максимальную простоту доработки, развертывания и масштабирования приложения (Habr)</p>
+                </section>
+                <section>
+                    <h5>Архитектура WEB приложений</h5>
+                    <p class="fragment fade-up">В рамках отдельных заданий текущего курса вы опробуете:</p>
+                    <ul>
+                        <li class="fragment fade-up">Многостраничное MPA (Shelter)</li>
+                        <li class="fragment fade-up">Одностраничное SPA (Online Store)</li>
+                    </ul>
+                    <p class="fragment fade-up">Кроме этого приложение может быть построено на:</p>
+                    <ul>
+                        <li class="fragment fade-up">различных архитектурных паттернах (MVC/MVP/MVVM и т.д.)</li>
+                        <li class="fragment fade-up">микросервисной или монолитной архитектуре</li>
+                        <li class="fragment fade-up">серверной или бессерверной архитектуре</li>
+                        <li class="fragment fade-up">...</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Что такое SPA приложение</h5>
                     <ul>
                         <li class="fragment fade-up">
                             Это реализация веб-приложения, которое загружает только один веб-документ, а затем обновляет
-                            содержимое тела этого единственного документа с помощью API-интерфейсов JavaScript, таких
-                            как и Fetch, XMLHttpRequest когда нужно показать другой контент. (MDN)
+                            содержимое тела этого единственного документа с помощью API-интерфейсов, таких как и Fetch,
+                            XMLHttpRequest когда нужно показать другой контент (MDN)
                         </li>
                     </ul>
                 </section>
                 <section>
-                    <h5>Архитектура WEB приложений.</h5>
+                    <h5>Признаки SPA приложения</h5>
                     <ul>
-                        <li class="fragment fade-up fade-in-then-semi-out">Многостраничное (MPA).</li>
-                        <li class="fragment fade-up fade-in-then-semi-out">Прогрессивно улучшенное многостраничное
-                            (PEMPA).</li>
-                        <li class="fragment fade-up">Одностраничное (SPA).</li>
-                        <li class="fragment fade-up fade-in-then-semi-out">Прогрессивно улучшенное одностраничное
-                            (PESPA).</li>
-                    </ul>
-                    <p class="fragment fade-up"></p>
-                </section>
-                <section>
-                    <h5>Архитектура WEB приложений.</h5>
-                    <p class="fragment fade-up">При этом каждый пункт предыдущего слайда не является полной
-                        характеристикой приложения, а лишь характеризует определенные признаки отдельной его части.</p>
-                    <p class="fragment fade-up">Кроме этого приложение может быть построено на:</p>
-                    <ul>
-                        <li class="fragment fade-up">различных архитектурных паттернах (MVC/MVP/MVVM и т.д.).</li>
-                        <li class="fragment fade-up">микросевисной или монолитной структуре.</li>
-                        <li class="fragment fade-up">серверной или бессерверной структуре.</li>
-                        <li class="fragment fade-up">........</li>
-                    </ul>
-                </section>
-            </section>
-            <section>
-                <section>
-                    <h5>Признаки SPA приложения.</h5>
-                    <ul>
-                        <li class="fragment fade-up">Маршрутизация между компонентами по строке запроса браузера.</li>
-                        <li class="fragment fade-up">Генерирует собственные элементы без участия сервера.</li>
-                        <li class="fragment fade-up">Хранит собственное состояние при переходах.</li>
+                        <li class="fragment fade-up">Маршрутизация между компонентами (с перезагрузкой страницы и без нее)
+                        </li>
+                        <li class="fragment fade-up">Генерирует элементы разметки без участия сервера</li>
+                        <li class="fragment fade-up">Хранит собственное состояние при переходах</li>
                     </ul>
                 </section>
                 <section>
-                    <h5>Особенности SPA приложения.</h5>
+                    <h5>Особенности SPA приложения</h5>
                     <ul>
-                        <li class="fragment fade-up">Трудности индексации страниц(ы) поисковыми системами.</li>
-                        <li class="fragment fade-up">Более сложная, при первоначальном знакомстве, реализация.</li>
+                        <li class="fragment fade-up">Трудности индексации страниц(ы) поисковыми системами</li>
+                        <li class="fragment fade-up">Более сложная, при первоначальном знакомстве, реализация</li>
                         <li class="fragment fade-up">
-                            Требуется переадресация запросов на стороне сервера на единую точку входа.
+                            Требуется переадресация запросов на стороне сервера в единую точку входа
                         </li>
                     </ul>
                 </section>
-            </section>
-            <section>
                 <section>
-                    <h5>Преимущества и недостатки SPA приложения.</h5>
-                    <p class="fragment fade-up">Каждая архитектура имеет свои сильные и слабые
-                        стороны. Рассмотрим плюсы и минусы SPA в сравнении с PEMPA
-                        приложением.</p>
-                    <p class="fragment fade-up">Действия браузера при загрузке страницы:</p>
+                    <h5>Плюсы SPA приложения</h5>
                     <ul>
-                        <li class="fragment fade-up">Отправляет запрос на получение исходного html
-                            документа.</li>
-                        <li class="fragment fade-up">Последовательный разбор (парсинг) полученного
-                            html документа.</li>
-                        <li class="fragment fade-up">Загрузка файлов стилей.</li>
-                        <li class="fragment fade-up">Загрузка файлов скриптов.</li>
-                        <li class="fragment fade-up">Создание DOM.</li>
-                        <li class="fragment fade-up">Создание CSSOM.</li>
-                        <li class="fragment fade-up">Рендер, компоновка и отрисовка.</li>
+                        <li class="fragment fade-up">Хранение состояния — улучшает отзывчивость приложения в тех частях,
+                            которые используют ранее загруженные/введенные данные</li>
+                        <li class="fragment fade-up">Разделение клиент/сервер — на сервере не остается логики
+                            необходимой для отрисовки клиента</li>
+                        <li class="fragment fade-up">Создание DOM — не требуется выполнять полностью при переходах между
+                            страницами, выполняется модификация существующей DOM модели. Так же нет необходимости в
+                            повторной загрузке, парсинге и создании ранее использованных элементов/компонентов</li>
+                        <li class="fragment fade-up">Создание CSSOM — не требуется выполнять полностью при переходах
+                            между страницами, при необходимости дополняется существующая CSSOM модель</li>
                     </ul>
                 </section>
                 <section>
-                    <h5>Преимущества SPA приложения.</h5>
+                    <h5>Минусы SPA приложения</h5>
                     <ul>
-                        <li class="fragment fade-up">Хранение состояния - улучшает отзывчивость приложения в тех частях,
-                            которые используют ранее загруженные/введенные данные.</li>
-                        <li class="fragment fade-up">Разделение клиент/сервер - на сервере не остается логики
-                            необходимой для отрисовки клиента.</li>
-                        <li class="fragment fade-up">Создание DOM - не требуется выполнять полностью при переходах между
-                            страницами, выполняется модификация существующей модели. Так же нет необходимости в
-                            повторной загрузке, парсинге и создании ранее использованных элементов/компонентов.</li>
-                        <li class="fragment fade-up">Создание CSSOM - не требуется выполнять полностью при переходах
-                            между страницами, при необходимости дополняется существующая модель.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h5>Недостатки SPA приложения.</h5>
-                    <ul>
-                        <li class="fragment fade-up">Хранение состояния приложения - ответственность за актуальность
-                            состояния (данных) требует уделять этому больше внимания.</li>
-                        <li class="fragment fade-up">Размер приложения - из-за необходимости выполнения дополнительной
+                        <li class="fragment fade-up">Хранение состояния приложения — ответственность за актуальность
+                            состояния (данных) требует уделять этому больше внимания</li>
+                        <li class="fragment fade-up">Размер приложения — из-за необходимости выполнения дополнительной
                             логики, генерации компонентов, маршрутизации, хранения состояния появляется дополнительный
-                            код.</li>
-                        <li class="fragment fade-up">Производительность - большее количество кода может приводить к ее
-                            снижению на слабых устройствах.</li>
-                        <li class="fragment fade-up">Каскад зависимостей - приложение разбито на отдельные компоненты,
+                            код</li>
+                        <li class="fragment fade-up">Производительность — из-за необходимости выполнения дополнительной
+                            логики, генерации компонентов, маршрутизации, хранения состояния может происходить снижение
+                            производительности на слабых устройствах</li>
+                        <li class="fragment fade-up">Каскад зависимостей — приложение разбито на отдельные компоненты,
                             что может приводить к необходимости ожидания загрузки компонентов перед загрузкой данных.
                             Например: app.js -> component.js -> response.json -> image.webp</li>
                     </ul>
                 </section>
             </section>
-            <section>Вопросы и ответы.</section>
+            <section>Вопросы и ответы</section>
         </div>
     </div>
     <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>

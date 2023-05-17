@@ -2,6 +2,10 @@
     text-transform: none;
 }
 
+.reveal pre {
+    font-size: 0.4em;
+}
+
 li,
 p {
     font-size: 26px;
