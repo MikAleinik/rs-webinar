@@ -10,5 +10,6 @@ module.exports = {
         port: 4200,
         hot: true,
         static: path.resolve(__dirname, './dist'),
+        historyApiFallback: true,
     },
 };

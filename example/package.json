@@ -1,5 +1,5 @@
 {
-  "name": "DOM",
+  "name": "spa",
   "version": "1.0.0",
   "description": "Training code",
   "main": "index.js",
@@ -17,9 +17,9 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",
-    "eslint": "^8.29.0",
+    "eslint": "^8.40.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",

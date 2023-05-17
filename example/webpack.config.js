@@ -1,31 +1,22 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { merge } = require('webpack-merge');
 
 const baseConfig = {
     entry: {
-        slider: './src/pages/slider/app-slider.js',
-        pagination: './src/pages/pagination/app-pagination.js',
+        index: './src/index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             filename: 'index.html',
             chunks: ['index'],
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, 'src', 'assets'),
-                    to: path.resolve(__dirname, 'dist', 'assets'),
-                },
-            ],
         }),
         new CleanWebpackPlugin(),
     ],
