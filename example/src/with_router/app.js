@@ -64,6 +64,6 @@ export default class App {
         this.main = new MainView();
         const footer = new FooterView();
 
-        document.body.append(this.header.getComponent(), this.main.getComponent(), footer.getComponent());
+        document.body.append(this.header.getHtmlElement(), this.main.getHtmlElement(), footer.getHtmlElement());
     }
 }

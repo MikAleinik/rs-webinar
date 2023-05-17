@@ -25,7 +25,7 @@ export default class HeaderView extends View {
          * @type {Array<HeaderItem>}
          */
         this.headerItems = [];
-        this.component = this.createView(changedLinks);
+        this.htmlElement = this.createView(changedLinks);
     }
 
     /**

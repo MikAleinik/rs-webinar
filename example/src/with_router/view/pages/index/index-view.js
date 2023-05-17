@@ -8,7 +8,7 @@ import View from '../../view';
 export default class IndexView extends View {
     constructor() {
         super();
-        this.component = this.createView();
+        this.htmlElement = this.createView();
     }
 
     createView() {

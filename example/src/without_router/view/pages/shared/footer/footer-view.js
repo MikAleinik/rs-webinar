@@ -7,7 +7,7 @@ const TEXT = 'SPA example app';
 export default class FooterView extends View {
     constructor() {
         super();
-        this.component = this.createView();
+        this.htmlElement = this.createView();
     }
 
     createView() {

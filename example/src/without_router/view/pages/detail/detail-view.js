@@ -16,7 +16,7 @@ export default class DetailView extends View {
      */
     constructor(mainComponent) {
         super();
-        this.component = this.createView(mainComponent);
+        this.htmlElement = this.createView(mainComponent);
     }
 
     createView(mainComponent) {
@@ -33,7 +33,7 @@ export default class DetailView extends View {
             smallCardComponent.setCallback(callbackMoreInfo);
             largeCardComponent.setCallback(callbackBackToMain);
 
-            elementPage.append(smallCardComponent.getComponent());
+            elementPage.append(smallCardComponent.getHtmlElement());
         });
 
         return elementPage;

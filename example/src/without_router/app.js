@@ -50,6 +50,6 @@ export default class App {
         main.setContent(index);
         header.setSelectedItem(pages[0].name);
 
-        document.body.append(header.getComponent(), main.getComponent(), footer.getComponent());
+        document.body.append(header.getHtmlElement(), main.getHtmlElement(), footer.getHtmlElement());
     }
 }

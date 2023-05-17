@@ -17,7 +17,7 @@ export default class DetailView extends View {
      */
     constructor(router, id = '') {
         super();
-        this.component = this.createView();
+        this.htmlElement = this.createView();
         if (id) {
             this.addLargeCardToView(router, id);
         } else {
@@ -38,7 +38,7 @@ export default class DetailView extends View {
     addSmallCardsToView(router) {
         cardsInfo.forEach((card) => {
             const smallCardComponent = new CardView(card, router);
-            this.component.append(smallCardComponent.getComponent());
+            this.htmlElement.append(smallCardComponent.getHtmlElement());
         });
     }
 
@@ -49,6 +49,6 @@ export default class DetailView extends View {
     addLargeCardToView(router, id) {
         const selectedCard = cardsInfo.find((card) => card.id === id);
         const largeCardComponent = new CardDetailView(selectedCard, router);
-        this.component.append(largeCardComponent.getComponent());
+        this.htmlElement.append(largeCardComponent.getHtmlElement());
     }
 }

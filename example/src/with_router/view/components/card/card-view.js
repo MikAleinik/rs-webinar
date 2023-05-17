@@ -19,7 +19,7 @@ export default class CardView extends View {
         this.card = params;
         this.router = router;
 
-        this.component = this.createView(params);
+        this.htmlElement = this.createView(params);
     }
 
     /**

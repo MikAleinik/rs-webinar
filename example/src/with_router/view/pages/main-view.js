@@ -4,17 +4,17 @@ import View from '../view';
 export default class MainView extends View {
     constructor() {
         super();
-        this.component = this.createView();
+        this.htmlElement = this.createView();
     }
 
     /**
      * @param {View} content
      */
     setContent(content) {
-        while (this.component.firstElementChild) {
-            this.component.firstElementChild.remove();
+        while (this.htmlElement.firstElementChild) {
+            this.htmlElement.firstElementChild.remove();
         }
-        this.component.append(content.getComponent());
+        this.htmlElement.append(content.getHtmlElement());
     }
 
     createView() {

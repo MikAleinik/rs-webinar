@@ -5,7 +5,7 @@ import View from '../../view';
 export default class NotFoundView extends View {
     constructor() {
         super();
-        this.component = this.createView();
+        this.htmlElement = this.createView();
     }
 
     createView() {

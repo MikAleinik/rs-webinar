@@ -15,7 +15,7 @@ export default class CardView extends View {
         this.callback = null;
         this.card = params;
 
-        this.component = this.createView(params);
+        this.htmlElement = this.createView(params);
     }
 
     /**

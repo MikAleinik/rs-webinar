@@ -30,7 +30,7 @@ export default class HeaderView extends View {
          * @type {Array<HeaderItem>}
          */
         this.headerItems = [];
-        this.component = this.createView(router);
+        this.htmlElement = this.createView(router);
     }
 
     /**

@@ -3,10 +3,10 @@
  */
 export default class View {
     constructor() {
-        this.component = null;
+        this.htmlElement = null;
     }
 
-    getComponent() {
-        return this.component;
+    getHtmlElement() {
+        return this.htmlElement;
     }
 }
