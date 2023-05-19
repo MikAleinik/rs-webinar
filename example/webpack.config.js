@@ -9,6 +9,8 @@ const baseConfig = {
         index: './src/index.js',
     },
     output: {
+        filename: '[name].js',
+        chunkFilename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
     },
@@ -16,7 +18,6 @@ const baseConfig = {
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             filename: 'index.html',
-            chunks: ['index'],
         }),
         new CleanWebpackPlugin(),
     ],
