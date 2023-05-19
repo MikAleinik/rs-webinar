@@ -3,7 +3,6 @@ import HeaderView from './view/pages/shared/header/header-view';
 import FooterView from './view/pages/shared/footer/footer-view';
 import IndexView from './view/pages/index/index-view';
 import DetailView from './view/pages/detail/detail-view';
-import AboutView from './view/pages/about/about-view';
 import MainView from './view/pages/main-view';
 import Router from './router/router';
 import { Pages, ID_SELECTOR } from './router/pages';
@@ -16,6 +15,13 @@ export default class App {
          * @type {Array<import('./router/router').Route>}
          */
         const routes = [
+            {
+                path: ``,
+                callback: () => {
+                    this.header.setSelectedItem(Pages.INDEX);
+                    this.main.setContent(new IndexView());
+                },
+            },
             {
                 path: `${Pages.INDEX}`,
                 callback: () => {
@@ -39,7 +45,8 @@ export default class App {
             },
             {
                 path: `${Pages.ABOUT}`,
-                callback: () => {
+                callback: async () => {
+                    const { default: AboutView } = await import('./view/pages/about/about-view');
                     this.header.setSelectedItem(Pages.ABOUT);
                     this.main.setContent(new AboutView());
                 },
@@ -56,7 +63,7 @@ export default class App {
 
         this.createView();
 
-        this.router.navigate(routes[0].path);
+        this.router.run();
     }
 
     createView() {

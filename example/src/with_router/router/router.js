@@ -4,6 +4,14 @@ import { Pages, ID_SELECTOR } from './pages';
  * @typedef {{path: string, callback: function}} Route
  */
 export default class Router {
+    run() {
+        const currentPath = this.getCurrentPath();
+        this.navigate(currentPath);
+
+        window.addEventListener('popstate', this.browserChangeHandler.bind(this));
+        window.addEventListener('hashchange', this.browserChangeHandler.bind(this));
+    }
+
     /**
      * @param {Array<Route>} routes
      */
@@ -15,6 +23,14 @@ export default class Router {
      * @param {string} url
      */
     navigate(url) {
+        this.navigateToUrl(url);
+        window.history.pushState(null, null, `/${url}`);
+    }
+
+    /**
+     * @param {string} url
+     */
+    navigateToUrl(url) {
         const request = this.parseUrl(url);
         const pathForFind = request.resource === '' ? request.path : `${request.path}/${ID_SELECTOR}`;
         const route = this.routes.find((item) => item.path === pathForFind);
@@ -25,6 +41,17 @@ export default class Router {
         }
 
         route.callback(request.resource);
+    }
+
+    /**
+     * @returns {string}
+     */
+    getCurrentPath() {
+        if (window.location.hash) {
+            return window.location.hash.slice(1);
+        }
+
+        return window.location.pathname.slice(1);
     }
 
     /**
@@ -47,28 +74,9 @@ export default class Router {
             this.navigate(notFoundPage.path);
         }
     }
-    // /**
-    //  * @typedef {{path: string, resource: string}} UserRequest
-    //  * @returns {UserRequest}
-    //  */
-    // parseUrl() {
-    //     const result = {
-    //         path: '/',
-    //         resource: '',
-    //     };
 
-    //     if (window.location.pathname === '/') {
-    //         return result;
-    //     }
-    //     const path = window.location.pathname.slice(1).split('/');
-    //     if (path[0]) {
-    //         [result.path, result.resource] = path;
-    //     } else {
-    //         const items = window.location.hash.slice(1).split('?');
-    //         const hash = items[0].split('/');
-    //         [result.path, result.resource] = hash;
-    //     }
-
-    //     return result;
-    // }
+    browserChangeHandler() {
+        const currentPath = this.getCurrentPath();
+        this.navigateToUrl(currentPath);
+    }
 }
