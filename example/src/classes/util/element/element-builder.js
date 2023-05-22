@@ -8,6 +8,7 @@ import DefaultBuilder from '../default-builder';
  */
 export default class ElementBuilder extends DefaultBuilder {
     /**
+     * Добавление дочерними классами нового метода расширяет функциональность родительского.
      * @param {HTMLElement | DefaultBuilder} element
      * @returns {ElementBuilder}
      */

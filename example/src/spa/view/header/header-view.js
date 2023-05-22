@@ -51,7 +51,7 @@ export default class HeaderView extends View {
             navBuilder.addInnerElement(linkElement);
         });
 
-        headerBuilder.setCssClasses([CssClasses.HEADER]).addInnerElement(navBuilder);
+        headerBuilder.addInnerElement(navBuilder).setCssClasses([CssClasses.HEADER]);
         return headerBuilder.getElement();
     }
 

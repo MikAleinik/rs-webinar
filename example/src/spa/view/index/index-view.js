@@ -46,16 +46,16 @@ export default class IndexView extends View {
 
         inputFieldBuilder
             .reset()
+            .setValue(state.getField(FIELD_TEXT_THREE))
             .setTextContent(FIELD_TEXT_THREE)
-            .setClickCallback(this.threeFieldKeyupHandler.bind(this))
-            .setValue(state.getField(FIELD_TEXT_THREE));
+            .setClickCallback(this.threeFieldKeyupHandler.bind(this));
         builder.addInnerElement(inputFieldBuilder);
 
         inputFieldBuilder
             .reset()
+            .setValue(state.getField(FIELD_TEXT_FOUR))
             .setTextContent(FIELD_TEXT_FOUR)
-            .setClickCallback(this.fourFieldKeyupHandler.bind(this))
-            .setValue(state.getField(FIELD_TEXT_FOUR));
+            .setClickCallback(this.fourFieldKeyupHandler.bind(this));
         builder.addInnerElement(inputFieldBuilder);
 
         return builder.getElement();

@@ -23,6 +23,7 @@ export default class DefaultBuilder {
 
     /**
      * @param {Array<string>} cssClasses
+     * @returns {DefaultBuilder}
      */
     setCssClasses(cssClasses = []) {
         cssClasses.map((cssClass) => this.element.classList.add(cssClass));
@@ -31,6 +32,7 @@ export default class DefaultBuilder {
 
     /**
      * @param {string} text
+     * @returns {DefaultBuilder}
      */
     setTextContent(text = '') {
         this.element.textContent = text;
@@ -39,6 +41,7 @@ export default class DefaultBuilder {
 
     /**
      * @param {function} callback
+     * @returns {DefaultBuilder}
      */
     setClickCallback(callback = null) {
         this.element.addEventListener('click', (event) => callback(event));
@@ -48,12 +51,16 @@ export default class DefaultBuilder {
     /**
      * @param {string} name
      * @param {string} value
+     * @returns {DefaultBuilder}
      */
     setAttribute(name, value) {
         this.element.setAttribute(name, value);
         return this;
     }
 
+    /**
+     * @returns {DefaultBuilder}
+     */
     reset() {
         this.element = document.createElement(this.tag);
         return this;

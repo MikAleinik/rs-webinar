@@ -37,6 +37,7 @@ export default class HeaderView extends View {
 
     /**
      * @param {MainView} mainComponent
+     * @returns {HTMLElement}
      */
     createView(mainComponent) {
         const headerBuilder = new ElementBuilder('header');
@@ -75,7 +76,7 @@ export default class HeaderView extends View {
             this.headerLinkElements.push(linkElement);
         });
 
-        headerBuilder.setCssClasses([CssClasses.HEADER]).addInnerElement(navBuilder);
+        headerBuilder.addInnerElement(navBuilder).setCssClasses([CssClasses.HEADER]);
         return headerBuilder.getElement();
     }
 
