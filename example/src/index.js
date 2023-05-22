@@ -1,10 +1,9 @@
-// import AppNoRouter from './without_router/app';
-import AppRouter from './with_router/app';
+/* eslint-disable no-unused-vars */
+// import App from './classes/app';
+// import AppSpa from './spa/app';
 
-// Для запуска приложения без реализации роутера
-// eslint-disable-next-line no-unused-vars
-// const appNoRouter = new AppNoRouter();
+// Для запуска приложения с примерами использования классов
+// const app = new App();
 
-// Для запуска приложения без реализации роутера
-// eslint-disable-next-line no-unused-vars
-const appRouter = new AppRouter();
+// Для запуска приложения c реализацией SPA
+// const appSpa = new AppSpa();
