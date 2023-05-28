@@ -1,6 +1,4 @@
 import './card.css';
-// eslint-disable-next-line no-unused-vars
-import Router from '../../router/router';
 import { Pages } from '../../router/pages';
 import View from '../../../classes/view/view';
 import ElementBuilder from '../../../classes/util/element/element-builder';
@@ -15,7 +13,7 @@ const CARD_TEXT_MORE = 'Подробнее...';
 export default class CardView extends View {
     /**
      * @param {import('../../../data/cards').CardInfo} card
-     * @param {Router} router
+     * @param {import('../../router/router').default} router
      */
     constructor(card, router) {
         super();

@@ -1,25 +1,25 @@
-import './showcase.css';
+import './product.css';
 import View from '../view';
 import cardsInfo from '../../../data/cards';
 import CardView from '../card/card-view';
 import CardDetailView from '../card-detail/card-detail-view';
-import ElementBuilder from '../../util/element/element-builder';
 
 const CssClasses = {
-    SHOWCASE: 'showcase',
+    PRODUCT: 'product',
 };
 
-export default class ShowcaseView extends View {
+export default class ProductView extends View {
     constructor() {
-        super();
-        this.htmlElement = this.createView();
-        this.showAllCard();
-    }
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'main',
+            classNames: [CssClasses.PRODUCT],
+        };
+        super(params);
 
-    createView() {
-        const builder = new ElementBuilder('section');
-        builder.setCssClasses([CssClasses.SHOWCASE]);
-        return builder.getElement();
+        this.showAllCard();
     }
 
     /**
@@ -39,8 +39,8 @@ export default class ShowcaseView extends View {
      */
     createLargeCardToView(card) {
         const largeCardComponent = new CardDetailView(card);
-        const callbackToShowcase = () => this.showAllCard();
-        largeCardComponent.setCallback(callbackToShowcase);
+        const callbackToProduct = () => this.showAllCard();
+        largeCardComponent.setCallback(callbackToProduct);
         return largeCardComponent;
     }
 
@@ -48,19 +48,20 @@ export default class ShowcaseView extends View {
         this.clearShowcase();
         cardsInfo.forEach((card) => {
             const smallCardComponent = this.createSmallCardsToView(card);
-            this.htmlElement.append(smallCardComponent.getHtmlElement());
+            this.viewElementCreator.addInnerElement(smallCardComponent.getHtmlElement());
         });
     }
 
     showLargeCard(card) {
         this.clearShowcase();
         const largeCard = this.createLargeCardToView(card);
-        this.htmlElement.append(largeCard.getHtmlElement());
+        this.viewElementCreator.addInnerElement(largeCard.getHtmlElement());
     }
 
     clearShowcase() {
-        while (this.htmlElement.firstElementChild) {
-            this.htmlElement.firstElementChild.remove();
+        const htmlElement = this.viewElementCreator.getElement();
+        while (htmlElement.firstElementChild) {
+            htmlElement.firstElementChild.remove();
         }
     }
 }

@@ -1,9 +1,8 @@
-const LOCALSTORAGE_KEY = 'spa';
+const KEY_FOR_SAVE_TO_LOCALSTORAGE = 'spa';
 
 export default class State {
     constructor() {
-        this.fields = new Map();
-        this.loadState();
+        this.fields = this.loadState();
 
         window.addEventListener('beforeunload', this.saveState.bind(this));
     }
@@ -21,22 +20,23 @@ export default class State {
      * @returns {string}
      */
     getField(name) {
-        if (this.fields.has(name)) {
-            return this.fields.get(name);
-        }
-        return '';
+        return this.fields.get(name);
     }
 
     saveState() {
         const fiedlsObject = Object.fromEntries(this.fields.entries());
-        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(fiedlsObject));
+        localStorage.setItem(KEY_FOR_SAVE_TO_LOCALSTORAGE, JSON.stringify(fiedlsObject));
     }
 
+    /**
+     * @returns {Map}
+     */
     loadState() {
-        const storageItem = localStorage.getItem(LOCALSTORAGE_KEY);
+        const storageItem = localStorage.getItem(KEY_FOR_SAVE_TO_LOCALSTORAGE);
         if (storageItem) {
             const fieldObject = JSON.parse(storageItem);
-            this.fields = new Map(Object.entries(fieldObject));
+            return new Map(Object.entries(fieldObject));
         }
+        return new Map();
     }
 }

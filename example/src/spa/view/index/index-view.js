@@ -1,9 +1,7 @@
 import './index.css';
 import View from '../../../classes/view/view';
 import ElementBuilder from '../../../classes/util/element/element-builder';
-import InputFieldBuilder from '../../../classes/util/input-field/input-field-builder';
-// eslint-disable-next-line no-unused-vars
-import State from '../../state/state';
+import InputFieldBuilder from '../../../classes/util/input-field/__input-field-builder';
 
 const CssClasses = {
     INDEX: 'index',
@@ -15,7 +13,7 @@ const FIELD_TEXT_FOUR = 'Поле для ввода 4';
 
 export default class IndexView extends View {
     /**
-     * @param {State} state
+     * @param {import('../../state/state').default} state
      */
     constructor(state) {
         super();
@@ -24,7 +22,7 @@ export default class IndexView extends View {
     }
 
     /**
-     * @param {State} state
+     * @param {import('../../state/state').default} state
      */
     createView(state) {
         const builder = new ElementBuilder('section');

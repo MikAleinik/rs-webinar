@@ -1,8 +1,8 @@
 import './card.css';
 import View from '../view';
-import ElementBuilder from '../../util/element/element-builder';
+import ElementCreator from '../../util/element-creator';
 
-const CardCssClasses = {
+const CssClasses = {
     CONTAINER: 'card',
     FIELD: 'card__field',
     BUTTON: 'card__button',
@@ -14,33 +14,47 @@ export default class CardView extends View {
      * @param {import('../../../data/cards').CardInfo} card
      */
     constructor(card) {
-        super();
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'article',
+            classNames: [CssClasses.CONTAINER],
+        };
+        super(params);
 
         this.callback = null;
         this.card = card;
 
-        this.htmlElement = this.createView();
+        this.configureView();
     }
 
-    /**
-     * @returns {HTMLElement}
-     */
-    createView() {
-        const builder = new ElementBuilder('article');
-        builder.setCssClasses([CardCssClasses.CONTAINER]);
+    configureView() {
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        const labelParams = {
+            tag: 'label',
+            classNames: [CssClasses.FIELD],
+            textContent: this.card.name,
+            callback: null,
+            attr: null,
+        };
+        const creatorLabel = new ElementCreator(labelParams);
+        this.viewElementCreator.addInnerElement(creatorLabel);
 
-        const labelBuilder = new ElementBuilder('label');
-        labelBuilder.setTextContent(this.card.name).setCssClasses([CardCssClasses.FIELD]);
-        builder.addInnerElement(labelBuilder);
-
-        const buttonBuilder = new ElementBuilder('button');
-        buttonBuilder
-            .setTextContent(CARD_TEXT_MORE)
-            .setCssClasses([CardCssClasses.BUTTON])
-            .setClickCallback(this.buttonClickHandler.bind(this));
-        builder.addInnerElement(buttonBuilder);
-
-        return builder.getElement();
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        const buttonParams = {
+            tag: 'button',
+            classNames: [CssClasses.BUTTON],
+            textContent: CARD_TEXT_MORE,
+            callback: this.buttonClickHandler.bind(this),
+            attr: null,
+        };
+        const creatorButton = new ElementCreator(buttonParams);
+        this.viewElementCreator.addInnerElement(creatorButton);
     }
 
     /**

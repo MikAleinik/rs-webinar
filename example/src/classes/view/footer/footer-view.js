@@ -1,6 +1,5 @@
 import './footer.css';
 import View from '../view';
-import ElementBuilder from '../../util/element/element-builder';
 
 const CssClasses = {
     FOOTER: 'footer',
@@ -9,13 +8,18 @@ const TEXT = 'SPA example app';
 
 export default class FooterView extends View {
     constructor() {
-        super();
-        this.htmlElement = this.createView();
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'section',
+            classNames: [CssClasses.FOOTER],
+        };
+        super(params);
+        this.configureView();
     }
 
-    createView() {
-        const builder = new ElementBuilder('footer');
-        builder.setCssClasses([CssClasses.FOOTER]).setTextContent(TEXT);
-        return builder.getElement();
+    configureView() {
+        this.viewElementCreator.setTextContent(TEXT);
     }
 }

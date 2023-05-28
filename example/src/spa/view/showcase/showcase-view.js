@@ -2,8 +2,6 @@ import './showcase.css';
 import cardsInfo from '../../../data/cards';
 import ElementBuilder from '../../../classes/util/element/element-builder';
 import View from '../../../classes/view/view';
-// eslint-disable-next-line no-unused-vars
-import Router from '../../router/router';
 import CardDetailView from '../card-detail/card-detail-view';
 import CardView from '../card/card-view';
 
@@ -14,7 +12,7 @@ const CssClasses = {
 export default class ShowcaseView extends View {
     /**
      * @param {string} id
-     * @param {Router} router
+     * @param {import('../../router/router').default} router
      */
     constructor(router, id = '') {
         super();
@@ -33,7 +31,7 @@ export default class ShowcaseView extends View {
     }
 
     /**
-     * @param {Router} router
+     * @param {import('../../router/router').default} router
      */
     addSmallCardsToView(router) {
         cardsInfo.forEach((card) => {
@@ -43,7 +41,7 @@ export default class ShowcaseView extends View {
     }
 
     /**
-     * @param {Router} router
+     * @param {import('../../router/router').default} router
      * @param {string} id
      */
     addLargeCardToView(router, id) {

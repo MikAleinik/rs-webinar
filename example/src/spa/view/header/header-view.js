@@ -1,6 +1,4 @@
 import './header.css';
-// eslint-disable-next-line no-unused-vars
-import Router from '../../router/router';
 import { Pages } from '../../router/pages';
 import View from '../../../classes/view/view';
 import ElementBuilder from '../../../classes/util/element/element-builder';
@@ -19,7 +17,7 @@ const NamePages = {
 
 export default class HeaderView extends View {
     /**
-     * @param {Router} router
+     * @param {import('../../router/router.js').default} router
      */
     constructor(router) {
         super();
@@ -29,7 +27,7 @@ export default class HeaderView extends View {
     }
 
     /**
-     * @param {Router} router
+     * @param {import('../../router/router.js').default} router
      */
     createView(router) {
         const headerBuilder = new ElementBuilder('header');

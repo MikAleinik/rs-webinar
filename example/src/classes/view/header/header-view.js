@@ -1,11 +1,9 @@
 import './header.css';
 import View from '../view';
-import ElementBuilder from '../../util/element/element-builder';
-// eslint-disable-next-line no-unused-vars
-import MainView from '../main/main-view';
 import IndexView from '../index/index-view';
-import ShowcaseView from '../showcase/showcase-view';
+import ProductView from '../product/product-view';
 import AboutView from '../about/about-view';
+import ElementCreator from '../../util/element-creator';
 
 const CssClasses = {
     HEADER: 'header',
@@ -26,27 +24,40 @@ const START_PAGE_INDEX = 0;
 
 export default class HeaderView extends View {
     /**
-     * @param {MainView} mainComponent
+     * @param {import('../main/main-view').default} mainComponent
      */
     constructor(mainComponent) {
-        super();
-
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'header',
+            classNames: [CssClasses.HEADER],
+        };
+        super(params);
         this.headerLinkElements = [];
-        this.htmlElement = this.createView(mainComponent);
+        this.configureView(mainComponent);
     }
 
     /**
-     * @param {MainView} mainComponent
-     * @returns {HTMLElement}
+     * @param {import('../main/main-view').default} mainComponent
      */
-    createView(mainComponent) {
-        const headerBuilder = new ElementBuilder('header');
-
-        const navBuilder = new ElementBuilder('nav');
-        navBuilder.setCssClasses([CssClasses.NAV]);
+    configureView(mainComponent) {
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        const navParams = {
+            tag: 'nav',
+            classNames: [CssClasses.NAV],
+            textContent: '',
+            callback: null,
+            attr: null,
+        };
+        const creatorNav = new ElementCreator(navParams);
+        this.viewElementCreator.addInnerElement(creatorNav);
 
         const indexView = new IndexView();
-        const showcaseView = new ShowcaseView();
+        const productView = new ProductView();
         const aboutView = new AboutView();
 
         const pages = [
@@ -56,7 +67,7 @@ export default class HeaderView extends View {
             },
             {
                 name: NamePages.SHOWCASE,
-                callback: () => mainComponent.setContent(showcaseView),
+                callback: () => mainComponent.setContent(productView),
             },
             {
                 name: NamePages.ABOUT,
@@ -67,7 +78,7 @@ export default class HeaderView extends View {
             const linkElement = this.createLinkElement(page.name, page.callback);
             linkElement.addEventListener('click', this.linkClickHandler.bind(this));
 
-            navBuilder.addInnerElement(linkElement);
+            creatorNav.addInnerElement(linkElement);
             if (index === START_PAGE_INDEX) {
                 page.callback();
                 linkElement.classList.add(CssClasses.ITEM_SELECTED);
@@ -76,8 +87,7 @@ export default class HeaderView extends View {
             this.headerLinkElements.push(linkElement);
         });
 
-        headerBuilder.addInnerElement(navBuilder).setCssClasses([CssClasses.HEADER]);
-        return headerBuilder.getElement();
+        this.viewElementCreator.addInnerElement(creatorNav);
     }
 
     /**
@@ -92,12 +102,22 @@ export default class HeaderView extends View {
 
     /**
      * @param {string} text
-     * @param {function} callback
+     * @param {function} clickCallback
      * @returns {HTMLElement}
      */
-    createLinkElement(text, callback) {
-        const builder = new ElementBuilder('a');
-        builder.setCssClasses([CssClasses.ITEM]).setTextContent(text).setClickCallback(callback);
-        return builder.getElement();
+    createLinkElement(text, clickCallback) {
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        const linkParams = {
+            tag: 'a',
+            classNames: [CssClasses.ITEM],
+            textContent: text,
+            callback: clickCallback,
+            attr: null,
+        };
+        const creatorNav = new ElementCreator(linkParams);
+
+        return creatorNav.getElement();
     }
 }

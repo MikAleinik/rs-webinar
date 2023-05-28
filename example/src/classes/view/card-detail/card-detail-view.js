@@ -1,4 +1,4 @@
-import ElementBuilder from '../../util/element/element-builder';
+import ElementCreator from '../../util/element-creator';
 import CardView from '../card/card-view';
 
 const CssClasses = {
@@ -11,26 +11,42 @@ const CARD_TEXT_BACK = 'Назад...';
 
 export default class CardDetailView extends CardView {
     /**
-     * @returns {HTMLElement}
+     * @override
      */
-    createView() {
-        const builder = new ElementBuilder('article');
-        builder.setCssClasses([CssClasses.CONTAINER, CssClasses.CONTAINER_FULL]);
+    configureView() {
+        this.viewElementCreator.setCssClasses([CssClasses.CONTAINER_FULL]);
 
-        const labelBuilder = new ElementBuilder('label');
-        labelBuilder.setTextContent(this.card.name).setCssClasses([CssClasses.FIELD]);
-        builder.addInnerElement(labelBuilder);
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        let labelParams = {
+            tag: 'label',
+            classNames: [CssClasses.FIELD],
+            textContent: this.card.name,
+            callback: null,
+            attr: null,
+        };
+        let creatorLabel = new ElementCreator(labelParams);
+        this.viewElementCreator.addInnerElement(creatorLabel);
 
-        labelBuilder.reset().setTextContent(this.card.description).setCssClasses([CssClasses.FIELD]);
-        builder.addInnerElement(labelBuilder);
+        labelParams = {
+            tag: 'label',
+            classNames: [CssClasses.FIELD],
+            textContent: this.card.description,
+            callback: null,
+            attr: null,
+        };
+        creatorLabel = new ElementCreator(labelParams);
+        this.viewElementCreator.addInnerElement(creatorLabel);
 
-        const buttonBuilder = new ElementBuilder('button');
-        buttonBuilder
-            .setTextContent(CARD_TEXT_BACK)
-            .setCssClasses([CssClasses.BUTTON])
-            .setClickCallback(this.buttonClickHandler.bind(this));
-        builder.addInnerElement(buttonBuilder);
-
-        return builder.getElement();
+        const buttonParams = {
+            tag: 'button',
+            classNames: [CssClasses.BUTTON],
+            textContent: CARD_TEXT_BACK,
+            callback: this.buttonClickHandler.bind(this),
+            attr: null,
+        };
+        const creatorButton = new ElementCreator(buttonParams);
+        this.viewElementCreator.addInnerElement(creatorButton);
     }
 }

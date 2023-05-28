@@ -1,92 +1,64 @@
 import './index.css';
 import View from '../view';
-import ElementBuilder from '../../util/element/element-builder';
-import InputFieldBuilder from '../../util/input-field/input-field-builder';
+import InputFieldCreator from '../../util/input-field/input-field-creator';
 
 const CssClasses = {
     INDEX: 'index',
 };
 const FIELD_TEXT_ONE = 'Поле для ввода 1';
 const FIELD_TEXT_TWO = 'Поле для ввода 2';
-const FIELD_TEXT_THREE = 'Поле для ввода 3';
-const FIELD_TEXT_FOUR = 'Поле для ввода 4';
 
 export default class IndexView extends View {
     constructor() {
-        super();
-        this.htmlElement = this.createView();
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'section',
+            classNames: [CssClasses.INDEX],
+        };
+        super(params);
+        this.configureView();
 
         this.firstInput = '';
         this.secondInput = '';
-        this.threeInput = '';
-        this.fourInput = '';
     }
 
-    createView() {
-        const builder = new ElementBuilder('section');
-        builder.setCssClasses([CssClasses.INDEX]);
+    configureView() {
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        let inputParams = {
+            tag: 'input',
+            classNames: [],
+            textContent: FIELD_TEXT_ONE,
+            callback: (event) => this.keyupHandler(event, this.firstInput),
+            attr: null,
+        };
+        let creatorInput = new InputFieldCreator(inputParams);
+        this.viewElementCreator.addInnerElement(creatorInput);
 
-        const inputFieldBuilder = new InputFieldBuilder();
-        inputFieldBuilder
-            .reset()
-            .setTextContent(FIELD_TEXT_ONE)
-            .setKeyUpCallback(this.firstFieldKeyupHandler.bind(this));
-        builder.addInnerElement(inputFieldBuilder);
-
-        inputFieldBuilder
-            .reset()
-            .setTextContent(FIELD_TEXT_TWO)
-            .setKeyUpCallback(this.secondFieldKeyupHandler.bind(this));
-        builder.addInnerElement(inputFieldBuilder);
-
-        inputFieldBuilder
-            .reset()
-            .setTextContent(FIELD_TEXT_THREE)
-            .setClickCallback(this.threeFieldKeyupHandler.bind(this));
-        builder.addInnerElement(inputFieldBuilder);
-
-        inputFieldBuilder
-            .reset()
-            .setTextContent(FIELD_TEXT_FOUR)
-            .setClickCallback(this.fourFieldKeyupHandler.bind(this));
-        builder.addInnerElement(inputFieldBuilder);
-
-        return builder.getElement();
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        inputParams = {
+            tag: 'input',
+            classNames: [],
+            textContent: FIELD_TEXT_TWO,
+            callback: (event) => this.keyupHandler(event, this.secondInput),
+            attr: null,
+        };
+        creatorInput = new InputFieldCreator(inputParams);
+        this.viewElementCreator.addInnerElement(creatorInput);
     }
 
     /**
      * @param {KeyboardEvent} event
+     * @param {string} field
      */
-    firstFieldKeyupHandler(event) {
+    keyupHandler(event, field) {
         if (event.target instanceof HTMLInputElement) {
-            this.firstInput = event.target.value;
-        }
-    }
-
-    /**
-     * @param {KeyboardEvent} event
-     */
-    secondFieldKeyupHandler(event) {
-        if (event.target instanceof HTMLInputElement) {
-            this.secondInput = event.target.value;
-        }
-    }
-
-    /**
-     * @param {KeyboardEvent} event
-     */
-    threeFieldKeyupHandler(event) {
-        if (event.target instanceof HTMLInputElement) {
-            this.threeInput = event.target.value;
-        }
-    }
-
-    /**
-     * @param {KeyboardEvent} event
-     */
-    fourFieldKeyupHandler(event) {
-        if (event.target instanceof HTMLInputElement) {
-            this.fourInput = event.target.value;
+            field = event.target.value;
         }
     }
 }

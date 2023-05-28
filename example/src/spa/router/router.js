@@ -4,19 +4,19 @@ import { Pages, ID_SELECTOR } from './pages';
  * @typedef {{path: string, callback: function}} Route
  */
 export default class Router {
-    run() {
-        const currentPath = this.getCurrentPath();
-        this.navigate(currentPath);
-
-        window.addEventListener('popstate', this.browserChangeHandler.bind(this));
-        window.addEventListener('hashchange', this.browserChangeHandler.bind(this));
-    }
-
     /**
      * @param {Array<Route>} routes
      */
-    setRoutes(routes) {
+    constructor(routes) {
         this.routes = routes;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = this.getCurrentPath();
+            this.navigate(currentPath);
+        });
+
+        window.addEventListener('popstate', this.browserChangeHandler.bind(this));
+        window.addEventListener('hashchange', this.browserChangeHandler.bind(this));
     }
 
     /**
@@ -43,6 +43,7 @@ export default class Router {
         route.callback(request.resource);
     }
 
+    // TODO реализовать паттерн стратегия (?)
     /**
      * @returns {string}
      */

@@ -1,6 +1,5 @@
 import './about.css';
 import View from '../view';
-import ElementBuilder from '../../util/element/element-builder';
 
 const CssClasses = {
     ABOUT: 'about',
@@ -9,13 +8,18 @@ const TEXT_LAZY_LOAD = 'Страница для показа отложенно�
 
 export default class AboutView extends View {
     constructor() {
-        super();
-        this.htmlElement = this.createView();
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'section',
+            classNames: [CssClasses.ABOUT],
+        };
+        super(params);
+        this.configureView();
     }
 
-    createView() {
-        const builder = new ElementBuilder('section');
-        builder.setCssClasses([CssClasses.ABOUT]).setTextContent(TEXT_LAZY_LOAD);
-        return builder.getElement();
+    configureView() {
+        this.viewElementCreator.setTextContent(TEXT_LAZY_LOAD);
     }
 }
