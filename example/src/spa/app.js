@@ -1,10 +1,10 @@
 import '../style.css';
-import HeaderView from './view/header/header-view';
 import Router from './router/router';
 import { Pages, ID_SELECTOR } from './router/pages';
-import FooterView from '../classes/view/footer/footer-view';
-import MainView from '../classes/view/main/main-view';
 import State from './state/state';
+import FooterView from './view/footer/footer-view';
+import HeaderView from './view/header/header-view';
+import MainView from './view/main/main-view';
 
 export default class App {
     header = null;
@@ -24,7 +24,7 @@ export default class App {
     }
 
     /**
-     * @returns {Array<import('../classes/view/view').default>}
+     * @returns {Array<import('./view/view').default>}
      */
     createView() {
         const header = new HeaderView(this.router);
@@ -43,42 +43,35 @@ export default class App {
             {
                 path: ``,
                 callback: async () => {
-                    const { default: IndexView } = await import('./view/index/index-view');
+                    const { default: IndexView } = await import('./view/main/index/index-view');
                     this.setContent(Pages.INDEX, new IndexView(state));
                 },
             },
             {
                 path: `${Pages.INDEX}`,
                 callback: async () => {
-                    const { default: IndexView } = await import('./view/index/index-view');
+                    const { default: IndexView } = await import('./view/main/index/index-view');
                     this.setContent(Pages.INDEX, new IndexView(state));
                 },
             },
             {
-                path: `${Pages.SHOWCASE}`,
+                path: `${Pages.PRODUCT}`,
                 callback: async () => {
-                    const { default: ShowcaseView } = await import('./view/showcase/showcase-view');
-                    this.setContent(Pages.SHOWCASE, new ShowcaseView(this.router));
+                    const { default: ProductView } = await import('./view/main/product/product-view');
+                    this.setContent(Pages.PRODUCT, new ProductView(this.router));
                 },
             },
             {
-                path: `${Pages.SHOWCASE}/${ID_SELECTOR}`,
+                path: `${Pages.PRODUCT}/${ID_SELECTOR}`,
                 callback: async (id) => {
-                    const { default: ShowcaseView } = await import('./view/showcase/showcase-view');
-                    this.setContent(Pages.SHOWCASE, new ShowcaseView(this.router, id));
-                },
-            },
-            {
-                path: `${Pages.ABOUT}`,
-                callback: async () => {
-                    const { default: AboutView } = await import('../classes/view/about/about-view');
-                    this.setContent(Pages.ABOUT, new AboutView());
+                    const { default: ProductView } = await import('./view/main/product/product-view');
+                    this.setContent(Pages.PRODUCT, new ProductView(this.router, id));
                 },
             },
             {
                 path: `${Pages.NOT_FOUND}`,
                 callback: async () => {
-                    const { default: NotFoundView } = await import('./view/not-found/not-found-view');
+                    const { default: NotFoundView } = await import('./view/main/not-found/not-found-view');
                     this.setContent(Pages.NOT_FOUND, new NotFoundView());
                 },
             },
@@ -87,7 +80,7 @@ export default class App {
 
     /**
      * @param {string} page
-     * @param {import('../classes/view/view').default} view
+     * @param {import('./view/view').default} view
      */
     setContent(page, view) {
         this.header.setSelectedItem(page);

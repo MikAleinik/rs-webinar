@@ -1,7 +1,6 @@
 const Pages = {
     INDEX: 'index',
-    SHOWCASE: 'showcase',
-    ABOUT: 'about',
+    PRODUCT: 'product',
     NOT_FOUND: 'not-found',
 };
 

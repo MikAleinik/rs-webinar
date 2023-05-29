@@ -1,7 +1,7 @@
 import './header.css';
 import { Pages } from '../../router/pages';
-import View from '../../../classes/view/view';
-import ElementBuilder from '../../../classes/util/element/element-builder';
+import ElementCreator from '../../util/element-creator';
+import View from '../view';
 
 const CssClasses = {
     HEADER: 'header',
@@ -11,8 +11,7 @@ const CssClasses = {
 };
 const NamePages = {
     INDEX: 'Главная',
-    SHOWCASE: 'Карточки',
-    ABOUT: 'О нас',
+    PRODUCT: 'Карточки',
 };
 
 export default class HeaderView extends View {
@@ -20,37 +19,47 @@ export default class HeaderView extends View {
      * @param {import('../../router/router.js').default} router
      */
     constructor(router) {
-        super();
+        /**
+         * @type {import('../view').ViewParams}
+         */
+        const params = {
+            tag: 'header',
+            classNames: [CssClasses.HEADER],
+        };
+        super(params);
 
         this.headerLinkElements = new Map();
-        this.htmlElement = this.createView(router);
+        this.configureView(router);
     }
 
     /**
      * @param {import('../../router/router.js').default} router
      */
-    createView(router) {
-        const headerBuilder = new ElementBuilder('header');
-
-        const navBuilder = new ElementBuilder('nav');
-        navBuilder.setCssClasses([CssClasses.NAV]);
+    configureView(router) {
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        const navParams = {
+            tag: 'nav',
+            classNames: [CssClasses.NAV],
+            textContent: '',
+            callback: null,
+        };
+        const creatorNav = new ElementCreator(navParams);
+        this.viewElementCreator.addInnerElement(creatorNav);
 
         Object.keys(NamePages).forEach((key) => {
             const callback = () => router.navigate(Pages[key]);
 
-            const builder = new ElementBuilder('a');
-            builder
-                .setCssClasses([CssClasses.ITEM])
-                .setTextContent(NamePages[key])
-                .setClickCallback(this.linkClickHandler.bind(this, callback));
-            const linkElement = builder.getElement();
-            this.headerLinkElements.set(key, linkElement);
+            const linkElement = this.createLinkElement(NamePages[key], callback);
+            linkElement.addEventListener('click', this.linkClickHandler.bind(this, callback));
 
-            navBuilder.addInnerElement(linkElement);
+            creatorNav.addInnerElement(linkElement);
+
+            this.headerLinkElements.set(key, linkElement);
         });
 
-        headerBuilder.addInnerElement(navBuilder).setCssClasses([CssClasses.HEADER]);
-        return headerBuilder.getElement();
+        this.viewElementCreator.addInnerElement(creatorNav);
     }
 
     /**
@@ -77,5 +86,25 @@ export default class HeaderView extends View {
         if (selectedElement instanceof HTMLElement) {
             selectedElement.classList.add(CssClasses.ITEM_SELECTED);
         }
+    }
+
+    /**
+     * @param {string} text
+     * @param {function} clickCallback
+     * @returns {HTMLElement}
+     */
+    createLinkElement(text, clickCallback) {
+        /**
+         * @type {import('../../util/element-creator').ElementParams}
+         */
+        const linkParams = {
+            tag: 'a',
+            classNames: [CssClasses.ITEM],
+            textContent: text,
+            callback: clickCallback,
+        };
+        const creatorLink = new ElementCreator(linkParams);
+
+        return creatorLink.getElement();
     }
 }

@@ -1,6 +1,6 @@
 import './index.css';
-import View from '../../view';
 import InputFieldCreator from '../../../util/input-field/input-field-creator';
+import View from '../../view';
 
 const CssClasses = {
     INDEX: 'index',
@@ -9,7 +9,10 @@ const FIELD_TEXT_ONE = 'Поле для ввода 1';
 const FIELD_TEXT_TWO = 'Поле для ввода 2';
 
 export default class IndexView extends View {
-    constructor() {
+    /**
+     * @param {import('../../../state/state').default} state
+     */
+    constructor(state) {
         /**
          * @type {import('../../view').ViewParams}
          */
@@ -18,13 +21,14 @@ export default class IndexView extends View {
             classNames: [CssClasses.INDEX],
         };
         super(params);
-        this.configureView();
-
-        this.firstInput = '';
-        this.secondInput = '';
+        this.state = state;
+        this.configureView(state);
     }
 
-    configureView() {
+    /**
+     * @param {import('../../../state/state').default} state
+     */
+    configureView(state) {
         /**
          * @type {import('../../../util/element-creator').ElementParams}
          */
@@ -35,6 +39,7 @@ export default class IndexView extends View {
             callback: (event) => this.keyupHandler(event, `firstInput`),
         };
         let creatorInput = new InputFieldCreator(inputParams);
+        creatorInput.setValue(state.getField(FIELD_TEXT_ONE));
         this.viewElementCreator.addInnerElement(creatorInput);
 
         inputParams = {
@@ -44,6 +49,7 @@ export default class IndexView extends View {
             callback: (event) => this.keyupHandler(event, `secondInput`),
         };
         creatorInput = new InputFieldCreator(inputParams);
+        creatorInput.setValue(state.getField(FIELD_TEXT_ONE));
         this.viewElementCreator.addInnerElement(creatorInput);
     }
 
@@ -53,7 +59,7 @@ export default class IndexView extends View {
      */
     keyupHandler(event, fieldName) {
         if (event.target instanceof HTMLInputElement) {
-            this[fieldName] = event.target.value;
+            this.state.setField(fieldName, event.target.value);
         }
     }
 }
