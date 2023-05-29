@@ -3,12 +3,13 @@ import View from '../view';
 import IndexView from '../main/index/index-view';
 import ProductView from '../main/product/product-view';
 import ElementCreator from '../../util/element-creator';
+import LinkView from './link-view/link-view';
 
 const CssClasses = {
     HEADER: 'header',
     NAV: 'nav',
-    ITEM: 'nav-item',
-    ITEM_SELECTED: 'nav-item__selected',
+    // ITEM: 'nav-item',
+    // ITEM_SELECTED: 'nav-item__selected',
 };
 const NamePages = {
     INDEX: 'Главная',
@@ -53,6 +54,28 @@ export default class HeaderView extends View {
         const creatorNav = new ElementCreator(navParams);
         this.viewElementCreator.addInnerElement(creatorNav);
 
+        const pages = this.getPages(mainComponent);
+
+        pages.forEach((page, index) => {
+            const linkElement = new LinkView(page, this.headerLinkElements);
+
+            creatorNav.addInnerElement(linkElement.getHtmlElement());
+            if (index === START_PAGE_INDEX) {
+                page.callback();
+                linkElement.setSelectedStatus();
+            }
+
+            this.headerLinkElements.push(linkElement);
+        });
+
+        this.viewElementCreator.addInnerElement(creatorNav);
+    }
+
+    /**
+     * @param {import('../main/main-view').default} mainComponent
+     * @returns {Array<Page>}
+     */
+    getPages(mainComponent) {
         const indexView = new IndexView();
         const productView = new ProductView();
 
@@ -66,49 +89,7 @@ export default class HeaderView extends View {
                 callback: () => mainComponent.setContent(productView),
             },
         ];
-        pages.forEach((page, index) => {
-            const linkElement = this.createLinkElement(page.name, page.callback);
-            linkElement.addEventListener('click', this.linkClickHandler.bind(this));
 
-            creatorNav.addInnerElement(linkElement);
-            if (index === START_PAGE_INDEX) {
-                page.callback();
-                linkElement.classList.add(CssClasses.ITEM_SELECTED);
-            }
-
-            this.headerLinkElements.push(linkElement);
-        });
-
-        this.viewElementCreator.addInnerElement(creatorNav);
-    }
-
-    /**
-     * @param {MouseEvent} event
-     */
-    linkClickHandler(event) {
-        this.headerLinkElements.forEach((element) => element.classList.remove(CssClasses.ITEM_SELECTED));
-        if (event.target instanceof HTMLElement) {
-            event.target.classList.add(CssClasses.ITEM_SELECTED);
-        }
-    }
-
-    /**
-     * @param {string} text
-     * @param {function} clickCallback
-     * @returns {HTMLElement}
-     */
-    createLinkElement(text, clickCallback) {
-        /**
-         * @type {import('../../util/element-creator').ElementParams}
-         */
-        const linkParams = {
-            tag: 'a',
-            classNames: [CssClasses.ITEM],
-            textContent: text,
-            callback: clickCallback,
-        };
-        const creatorNav = new ElementCreator(linkParams);
-
-        return creatorNav.getElement();
+        return pages;
     }
 }
