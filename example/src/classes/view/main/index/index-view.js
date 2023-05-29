@@ -1,6 +1,6 @@
 import './index.css';
-import View from '../view';
-import InputFieldCreator from '../../util/input-field/input-field-creator';
+import View from '../../view';
+import InputFieldCreator from '../../../util/input-field/input-field-creator';
 
 const CssClasses = {
     INDEX: 'index',
@@ -11,7 +11,7 @@ const FIELD_TEXT_TWO = 'Поле для ввода 2';
 export default class IndexView extends View {
     constructor() {
         /**
-         * @type {import('../view').ViewParams}
+         * @type {import('../../view').ViewParams}
          */
         const params = {
             tag: 'section',
@@ -26,27 +26,25 @@ export default class IndexView extends View {
 
     configureView() {
         /**
-         * @type {import('../../util/element-creator').ElementParams}
+         * @type {import('../../../util/element-creator').ElementParams}
          */
         let inputParams = {
             tag: 'input',
             classNames: [],
             textContent: FIELD_TEXT_ONE,
-            callback: (event) => this.keyupHandler(event, this.firstInput),
-            attr: null,
+            callback: (event) => this.keyupHandler(event, `firstInput`),
         };
         let creatorInput = new InputFieldCreator(inputParams);
         this.viewElementCreator.addInnerElement(creatorInput);
 
         /**
-         * @type {import('../../util/element-creator').ElementParams}
+         * @type {import('../../../util/element-creator').ElementParams}
          */
         inputParams = {
             tag: 'input',
             classNames: [],
             textContent: FIELD_TEXT_TWO,
-            callback: (event) => this.keyupHandler(event, this.secondInput),
-            attr: null,
+            callback: (event) => this.keyupHandler(event, `secondInput`),
         };
         creatorInput = new InputFieldCreator(inputParams);
         this.viewElementCreator.addInnerElement(creatorInput);
@@ -54,11 +52,11 @@ export default class IndexView extends View {
 
     /**
      * @param {KeyboardEvent} event
-     * @param {string} field
+     * @param {string} fieldName
      */
-    keyupHandler(event, field) {
+    keyupHandler(event, fieldName) {
         if (event.target instanceof HTMLInputElement) {
-            field = event.target.value;
+            this[fieldName] = event.target.value;
         }
     }
 }

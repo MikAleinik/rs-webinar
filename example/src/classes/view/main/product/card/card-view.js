@@ -1,6 +1,6 @@
 import './card.css';
-import View from '../view';
-import ElementCreator from '../../util/element-creator';
+import View from '../../../view';
+import ElementCreator from '../../../../util/element-creator';
 
 const CssClasses = {
     CONTAINER: 'card',
@@ -11,11 +11,11 @@ const CARD_TEXT_MORE = 'Подробнее...';
 
 export default class CardView extends View {
     /**
-     * @param {import('../../../data/cards').CardInfo} card
+     * @param {import('../../../../../data/cards').CardInfo} card
      */
     constructor(card) {
         /**
-         * @type {import('../view').ViewParams}
+         * @type {import('../../../view').ViewParams}
          */
         const params = {
             tag: 'article',
@@ -31,27 +31,25 @@ export default class CardView extends View {
 
     configureView() {
         /**
-         * @type {import('../../util/element-creator').ElementParams}
+         * @type {import('../../../../util/element-creator').ElementParams}
          */
         const labelParams = {
             tag: 'label',
             classNames: [CssClasses.FIELD],
             textContent: this.card.name,
             callback: null,
-            attr: null,
         };
         const creatorLabel = new ElementCreator(labelParams);
         this.viewElementCreator.addInnerElement(creatorLabel);
 
         /**
-         * @type {import('../../util/element-creator').ElementParams}
+         * @type {import('../../../../util/element-creator').ElementParams}
          */
         const buttonParams = {
             tag: 'button',
             classNames: [CssClasses.BUTTON],
             textContent: CARD_TEXT_MORE,
             callback: this.buttonClickHandler.bind(this),
-            attr: null,
         };
         const creatorButton = new ElementCreator(buttonParams);
         this.viewElementCreator.addInnerElement(creatorButton);

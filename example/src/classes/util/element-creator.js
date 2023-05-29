@@ -11,7 +11,6 @@
  * classNames: Array<string>,
  * textContent: string,
  * callback: function,
- * attr: {name: string, value: string},
  * }} ElementParams
  */
 export default class ElementCreator {
@@ -49,7 +48,6 @@ export default class ElementCreator {
         this.setCssClasses(params.classNames);
         this.setTextContent(params.textContent);
         this.setCallback(params.callback);
-        this.setAttribute(params.attr);
     }
 
     /**
@@ -72,15 +70,6 @@ export default class ElementCreator {
     setCallback(callback) {
         if (typeof callback === 'function') {
             this.element.addEventListener('click', (event) => callback(event));
-        }
-    }
-
-    /**
-     * @param {{name: string, value: string}} attr
-     */
-    setAttribute(attr) {
-        if (attr) {
-            this.element.setAttribute(attr.name, attr.value);
         }
     }
 }

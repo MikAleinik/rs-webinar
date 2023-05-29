@@ -1,8 +1,7 @@
 import './header.css';
 import View from '../view';
-import IndexView from '../index/index-view';
-import ProductView from '../product/product-view';
-import AboutView from '../about/about-view';
+import IndexView from '../main/index/index-view';
+import ProductView from '../main/product/product-view';
 import ElementCreator from '../../util/element-creator';
 
 const CssClasses = {
@@ -13,8 +12,7 @@ const CssClasses = {
 };
 const NamePages = {
     INDEX: 'Главная',
-    SHOWCASE: 'Карточки',
-    ABOUT: 'О нас',
+    PRODUCT: 'Карточки',
 };
 const START_PAGE_INDEX = 0;
 
@@ -51,14 +49,12 @@ export default class HeaderView extends View {
             classNames: [CssClasses.NAV],
             textContent: '',
             callback: null,
-            attr: null,
         };
         const creatorNav = new ElementCreator(navParams);
         this.viewElementCreator.addInnerElement(creatorNav);
 
         const indexView = new IndexView();
         const productView = new ProductView();
-        const aboutView = new AboutView();
 
         const pages = [
             {
@@ -66,12 +62,8 @@ export default class HeaderView extends View {
                 callback: () => mainComponent.setContent(indexView),
             },
             {
-                name: NamePages.SHOWCASE,
+                name: NamePages.PRODUCT,
                 callback: () => mainComponent.setContent(productView),
-            },
-            {
-                name: NamePages.ABOUT,
-                callback: () => mainComponent.setContent(aboutView),
             },
         ];
         pages.forEach((page, index) => {
@@ -114,7 +106,6 @@ export default class HeaderView extends View {
             classNames: [CssClasses.ITEM],
             textContent: text,
             callback: clickCallback,
-            attr: null,
         };
         const creatorNav = new ElementCreator(linkParams);
 

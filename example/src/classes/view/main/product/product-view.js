@@ -1,8 +1,8 @@
 import './product.css';
-import View from '../view';
-import cardsInfo from '../../../data/cards';
-import CardView from '../card/card-view';
-import CardDetailView from '../card-detail/card-detail-view';
+import View from '../../view';
+import cardsInfo from '../../../../data/cards';
+import CardView from './card/card-view';
+import CardDetailView from './card-detail/card-detail-view';
 
 const CssClasses = {
     PRODUCT: 'product',
@@ -11,7 +11,7 @@ const CssClasses = {
 export default class ProductView extends View {
     constructor() {
         /**
-         * @type {import('../view').ViewParams}
+         * @type {import('../../view').ViewParams}
          */
         const params = {
             tag: 'main',
@@ -23,7 +23,7 @@ export default class ProductView extends View {
     }
 
     /**
-     * @param {import('../../../data/cards').CardInfo} card
+     * @param {import('../../../../data/cards').CardInfo} card
      * @returns {CardView}
      */
     createSmallCardsToView(card) {
@@ -34,7 +34,7 @@ export default class ProductView extends View {
     }
 
     /**
-     * @param {import('../../../data/cards').CardInfo} card
+     * @param {import('../../../../data/cards').CardInfo} card
      * @returns {CardView}
      */
     createLargeCardToView(card) {
@@ -45,7 +45,7 @@ export default class ProductView extends View {
     }
 
     showAllCard() {
-        this.clearShowcase();
+        this.clearView();
         cardsInfo.forEach((card) => {
             const smallCardComponent = this.createSmallCardsToView(card);
             this.viewElementCreator.addInnerElement(smallCardComponent.getHtmlElement());
@@ -53,12 +53,12 @@ export default class ProductView extends View {
     }
 
     showLargeCard(card) {
-        this.clearShowcase();
+        this.clearView();
         const largeCard = this.createLargeCardToView(card);
         this.viewElementCreator.addInnerElement(largeCard.getHtmlElement());
     }
 
-    clearShowcase() {
+    clearView() {
         const htmlElement = this.viewElementCreator.getElement();
         while (htmlElement.firstElementChild) {
             htmlElement.firstElementChild.remove();
