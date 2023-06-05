@@ -1,0 +1,22 @@
+.nav-item {
+    position: relative;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    cursor: pointer;
+}
+
+.nav-item:hover::after {
+    position: absolute;
+    left: 0%;
+    bottom: -5%;
+    width: 100%;
+    height: 1px;
+    content: "";
+    background: var(--default-color);
+}
+
+.nav-item__selected {
+    border-bottom: 1px solid;
+}

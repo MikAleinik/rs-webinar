@@ -2,17 +2,20 @@ import './header.css';
 import { Pages } from '../../router/pages';
 import ElementCreator from '../../util/element-creator';
 import View from '../view';
+import LinkView from './link/link-view';
 
 const CssClasses = {
     HEADER: 'header',
     NAV: 'nav',
-    ITEM: 'nav-item',
-    ITEM_SELECTED: 'nav-item__selected',
 };
 const NamePages = {
     INDEX: 'Главная',
     PRODUCT: 'Карточки',
 };
+
+/**
+ * @typedef {{ name: string, callback: function }} Page
+ */
 
 export default class HeaderView extends View {
     /**
@@ -49,62 +52,27 @@ export default class HeaderView extends View {
         this.viewElementCreator.addInnerElement(creatorNav);
 
         Object.keys(NamePages).forEach((key) => {
-            const callback = () => router.navigate(Pages[key]);
+            const pageParam = {
+                name: NamePages[key],
+                callback: () => router.navigate(Pages[key]),
+            };
+            const linkElement = new LinkView(pageParam, this.headerLinkElements);
 
-            const linkElement = this.createLinkElement(NamePages[key], callback);
-            linkElement.addEventListener('click', this.linkClickHandler.bind(this, callback));
+            creatorNav.addInnerElement(linkElement.getHtmlElement());
 
-            creatorNav.addInnerElement(linkElement);
-
-            this.headerLinkElements.set(key, linkElement);
+            this.headerLinkElements.set(Pages[key].toUpperCase(), linkElement);
         });
 
         this.viewElementCreator.addInnerElement(creatorNav);
     }
 
     /**
-     * Данный метод является реализацией паттерна "Декоратор" ("Decorator/Wrapper").
-     * Обернув исходную функцию обратного вызова в обертку метода и добавив после
-     * вызова исходной функции необходимые действия.
-     * @param {Function} callback
-     * @param {MouseEvent} event
+     * @param {string} namePage
      */
-    linkClickHandler(callback, event) {
-        callback();
-        this.headerLinkElements.forEach((element) => element.classList.remove(CssClasses.ITEM_SELECTED));
-        if (event.target instanceof HTMLElement) {
-            event.target.classList.add(CssClasses.ITEM_SELECTED);
+    setSelectedItem(namePage) {
+        const linkItem = this.headerLinkElements.get(namePage.toUpperCase());
+        if (linkItem instanceof LinkView) {
+            linkItem.setSelectedStatus();
         }
-    }
-
-    /**
-     * @param {string} name
-     */
-    setSelectedItem(name) {
-        this.headerLinkElements.forEach((element) => element.classList.remove(CssClasses.ITEM_SELECTED));
-        const selectedElement = this.headerLinkElements.get(name.toUpperCase());
-        if (selectedElement instanceof HTMLElement) {
-            selectedElement.classList.add(CssClasses.ITEM_SELECTED);
-        }
-    }
-
-    /**
-     * @param {string} text
-     * @param {function} clickCallback
-     * @returns {HTMLElement}
-     */
-    createLinkElement(text, clickCallback) {
-        /**
-         * @type {import('../../util/element-creator').ElementParams}
-         */
-        const linkParams = {
-            tag: 'a',
-            classNames: [CssClasses.ITEM],
-            textContent: text,
-            callback: clickCallback,
-        };
-        const creatorLink = new ElementCreator(linkParams);
-
-        return creatorLink.getElement();
     }
 }

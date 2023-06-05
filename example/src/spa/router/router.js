@@ -43,7 +43,6 @@ export default class Router {
         route.callback(request.resource);
     }
 
-    // TODO реализовать паттерн стратегия (?)
     /**
      * @returns {string}
      */
