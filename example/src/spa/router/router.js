@@ -1,3 +1,5 @@
+import HashRouterHandler from './handler/hash/hash-router-handler';
+import HistoryRouterHandler from './handler/history/history-router-handler';
 import { Pages, ID_SELECTOR } from './pages';
 
 /**
@@ -10,29 +12,31 @@ export default class Router {
     constructor(routes) {
         this.routes = routes;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPath = this.getCurrentPath();
-            this.navigate(currentPath);
-        });
+        this.handler = new HistoryRouterHandler(this.urlChangedHandler.bind(this));
 
-        window.addEventListener('popstate', this.browserChangeHandler.bind(this));
-        window.addEventListener('hashchange', this.browserChangeHandler.bind(this));
+        document.addEventListener('DOMContentLoaded', () => {
+            this.handler.navigate('');
+        });
+    }
+
+    setHashHandler() {
+        this.handler.disable();
+        this.handler = new HashRouterHandler(this.urlChangedHandler.bind(this));
     }
 
     /**
      * @param {string} url
      */
     navigate(url) {
-        this.navigateToUrl(url);
         window.history.pushState(null, null, `/${url}`);
+        this.handler.navigate(url);
     }
 
     /**
-     * @param {string} url
+     * @param {import('./handler/default-router-handler.js').RequestParams} requestParams
      */
-    navigateToUrl(url) {
-        const request = this.parseUrl(url);
-        const pathForFind = request.resource === '' ? request.path : `${request.path}/${ID_SELECTOR}`;
+    urlChangedHandler(requestParams) {
+        const pathForFind = requestParams.resource === '' ? requestParams.path : `${requestParams.path}/${ID_SELECTOR}`;
         const route = this.routes.find((item) => item.path === pathForFind);
 
         if (!route) {
@@ -40,32 +44,7 @@ export default class Router {
             return;
         }
 
-        route.callback(request.resource);
-    }
-
-    /**
-     * @returns {string}
-     */
-    getCurrentPath() {
-        if (window.location.hash) {
-            return window.location.hash.slice(1);
-        }
-
-        return window.location.pathname.slice(1);
-    }
-
-    /**
-     * @typedef {{path: string, resource: string}} UserRequest
-     * @param {string} url
-     * @returns {UserRequest}
-     */
-    parseUrl(url) {
-        const result = {};
-
-        const path = url.split('/');
-        [result.path = '', result.resource = ''] = path;
-
-        return result;
+        route.callback(requestParams.resource);
     }
 
     redirectToNotFoundPage() {
@@ -73,10 +52,5 @@ export default class Router {
         if (notFoundPage) {
             this.navigate(notFoundPage.path);
         }
-    }
-
-    browserChangeHandler() {
-        const currentPath = this.getCurrentPath();
-        this.navigateToUrl(currentPath);
     }
 }

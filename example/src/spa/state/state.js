@@ -1,4 +1,4 @@
-const KEY_FOR_SAVE_TO_LOCALSTORAGE = 'spa';
+const KEY_FOR_SAVE_TO_LOCALSTORAGE = 'exampleSpaApp';
 
 export default class State {
     constructor() {
@@ -20,7 +20,10 @@ export default class State {
      * @returns {string}
      */
     getField(name) {
-        return this.fields.get(name);
+        if (this.fields.has(name)) {
+            return this.fields.get(name);
+        }
+        return '';
     }
 
     saveState() {

@@ -36,7 +36,7 @@ export default class IndexView extends View {
             tag: 'input',
             classNames: [],
             textContent: FIELD_TEXT_ONE,
-            callback: (event) => this.keyupHandler(event, `firstInput`),
+            callback: (event) => this.keyupHandler(event, FIELD_TEXT_ONE),
         };
         let creatorInput = new InputFieldCreator(inputParams);
         creatorInput.setValue(state.getField(FIELD_TEXT_ONE));
@@ -46,10 +46,10 @@ export default class IndexView extends View {
             tag: 'input',
             classNames: [],
             textContent: FIELD_TEXT_TWO,
-            callback: (event) => this.keyupHandler(event, `secondInput`),
+            callback: (event) => this.keyupHandler(event, FIELD_TEXT_TWO),
         };
         creatorInput = new InputFieldCreator(inputParams);
-        creatorInput.setValue(state.getField(FIELD_TEXT_ONE));
+        creatorInput.setValue(state.getField(FIELD_TEXT_TWO));
         this.viewElementCreator.addInnerElement(creatorInput);
     }
 

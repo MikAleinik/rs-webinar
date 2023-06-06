@@ -7,31 +7,24 @@ import HeaderView from './view/header/header-view';
 import MainView from './view/main/main-view';
 
 export default class App {
-    header = null;
-
-    main = null;
-
-    footer = null;
-
     constructor() {
+        this.header = null;
+        this.main = null;
+
         const state = new State();
 
         const routes = this.createRoutes(state);
         this.router = new Router(routes);
 
-        [this.header, this.main, this.footer] = [...this.createView()];
-        document.body.append(this.header.getHtmlElement(), this.main.getHtmlElement(), this.footer.getHtmlElement());
+        this.createView();
     }
 
-    /**
-     * @returns {Array<import('./view/view').default>}
-     */
     createView() {
-        const header = new HeaderView(this.router);
-        const main = new MainView();
+        this.header = new HeaderView(this.router);
+        this.main = new MainView();
         const footer = new FooterView();
 
-        return [header, main, footer];
+        document.body.append(this.header.getHtmlElement(), this.main.getHtmlElement(), footer.getHtmlElement());
     }
 
     /**
