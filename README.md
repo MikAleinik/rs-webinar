@@ -9,7 +9,7 @@ RSSchool webinar code
   3. Для запуска приложения с примерами реализации классов (без реализации роутера) раскомментировать в /example/src/index.js
 ```js
 	import App from './classes/app';
-    const app = new App();
+	const app = new App();
 ```
   4. Для запуска приложения с примером реализации роутинга раскомментировать в /example/src/index.js
 ```js
