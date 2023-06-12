@@ -1,0 +1,102 @@
+.reveal h5 {
+    text-transform: none;
+}
+
+.reveal pre {
+    font-size: 0.4em;
+}
+
+li,
+p {
+    font-size: 26px;
+}
+
+.reveal ::selection {
+    color: #c91e1e;
+    background: #191919;
+}
+
+.hljs {
+    background: #191919;
+}
+
+.fragment.display {
+    display: none;
+}
+
+.fragment.display.visible {
+    display: flex;
+}
+
+::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    border: 1px solid;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    background-color: #c0c5ce;
+}
+
+.console {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 200px;
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.console__log {
+    height: 100%;
+    width: 80%;
+
+    overflow-y: scroll;
+}
+
+.console__log>*,
+.container label {
+    color: #4fb4d7;
+
+    font-family: var(--r-code-font);
+    text-transform: none;
+    tab-size: 2;
+    font-size: 0.55em;
+    line-height: 1.2em;
+}
+
+.console__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 100%;
+    width: 20%;
+
+    color: #4fb4d7;
+}
+
+.console__button {
+    width: 80%;
+
+    color: #4fb4d7;
+    background: #191919;
+
+    font-family: var(--r-code-font);
+    text-transform: none;
+    tab-size: 2;
+    font-size: 0.55em;
+    line-height: 1.2em;
+}
+
+.console__button:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webinar Patterns</title>
+    <link rel="stylesheet" href="./reveal/plugin/highlight/an-old-hope.min.css" />
+    <link rel="stylesheet" href="./reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="./reveal/dist/theme/black.css" />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h4>RS School. JS/FE 2023Q1.</h4>
+                <h4>Patterns</h4>
+            </section>
+            <section>
+                <h5>Паттерны</h5>
+                <p class="fragment fade-up">Краткое содержание:</p>
+                <ul>
+                    <li class="fragment fade-up">Наблюдатель/Observer</li>
+                    <li class="fragment fade-up">Фабрика/Factory</li>
+                    <li class="fragment fade-up">Декоратор/Wrapper</li>
+                    <li class="fragment fade-up">Цепочка обязанностей/Chain of responsibility</li>
+                    <li class="fragment fade-up">Стратегия/Strategy</li>
+                    <li class="fragment fade-up">Состояние/State</li>
+                    <li class="fragment fade-up">Одиночка/Singleton</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h5>Наблюдатель/Observer</h5>
+                    <p>Наблюдатель это поведенческий паттерн, который позволяет одним объектам реагировать на изменения
+                        происходящие в других объектах</p>
+                </section>
+                <section>
+                    <h5>Псевдокод класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-4|3|6-16|7-9|8|10-12|11|13-15|14|2-16" class="typescript">
+interface IListener {
+    send();
+}
+
+class Observer {
+    subscribe(listener: IListener) {
+        listeners.add(listener);
+    }
+    unsubscribe(listener) {
+        listeners.remove(listener);
+    }
+    notify() {
+        listeners.forEach((listener) => listener.send());
+    }
+}
+                    </code></pre>
+                </section>
+            </section>
+            <section>Вопросы и ответы</section>
+        </div>
+    </div>
+    <script src="./reveal/plugin/highlight/highlight.js" type="module"></script>
+    <script src="./reveal/dist/reveal.esm.js" type="module"></script>
+    <script src="./reveal/plugin/markdown/markdown.esm.js" type="module"></script>
+
+    <script src="./index.js" type="module"></script>
+</body>
+
+</html>
