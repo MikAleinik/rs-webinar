@@ -6,13 +6,10 @@ const { merge } = require('webpack-merge');
 
 const baseConfig = {
     entry: {
-        index: './src/index.ts',
+        app: path.resolve(__dirname, './src/index.ts'),
     },
     output: {
-        filename: '[name].js',
-        chunkFilename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
+        path: path.resolve(__dirname, './dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -37,14 +34,19 @@ const baseConfig = {
                 test: /\.html$/i,
                 use: 'html-loader',
             },
+            {
+                test: /\.(ts|tsx)$/i,
+                loader: 'ts-loader',
+                exclude: ['/node_modules/'],
+            },
         ],
     },
     resolve: {
-        extensions: ['.ts'],
+        extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
     },
 };
 
-module.exports = ({}, { mode }) => {
+module.exports = ({ }, { mode }) => {
     const isProductionMode = mode === 'production';
     const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
 

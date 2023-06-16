@@ -9,9 +9,9 @@
         "outDir": "./dist",
         "rootDir": "./src",
         "sourceMap": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts"],
+    "exclude": ["node_modules", "dist", "**/*.spec.ts"],
     "files": [ "src/index.ts"]
 }
