@@ -1,0 +1,38 @@
+.form-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    width: 80%;
+
+    margin: 10px;
+
+    border: 1px solid;
+}
+
+.field-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    width: 80%;
+
+    margin: 5px;
+}
+
+.field__input,
+.field__label {
+    width: 80%;
+
+    font-size: 10px;
+}
+
+.field__button {
+    min-width: 120px;
+}
+
+.field__button:hover {
+    cursor: pointer;
+}

@@ -1,3 +1,3 @@
-import AppObserver from "./1_observer/app";
+import AppObserver from './1_observer/app';
 
 const appOserver = new AppObserver();
