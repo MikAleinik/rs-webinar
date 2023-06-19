@@ -24,12 +24,13 @@
                 <p class="fragment fade-up">Краткое содержание:</p>
                 <ul>
                     <li class="fragment fade-up">Наблюдатель/Observer</li>
+                    <li class="fragment fade-up">Одиночка/Singleton</li>
                     <li class="fragment fade-up">Фабрика/Factory</li>
-                    <li class="fragment fade-up">Декоратор/Wrapper</li>
                     <li class="fragment fade-up">Цепочка обязанностей/Chain of responsibility</li>
                     <li class="fragment fade-up">Стратегия/Strategy</li>
                     <li class="fragment fade-up">Состояние/State</li>
-                    <li class="fragment fade-up">Одиночка/Singleton</li>
+                    <li class="fragment fade-up">Декоратор/Wrapper</li>
+                    <li class="fragment fade-up">Заместитель/Proxy</li>
                 </ul>
             </section>
             <section>
@@ -40,22 +41,69 @@
                 </section>
                 <section>
                     <h5>Псевдокод класса</h5>
-                    <pre class="fragment fade-up"><code data-line-numbers="2-4|3|6-16|7-9|8|10-12|11|13-15|14|2-16" class="typescript">
-interface IListener {
-    send();
-}
-
+                    <pre class="fragment fade-up"><code data-line-numbers="2,14|3|5-13|5-7|6|8-10|9|11-13|12|2-14" class="javascript">
 class Observer {
-    subscribe(listener: IListener) {
+    private listeners = [];
+
+    subscribe(listener) {
         listeners.add(listener);
     }
     unsubscribe(listener) {
         listeners.remove(listener);
     }
-    notify() {
-        listeners.forEach((listener) => listener.send());
+    notify(param) {
+        listeners.forEach((listener) => listener(param));
     }
 }
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Псевдокод использования класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2,9|3-5|4|6-8|7|10-18|13-16|15|2-19" class="javascript">
+class UserModel {
+    constructor(observer) {
+        observer.subscribe(this.setUserData);
+    }
+    private setUserData(user) {
+        //какая-то логика с полученными данными
+    }
+}
+
+class RegistrationView {
+    constructor(observer) {
+        this.form.addEventListener('submit', () => {
+            const user = //какая-то логика обработки данных формы
+            observer.notify(user);
+        });
+    }
+}
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Одиночка/Singleton</h5>
+                    <p>Одиночка это порождающий паттерн, который обеспечит существование только одного экземпляра класса</p>
+                </section>
+                <section>
+                    <h5>Псевдокод класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2,9|3|4|6-8|7|2-9" class="javascript">
+class Singleton {
+    private static instance = new Singleton();
+    private constructor() {}
+
+    static getInstance() {
+        return Singleton.instance;
+    }
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Псевдокод использования класса</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2|3|4|2-4" class="javascript">
+const first = Singleton.getInstance();
+const second = Singleton.getInstance();
+first === second //true
                     </code></pre>
                 </section>
             </section>
