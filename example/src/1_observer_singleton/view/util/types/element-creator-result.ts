@@ -1,4 +1,4 @@
-export type ElementCreatorResult<K extends keyof HTMLElementTagNameMap, T1 extends keyof HTMLElementTagNameMap> = {
+export type ElementCreatorResult<K extends keyof HTMLElementTagNameMap, T extends keyof HTMLElementTagNameMap> = {
     resultHtmlElement: HTMLElementTagNameMap[K];
-    adjustableHtmlElement: HTMLElementTagNameMap[T1];
+    adjustableHtmlElements: HTMLElementTagNameMap[T];
 };
