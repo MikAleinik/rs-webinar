@@ -1,9 +1,9 @@
 import DataStorage from '../../data-storage/data-storage';
 import { StorageItemName } from '../../data-storage/enums/storage-item-name';
-import DefaultFormView from '../default-form-view/default-form-view';
+import DefaultView from '../default-view/default-view';
 import FormHtmlCreator from '../util/form-element-creator';
 
-export default class CustomFormView extends DefaultFormView {
+export default class CustomView extends DefaultView {
     private readonly TEXT_NAME_COMPONENT = 'Еще какой-то компонент';
     private readonly TEXT_LOGIN_FIELD = 'Логин пользователя';
 

@@ -1,6 +1,6 @@
-import './default-form-view.css';
+import './default-view.css';
 
-export default abstract class DefaultFormView {
+export default abstract class DefaultView {
     protected htmlElement: HTMLFormElement | null = null;
 
     getHtmlElement() {

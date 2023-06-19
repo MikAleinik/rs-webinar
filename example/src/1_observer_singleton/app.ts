@@ -1,36 +1,24 @@
 import './style.css';
-import CabinetFormView from './view/cabinet-form/cabinet-form-view';
-import CustomFormView from './view/custom-form/custom-form-view';
+import CabinetView from './view/cabinet/cabinet-view';
+import CustomView from './view/custom/custom-view';
 import HeaderView from './view/header/header-view';
-import FormHtmlCreator from './view/util/form-element-creator';
 
 export default class AppObserver {
-    private readonly TEXT_NAME_COMPONENT = 'Какой-то компонент';
-    private readonly BUTTON_TEXT = 'Создать форму';
+    private readonly TIME_ADD_NEW_FORM = 5000;
 
     constructor() {
         this.createView();
     }
 
-    createView() {
+    private createView() {
         const headerView = new HeaderView();
-        const cabinetFormView = new CabinetFormView();
+        const cabinetFormView = new CabinetView();
 
-        const formCreator = new FormHtmlCreator();
-        const buttonForm = formCreator.getButtonForm(this.TEXT_NAME_COMPONENT, this.BUTTON_TEXT);
+        document.body.append(headerView.getHtmlElement() || '', cabinetFormView.getHtmlElement() || '');
 
-        document.body.append(
-            headerView.getHtmlElement() || '',
-            cabinetFormView.getHtmlElement() || '',
-            buttonForm.resultHtmlElement
-        );
-
-        if (buttonForm.buttonHtmlElement) {
-            buttonForm.buttonHtmlElement.addEventListener('click', () => {
-                event?.preventDefault();
-                const customFormView = new CustomFormView();
-                document.body.append(customFormView.getHtmlElement() || '');
-            });
-        }
+        setTimeout(() => {
+            const customFormView = new CustomView();
+            document.body.append(customFormView.getHtmlElement() || '');
+        }, this.TIME_ADD_NEW_FORM);
     }
 }

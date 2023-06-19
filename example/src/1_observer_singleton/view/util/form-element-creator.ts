@@ -34,17 +34,6 @@ export default class FormHtmlCreator {
             inputHtmlElements: inputElements,
         };
     }
-    getButtonForm(nameForm: string, text: string): FormCreatorResult<HtmlTags.FORM, HtmlTags.BUTTON> {
-        const formElement = this.getFormElement(nameForm);
-
-        const buttonElement = this.getButtonElement(text);
-        formElement.firstElementChild?.append(buttonElement);
-
-        return {
-            resultHtmlElement: formElement,
-            buttonHtmlElement: buttonElement,
-        };
-    }
 
     private getFormElement(nameForm: string) {
         const formElement = this.createHtmlElement(HtmlTags.FORM, HtmlClasses.FORM);
@@ -86,12 +75,6 @@ export default class FormHtmlCreator {
             resultHtmlElement: fieldElement,
             adjustableHtmlElements: labelElement,
         };
-    }
-    private getButtonElement(text: string) {
-        const buttonElement = this.createHtmlElement(HtmlTags.BUTTON, HtmlClasses.BUTTON);
-        buttonElement.textContent = text;
-
-        return buttonElement;
     }
     private createHtmlElement<K extends keyof HTMLElementTagNameMap>(
         tagName: K,
