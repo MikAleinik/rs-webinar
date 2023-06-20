@@ -1,5 +1,5 @@
 import DataStorage from '../../data-storage/data-storage';
-import { StorageItemName } from '../../enums/storage-item-names';
+import { StorageItemNames } from '../../enums/storage-item-names';
 import DefaultView from '../default-view/default-view';
 import FormHtmlCreator from '../util/form-element-creator';
 
@@ -19,7 +19,7 @@ export default class HeaderView extends DefaultView {
             this.loginLabelElement = resultCreateView.labelHtmlElements[0];
         }
 
-        this.storage.subscribe(StorageItemName.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
+        this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }
 
     private loginStorageChangedHandler<T>(login: T) {

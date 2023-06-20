@@ -1,5 +1,5 @@
 import DataStorage from '../../data-storage/data-storage';
-import { StorageItemName } from '../../enums/storage-item-names';
+import { StorageItemNames } from '../../enums/storage-item-names';
 import DefaultView from '../default-view/default-view';
 import FormHtmlCreator from '../util/form-element-creator';
 
@@ -19,16 +19,16 @@ export default class CustomView extends DefaultView {
             this.loginInputElement = resultCreateView.inputHtmlElements[0];
             this.loginInputElement.addEventListener(
                 'keyup',
-                this.fieldChangedHandler.bind(this, StorageItemName.USER_LOGIN)
+                this.fieldChangedHandler.bind(this, StorageItemNames.USER_LOGIN)
             );
 
-            const inputValue = this.storage.getValue(StorageItemName.USER_LOGIN);
+            const inputValue = this.storage.getValue(StorageItemNames.USER_LOGIN);
             if (typeof inputValue === 'string') {
                 this.loginInputElement.value = inputValue;
             }
         }
 
-        this.storage.subscribe(StorageItemName.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
+        this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }
 
     private loginStorageChangedHandler<T>(email: T) {
@@ -36,7 +36,7 @@ export default class CustomView extends DefaultView {
             this.loginInputElement.value = email;
         }
     }
-    private fieldChangedHandler(nameField: StorageItemName) {
+    private fieldChangedHandler(nameField: StorageItemNames) {
         if (event && event.target instanceof HTMLInputElement) {
             this.storage.setValue(nameField, event.target.value);
         }
