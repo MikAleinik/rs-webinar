@@ -1,5 +1,5 @@
 import DataStorage from '../../data-storage/data-storage';
-import { StorageItemName } from '../../data-storage/enums/storage-item-name';
+import { StorageItemName } from '../../enums/storage-item-names';
 import DefaultView from '../default-view/default-view';
 import FormHtmlCreator from '../util/form-element-creator';
 

@@ -1,10 +1,12 @@
+import { AppEvents } from '../types/app-events';
+
 /**
  * Реализация паттерна Наблюдатель/Observer.
  */
 export default class Observer {
-    private _listeners = new Map<string, Set<<T>(param: T) => void>>();
+    private _listeners = new Map<AppEvents, Set<<T>(param: T) => void>>();
 
-    subscribe(nameEvent: string, listenerMethod: <T>(param: T) => void) {
+    subscribe(nameEvent: AppEvents, listenerMethod: <T>(param: T) => void) {
         let listListeners = this._listeners.get(nameEvent);
         if (!listListeners) {
             listListeners = new Set<<T>(param: T) => void>();
@@ -12,13 +14,13 @@ export default class Observer {
         }
         listListeners.add(listenerMethod);
     }
-    unsubscribe(nameEvent: string, listenerMethod: <T>(param: T) => void) {
+    unsubscribe(nameEvent: AppEvents, listenerMethod: <T>(param: T) => void) {
         const listListeners = this._listeners.get(nameEvent);
         if (listListeners) {
             listListeners.delete(listenerMethod);
         }
     }
-    notify<T>(nameEvent: string, params: T) {
+    notify<T>(nameEvent: AppEvents, params: T) {
         const listListeners = this._listeners.get(nameEvent);
         if (listListeners) {
             listListeners.forEach((listener) => listener(params));

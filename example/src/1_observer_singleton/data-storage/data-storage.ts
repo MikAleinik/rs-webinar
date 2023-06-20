@@ -1,5 +1,5 @@
 import Observer from '../observer/observer';
-import { StorageItemName } from './enums/storage-item-name';
+import { StorageItemNames } from '../enums/storage-item-names';
 /**
  * Реализация паттерна Одиночка/Singleton
  */
@@ -15,17 +15,17 @@ export default class DataStorage<T> {
     static getInstance() {
         return this.instanseDataStorage;
     }
-    setValue(name: StorageItemName, value: T) {
+    setValue(name: StorageItemNames, value: T) {
         this.items.set(name, value);
         this.observer.notify(name, value);
     }
-    getValue(name: StorageItemName) {
+    getValue(name: StorageItemNames) {
         if (this.items.has(name)) {
             return this.items.get(name);
         }
         return null;
     }
-    subscribe(name: StorageItemName, listenerMethod: <T1>(param: T1) => void) {
+    subscribe(name: StorageItemNames, listenerMethod: <T1>(param: T1) => void) {
         this.observer.subscribe(name, listenerMethod);
     }
 }
