@@ -25,58 +25,77 @@
                 <ul>
                     <li class="fragment fade-up">Наблюдатель/Observer</li>
                     <li class="fragment fade-up">Одиночка/Singleton</li>
-                    <li class="fragment fade-up">Фабрика/Factory</li>
+                    <!-- <li class="fragment fade-up">Фабрика/Factory</li>
                     <li class="fragment fade-up">Цепочка обязанностей/Chain of responsibility</li>
                     <li class="fragment fade-up">Стратегия/Strategy</li>
                     <li class="fragment fade-up">Состояние/State</li>
                     <li class="fragment fade-up">Декоратор/Wrapper</li>
-                    <li class="fragment fade-up">Заместитель/Proxy</li>
+                    <li class="fragment fade-up">Заместитель/Proxy</li> -->
                 </ul>
             </section>
             <section>
                 <section>
                     <h5>Наблюдатель/Observer</h5>
-                    <p>Наблюдатель это поведенческий паттерн, который позволяет одним объектам реагировать на изменения
-                        происходящие в других объектах</p>
+                    <p>Наблюдатель это поведенческий паттерн, который позволяет одним объектам (Наблюдателям) реагировать
+                        на изменения происходящие в других объектах (Издателях)</p>
                 </section>
                 <section>
-                    <h5>Псевдокод класса</h5>
-                    <pre class="fragment fade-up"><code data-line-numbers="2,14|3|5-13|5-7|6|8-10|9|11-13|12|2-14" class="javascript">
-class Observer {
-    private listeners = [];
+                    <h5>Псевдокод класса Наблюдателя</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-4|3|6-11|6|7-9|10|2-11" class="typescript">
+interface IObserver {
+    update(param);
+}
 
-    subscribe(listener) {
-        listeners.add(listener);
+class Observer implements IObserver {
+    update(param) {
+        //Логика реагирования на возникшее событие
     }
-    unsubscribe(listener) {
-        listeners.remove(listener);
+    //Логика необходимая классу по его назначению
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h5>Псевдокод класса Издателя</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="2-6|3|4|5|3-5|8-25|10|8|12-14|15-17|18-20|21-24|2-25" class="typescript">
+interface ISubject {
+    subscribe(observer: IObserver);
+    unsubscribe(observer: IObserver);
+    notify();
+}
+
+class Subject implements ISubject {
+    private observers = [];
+    private parameter = '';
+
+    subscribe(observer: IObserver) {
+        observers.add(observer);
     }
-    notify(param) {
-        listeners.forEach((listener) => listener(param));
+    unsubscribe(observer: IObserver) {
+        observers.remove(observer);
+    }
+    notify() {
+        observers.forEach((observer) => observer.update(parameter));
+    }
+    //Логика необходимая классу по его назначению
+    sendEvent() {
+        this.notify();
     }
 }
                     </code></pre>
                 </section>
                 <section>
                     <h5>Псевдокод использования класса</h5>
-                    <pre class="fragment fade-up"><code data-line-numbers="2,9|3-5|4|6-8|7|10-18|13-16|15|2-19" class="javascript">
-class UserModel {
-    constructor(observer) {
-        observer.subscribe(this.setUserData);
-    }
-    private setUserData(user) {
-        //какая-то логика с полученными данными
-    }
-}
+                    <pre class="fragment fade-up"><code data-line-numbers="2|4|5|7|8|10-11|2-11" class="typescript">
+const subject = new Subject();
 
-class RegistrationView {
-    constructor(observer) {
-        this.form.addEventListener('submit', () => {
-            const user = //какая-то логика обработки данных формы
-            observer.notify(user);
-        });
-    }
-}
+const someObserver = new Observer();
+const anotherObserver = new Observer();
+
+subject.subscribe(someObserver);
+subject.subscribe(anotherObserver);
+
+subject.senEvent();
+subject.notify();
                     </code></pre>
                 </section>
             </section>
@@ -87,7 +106,7 @@ class RegistrationView {
                 </section>
                 <section>
                     <h5>Псевдокод класса</h5>
-                    <pre class="fragment fade-up"><code data-line-numbers="2,9|3|4|6-8|7|2-9" class="javascript">
+                    <pre class="fragment fade-up"><code data-line-numbers="2,9|3|4|6-8|7|2-9" class="typescript">
 class Singleton {
     private static instance = new Singleton();
     private constructor() {}
