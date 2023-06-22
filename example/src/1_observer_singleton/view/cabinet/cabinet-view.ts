@@ -24,10 +24,8 @@ export default class CabinetView extends DefaultView {
         this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }
 
-    private loginStorageChangedHandler<T>(login: T) {
-        if (this.loginInputElement && typeof login === 'string') {
-            this.loginInputElement.value = login;
-        }
+    private loginStorageChangedHandler(login: string) {
+        this.loginInputElement.value = login;
     }
     private fieldChangedHandler(nameField: StorageItemNames) {
         if (event && event.target instanceof HTMLInputElement) {

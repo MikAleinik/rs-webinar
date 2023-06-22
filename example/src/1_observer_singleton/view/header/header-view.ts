@@ -20,10 +20,8 @@ export default class HeaderView extends DefaultView {
         this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }
 
-    private loginStorageChangedHandler<T>(login: T) {
-        if (this.loginLabelElement && typeof login === 'string') {
-            this.loginLabelElement.textContent = login;
-        }
+    private loginStorageChangedHandler(login: string) {
+        this.loginLabelElement.textContent = login;
     }
     private createView() {
         const formCreator = new FormHtmlCreator();

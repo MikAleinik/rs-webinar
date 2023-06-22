@@ -8,7 +8,7 @@ export default class CustomView extends DefaultView {
     private readonly TEXT_LOGIN_FIELD = 'Логин пользователя';
 
     private storage = DataStorage.getInstance();
-    private loginInputElement: HTMLInputElement | null = null;
+    private loginInputElement: HTMLInputElement;
 
     constructor() {
         super();
@@ -29,10 +29,8 @@ export default class CustomView extends DefaultView {
         this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }
 
-    private loginStorageChangedHandler<T>(email: T) {
-        if (this.loginInputElement !== null && typeof email === 'string') {
-            this.loginInputElement.value = email;
-        }
+    private loginStorageChangedHandler(login: string) {
+        this.loginInputElement.value = login;
     }
     private fieldChangedHandler(nameField: StorageItemNames) {
         if (event && event.target instanceof HTMLInputElement) {
