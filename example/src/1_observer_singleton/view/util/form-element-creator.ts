@@ -16,7 +16,7 @@ export default class FormHtmlCreator {
 
         return {
             resultHtmlElement: formElement,
-            labelHtmlElements: labelElements,
+            adjustableHtmlElements: labelElements,
         };
     }
     getInputForm(nameForm: string, nameFields: Array<string>): FormCreatorResult<HtmlTags.FORM, HtmlTags.INPUT> {
@@ -31,7 +31,7 @@ export default class FormHtmlCreator {
 
         return {
             resultHtmlElement: formElement,
-            inputHtmlElements: inputElements,
+            adjustableHtmlElements: inputElements,
         };
     }
 

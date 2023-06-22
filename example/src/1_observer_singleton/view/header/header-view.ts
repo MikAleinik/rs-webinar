@@ -8,16 +8,14 @@ export default class HeaderView extends DefaultView {
     private readonly TEXT_LOGIN_FIELD = 'Логин пользователя';
 
     private storage = DataStorage.getInstance();
-    private loginLabelElement: HTMLLabelElement | null = null;
+    private loginLabelElement: HTMLLabelElement;
 
     constructor() {
         super();
 
         const resultCreateView = this.createView();
         this.htmlElement = resultCreateView.resultHtmlElement;
-        if (resultCreateView.labelHtmlElements) {
-            this.loginLabelElement = resultCreateView.labelHtmlElements[0];
-        }
+        this.loginLabelElement = resultCreateView.adjustableHtmlElements[0];
 
         this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }

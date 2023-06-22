@@ -15,17 +15,15 @@ export default class CustomView extends DefaultView {
 
         const resultCreateView = this.createView();
         this.htmlElement = resultCreateView.resultHtmlElement;
-        if (resultCreateView.inputHtmlElements) {
-            this.loginInputElement = resultCreateView.inputHtmlElements[0];
-            this.loginInputElement.addEventListener(
-                'keyup',
-                this.fieldChangedHandler.bind(this, StorageItemNames.USER_LOGIN)
-            );
+        this.loginInputElement = resultCreateView.adjustableHtmlElements[0];
+        this.loginInputElement.addEventListener(
+            'keyup',
+            this.fieldChangedHandler.bind(this, StorageItemNames.USER_LOGIN)
+        );
 
-            const inputValue = this.storage.getValue(StorageItemNames.USER_LOGIN);
-            if (typeof inputValue === 'string') {
-                this.loginInputElement.value = inputValue;
-            }
+        const inputValue = this.storage.getValue(StorageItemNames.USER_LOGIN);
+        if (typeof inputValue === 'string') {
+            this.loginInputElement.value = inputValue;
         }
 
         this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));

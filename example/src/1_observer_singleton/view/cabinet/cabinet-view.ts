@@ -8,20 +8,18 @@ export default class CabinetView extends DefaultView {
     private readonly TEXT_LOGIN_FIELD = 'Логин пользователя';
 
     private storage = DataStorage.getInstance();
-    private loginInputElement: HTMLInputElement | null = null;
+    private loginInputElement: HTMLInputElement;
 
     constructor() {
         super();
 
         const resultCreateView = this.createView();
         this.htmlElement = resultCreateView.resultHtmlElement;
-        if (resultCreateView.inputHtmlElements) {
-            this.loginInputElement = resultCreateView.inputHtmlElements[0];
-            this.loginInputElement.addEventListener(
-                'keyup',
-                this.fieldChangedHandler.bind(this, StorageItemNames.USER_LOGIN)
-            );
-        }
+        this.loginInputElement = resultCreateView.adjustableHtmlElements[0];
+        this.loginInputElement.addEventListener(
+            'keyup',
+            this.fieldChangedHandler.bind(this, StorageItemNames.USER_LOGIN)
+        );
 
         this.storage.subscribe(StorageItemNames.USER_LOGIN, this.loginStorageChangedHandler.bind(this));
     }
