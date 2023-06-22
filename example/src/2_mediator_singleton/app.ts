@@ -2,8 +2,14 @@ import './style.css';
 import CabinetView from './view/cabinet/cabinet-view';
 import CustomView from './view/custom/custom-view';
 import HeaderView from './view/header/header-view';
-
-export default class AppObserver {
+/**
+ * В классе DataStorage реализована логика паттерна Одиночка/Singleton и Посредник/Mediator
+ * Из плюсов:
+ * - убраны минусы реализации Наблюдателя/Observer;
+ * Из минусов:
+ * - появляется необходимость создавать имена "событий" (названия полей);
+ */
+export default class AppMediatorSingleton {
     private readonly TIME_ADD_NEW_FORM = 5000;
 
     constructor() {

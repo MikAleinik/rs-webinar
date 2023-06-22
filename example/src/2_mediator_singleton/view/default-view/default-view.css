@@ -1,0 +1,47 @@
+.form-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    width: 80%;
+
+    margin: 10px;
+}
+
+.form-container fieldset {
+    width: 100%;
+}
+
+.field-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    width: 80%;
+
+    margin: 5px;
+}
+
+.field-container-column {
+    flex-direction: column;
+}
+
+.field-container-row {
+    flex-direction: row;
+}
+
+.field__input,
+.field__label {
+    width: 80%;
+
+    font-size: 14px;
+}
+
+.field__button {
+    min-width: 120px;
+}
+
+.field__button:hover {
+    cursor: pointer;
+}

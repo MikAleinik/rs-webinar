@@ -1,5 +1,15 @@
 import { StorageItemNames } from '../enums/storage-item-names';
-
+/**
+ * Реализация паттерна Одиночка/Singleton
+ * Строки кода 7, 13, 15-17 позволяют создать и всегда возвращать при вызове
+ * статического метода DataStorage.getInstance один и тот же объект класса.
+ */
+/**
+ * Реализация паттерна Посредник/Mediator
+ * Все методы из паттерна Наблюдатель/Observer перенесены в данный класс (строки кода 35 - 55)
+ * и позволяют не осуществляя прямой связи между классами CustomView, CabinetView и HeaderView
+ * выполнять обмен данными (оповещать о "событиях");
+ */
 export default class DataStorage {
     private static instanseDataStorage = new DataStorage();
 
@@ -23,6 +33,7 @@ export default class DataStorage {
         }
         return null;
     }
+
     subscribe(nameEvent: StorageItemNames, listenerMethod: (param: string) => void) {
         let listListeners = this._listeners.get(nameEvent);
         if (!listListeners) {
