@@ -1,5 +1,5 @@
 import HashRouterHandler from './handler/hash/hash-router-handler';
-import HistoryRouterHandler from './handler/history/history-router-handler';
+import HistoryRouterHandler from './handler/history-router-handler';
 import { Pages, ID_SELECTOR } from './pages';
 
 /**
@@ -15,7 +15,7 @@ export default class Router {
         this.handler = new HistoryRouterHandler(this.urlChangedHandler.bind(this));
 
         document.addEventListener('DOMContentLoaded', () => {
-            this.handler.navigate('');
+            this.handler.navigate(null);
         });
     }
 
@@ -28,12 +28,11 @@ export default class Router {
      * @param {string} url
      */
     navigate(url) {
-        window.history.pushState(null, null, `/${url}`);
         this.handler.navigate(url);
     }
 
     /**
-     * @param {import('./handler/default-router-handler.js').RequestParams} requestParams
+     * @param {import('./handler/history-router-handler.js').RequestParams} requestParams
      */
     urlChangedHandler(requestParams) {
         const pathForFind = requestParams.resource === '' ? requestParams.path : `${requestParams.path}/${ID_SELECTOR}`;

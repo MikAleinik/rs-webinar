@@ -1,17 +1,26 @@
-import DefaultRouterHandler from '../default-router-handler';
+import HistoryRouterHandler from '../history-router-handler';
 
-export default class HashRouterHandler extends DefaultRouterHandler {
+export default class HashRouterHandler extends HistoryRouterHandler {
     /**
      * @param {function} callbackRouter
      */
     constructor(callbackRouter) {
-        const handlerParams = {
+        super(callbackRouter);
+        /**
+         * @type {import('../history-router-handler').RouterHandlerParam}
+         */
+        this.params = {
             nameEvent: 'hashchange',
             locationField: 'hash',
-            callback: callbackRouter,
         };
-        super(handlerParams);
 
-        window.addEventListener('hashchange', this.navigate.bind(this));
+        window.addEventListener(this.params.nameEvent, this.handler);
+    }
+
+    /**
+     * @param {string} url
+     */
+    setHistory(url) {
+        window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#${url}`;
     }
 }
