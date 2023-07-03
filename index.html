@@ -23,20 +23,31 @@
                 <h5>Паттерны</h5>
                 <p class="fragment fade-up">Краткое содержание:</p>
                 <ul>
-                    <li class="fragment fade-up">Наблюдатель/Observer</li>
-                    <li class="fragment fade-up">Одиночка/Singleton</li>
-                    <!-- <li class="fragment fade-up">Фабрика/Factory</li>
-                    <li class="fragment fade-up">Цепочка обязанностей/Chain of responsibility</li>
-                    <li class="fragment fade-up">Стратегия/Strategy</li>
-                    <li class="fragment fade-up">Состояние/State</li>
+                    <li class="fragment fade-up"><a href="#/firstStream">Часть 1</a></li>
+                    <ul>
+                        <li class="fragment fade-up">Наблюдатель/Observer</li>
+                        <li class="fragment fade-up">Одиночка/Singleton</li>
+                    </ul>
+                    <li class="fragment fade-up"><a href="#/secondStream">Часть 2</a></li>
+                    <ul>
+                        <li class="fragment fade-up">Состояние/State</li>
+                        <li class="fragment fade-up">Стратегия/Strategy</li>
+                        <li class="fragment fade-up">Фабрика/Factory</li>
+                    </ul>
+                    <!-- <li class="fragment fade-up">Цепочка обязанностей/Chain of responsibility</li>
                     <li class="fragment fade-up">Декоратор/Wrapper</li>
                     <li class="fragment fade-up">Заместитель/Proxy</li> -->
                 </ul>
             </section>
+            <section id="firstStream">
+                <h5>Наблюдатель/Observer</h5>
+                <h5>Одиночка/Singleton</h5>
+            </section>
             <section>
                 <section>
                     <h5>Наблюдатель/Observer</h5>
-                    <p>Наблюдатель это поведенческий паттерн, который позволяет одним объектам (Наблюдателям) реагировать
+                    <p>Наблюдатель это поведенческий паттерн, который позволяет одним объектам (Наблюдателям)
+                        реагировать
                         на изменения происходящие в других объектах (Издателях)</p>
                 </section>
                 <section>
@@ -102,7 +113,8 @@ subject.notify();
             <section>
                 <section>
                     <h5>Одиночка/Singleton</h5>
-                    <p>Одиночка это порождающий паттерн, который обеспечит существование только одного экземпляра класса</p>
+                    <p>Одиночка это порождающий паттерн, который обеспечит существование только одного экземпляра класса
+                    </p>
                 </section>
                 <section>
                     <h5>Псевдокод класса</h5>
@@ -125,6 +137,72 @@ const second = Singleton.getInstance();
 first === second //true
                     </code></pre>
                 </section>
+            </section>
+            <section id="secondStream">
+                <h5>Состояние/State</h5>
+                <h5>Стратегия/Strategy</h5>
+                <h5>Фабрика/Factory</h5>
+            </section>
+            <section>
+                <section>
+                    <h5>Состояние/State</h5>
+                    <p>Состояние это поведенческий паттерн проектирования, который позволяет объектам менять свое
+                        поведение при изменении внутреннего состояния</p>
+                </section>
+                <section>
+                    <h5>Характерные черты:</h5>
+                    <ul>
+                        <li class="fragment fade-up">Каждое состояние знает о необходимых смежных состояниях и
+                            переключается на них при определенных условиях</li>
+                        <li class="fragment fade-up">Последовательность состояний непрерывна и предопределена</li>
+                        <li class="fragment fade-up">В каждом состоянии приложение или объект показывает разную реакцию
+                            на однотипные действия</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Псевдокод класса Состояния</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="" class="typescript">
+
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Стратегия/Strategy</h5>
+                    <p>Стратегия это поведенческий паттерн, который определяет набор схожих алгоритмов и позволяет их
+                        подменять во время выполнения</p>
+                </section>
+                <section>
+                    <h5>Характерные черты:</h5>
+                    <ul>
+                        <li class="fragment fade-up">Каждая стратегия является алгоритмом, который независит от других
+                            стратегий и выбор стратегии выполняет объект использующий стратегии</li>
+                        <li class="fragment fade-up">Каждая стратегия в приложении или объекте показывает разную реакцию
+                            на однотипные действия</li>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Псевдокод класса Стратегия</h5>
+                    <pre class="fragment fade-up"><code data-line-numbers="" class="typescript">
+
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h5>Фабрика/Factory</h5>
+                    <p>Фабрика это порождающий паттерн, который определяет общий интерфейс для создания объектов,
+                        позволяя изменять тип создаваемых объектов</p>
+                </section>
+            </section>
+            <section>
+                <h5>Характерные черты:</h5>
+                <ul>
+                    <li class="fragment fade-up">Каждая фабрика порождает объекты со схожей функциональностью, но
+                        различной реализацией</li>
+                    <li class="fragment fade-up"></li>
+                    <li class="fragment fade-up"></li>
+                </ul>
             </section>
             <section>Вопросы и ответы</section>
         </div>
