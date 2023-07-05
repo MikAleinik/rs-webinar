@@ -23,9 +23,9 @@ let buttonLeft = null;
 let buttonRight = null;
 let cards = new Array();
 let visibleCards = new Array();
+let leftCards = new Array();
+let rightCards = new Array();
 let deltaOrder = 0;
-let isRightClick = false;
-let isLeftClick = false;
 
 function createComponent(petsJSON) {
     if (!Array.isArray(petsJSON)) {
@@ -76,54 +76,42 @@ function createElement(tagName, className) {
     return element;
 }
 function buttonLeftClickHandler() {
-    if (!isRightClick) {
-        let rightCardGroup = null;
-        for (let group of cardContainer.children) {
-            if (Number(group.style.order) === INDEX_VISIBLE_GROUP + 1) {
-                rightCardGroup = group;
-                break;
-            }
+    let rightCardGroup = null;
+    for (let group of cardContainer.children) {
+        if (Number(group.style.order) === INDEX_VISIBLE_GROUP + 1) {
+            rightCardGroup = group;
+            break;
         }
-        while (rightCardGroup.firstElementChild) {
-            rightCardGroup.firstElementChild.remove();
-        }
-
-        const cardsToShow = getCardsToShow();
-        visibleCards = new Array(...cardsToShow);
-        cardsToShow.forEach((card) => {
-            rightCardGroup.insertAdjacentElement('beforeend', card);
-        });
+    }
+    while (rightCardGroup.firstElementChild) {
+        rightCardGroup.firstElementChild.remove();
     }
 
-    isLeftClick = true;
-    isRightClick = !isLeftClick;
+    let cardsToShow = getRightCardsGroup();
+    cardsToShow.forEach((card) => {
+        rightCardGroup.insertAdjacentElement('beforeend', card);
+    });
 
     deltaOrder = -1;
     cardContainer.classList.add(CssClasses.ANIMATE_LEFT);
     disableButtons();
 }
 function buttonRightClickHandler() {
-    if (!isLeftClick) {
-        let leftCardGroup = null;
-        for (let group of cardContainer.children) {
-            if (Number(group.style.order) === INDEX_VISIBLE_GROUP - 1) {
-                leftCardGroup = group;
-                break;
-            }
+    let leftCardGroup = null;
+    for (let group of cardContainer.children) {
+        if (Number(group.style.order) === INDEX_VISIBLE_GROUP - 1) {
+            leftCardGroup = group;
+            break;
         }
-        while (leftCardGroup.firstElementChild) {
-            leftCardGroup.firstElementChild.remove();
-        }
-
-        const cardsToShow = getCardsToShow();
-        visibleCards = new Array(...cardsToShow);
-        cardsToShow.forEach((card) => {
-            leftCardGroup.insertAdjacentElement('beforeend', card);
-        });
+    }
+    while (leftCardGroup.firstElementChild) {
+        leftCardGroup.firstElementChild.remove();
     }
 
-    isRightClick = true;
-    isLeftClick = !isRightClick;
+    let cardsToShow = getLeftCardsGroup();
+    cardsToShow.forEach((card) => {
+        leftCardGroup.insertAdjacentElement('beforeend', card);
+    });
 
     deltaOrder = 1;
     cardContainer.classList.add(CssClasses.ANIMATE_RIGHT);
@@ -156,7 +144,33 @@ function endTransitionHandler() {
         enableButtons();
     }, 1);
 }
-function getCardsToShow() {
+function getRightCardsGroup() {
+    let cardsToShow = null;
+    if (rightCards.length > 0) {
+        cardsToShow = new Array(...rightCards);
+        rightCards = new Array();
+    } else {
+        cardsToShow = getRandomCards();
+    }
+    leftCards = new Array(...visibleCards);
+    visibleCards = new Array(...cardsToShow);
+
+    return cardsToShow;
+}
+function getLeftCardsGroup() {
+    let cardsToShow = null;
+    if (leftCards.length > 0) {
+        cardsToShow = new Array(...leftCards);
+        leftCards = new Array();
+    } else {
+        cardsToShow = getRandomCards();
+    }
+    rightCards = new Array(...visibleCards);
+    visibleCards = new Array(...cardsToShow);
+
+    return cardsToShow;
+}
+function getRandomCards() {
     let cardsToShow = new Array();
     while (cardsToShow.length < COUNT_CARD) {
         const index = getRandomNumber(0, cards.length - 1);
