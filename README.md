@@ -1,6 +1,9 @@
 # rs-webinar
 RSSchool webinar code
 
+[Видео](https://www.youtube.com/watch?v=sOlzPxs_Lg4) создания первой части приложения с использованием синтаксиса классов.<br/>
+[Видео](https://www.youtube.com/watch?v=njk5inZIwCc) рефакторинга приложения в SPA.
+
 Для запуска презентации в запустить liveserver
 
 Для запуска примеров выполнить:
