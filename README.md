@@ -1,6 +1,8 @@
 # rs-webinar
 RSSchool webinar code
 
+[Видео](https://www.youtube.com/watch?v=kYimHN772U8) вебинара с реализацией паттерна Одиночка/Singleton
+
 Для запуска презентации в запустить liveserver
 
 Для запуска примеров выполнить:
