@@ -1,8 +1,8 @@
 # rs-webinar
 RSSchool webinar code
 
-[Видео](https://www.youtube.com/watch?v=sOlzPxs_Lg4) создания первой части приложения с использованием синтаксиса классов.<br/>
-[Видео](https://www.youtube.com/watch?v=njk5inZIwCc) рефакторинга приложения в SPA.
+[Видео](https://www.youtube.com/watch?v=sOlzPxs_Lg4) вебинара создания первой части приложения с использованием синтаксиса классов.<br/>
+[Видео](https://www.youtube.com/watch?v=njk5inZIwCc) вебинара рефакторинга приложения в SPA.
 
 Для запуска презентации в запустить liveserver
 
@@ -24,3 +24,6 @@ RSSchool webinar code
 В каталоге /example/src/classes размещены файлы с примером реализации приложения с использованием синтаксиса классов.
 
 В каталоге /example/src/spa размещены файлы с примером реализации приложения SPA.
+
+[Деплой](https://mikaleinik.github.io/spa/) приложения SPA на Gh-Pages.<br/>
+[Репозиторий](https://github.com/MikAleinik/spa/tree/gh-pages) с файлами для деплоя SPA.
