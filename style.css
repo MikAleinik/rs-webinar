@@ -114,3 +114,41 @@ p {
     margin-top: 10%;
     margin-left: 40%;
 }
+
+.sloth {
+    position: relative;
+    height: 200px;
+}
+
+.sloth.bottom-left {
+    top: 50%;
+    right: calc(50% - 100px);
+}
+
+.sloth.bottom-right {
+    top: 50%;
+    left: calc(50% - 100px);
+}
+
+.sloth.left {
+    position: absolute;
+    top: 50%;
+    left: -10%;
+}
+
+.sloth.left-bottom {
+    position: absolute;
+    top: 85%;
+    left: -10%;
+}
+
+.sloth.right {
+    position: absolute;
+    top: 50%;
+    right: -10%;
+}
+
+.sloth.center {
+    position: absolute;
+    top: 50%;
+}
