@@ -32,4 +32,4 @@ const appSpa = new AppSpa();
 В каталоге /example/src/spa размещены файлы с примером реализации приложения SPA.
 
 [Деплой](https://mikaleinik.github.io/spa-deploy/) приложения SPA на Gh-Pages.<br/>
-[Репозиторий](https://github.com/MikAleinik/spa-deploy/) с файлами для деплоя SPA.
+[Репозиторий](https://github.com/MikAleinik/spa-deploy/) с файлами и описанием особенностей для деплоя SPA.
