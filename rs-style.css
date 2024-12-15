@@ -19,7 +19,7 @@
 }
 
 .reveal h5.slide-header {
-    margin-bottom: 3em;
+    margin-bottom: 2em;
     color: #000000;
 }
 
@@ -85,4 +85,21 @@
 .slide-image {
     height: 200px;
     width: 300px;
+}
+
+.image-reverse {
+    transform: scale(-1, 1);
+}
+
+.fragment-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.fragment-item-row {
+    display: flex;
+}
+
+.link {
+    margin-right: 1em;
 }
