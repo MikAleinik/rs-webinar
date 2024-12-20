@@ -13,3 +13,5 @@
 - [даты и времени](https://github.com/rolling-scopes-school/core-js-dates)
 - [работы асинхронных действий](https://github.com/rolling-scopes-school/core-js-promises)
 - [работы протокола WebSocket](https://github.com/rolling-scopes-school/tasks/blob/master/stage2/tasks/fun-chat/README.md) и репозиторий с [примером](https://github.com/MikAleinik/chat-deploy) выполнения
+
+[Презентация](https://mikaleinik.github.io/rs-webinar/mentorship/) для менторов школы по основным аспектам процесса регистрации и менторства 
