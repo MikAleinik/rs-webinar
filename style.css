@@ -1,0 +1,40 @@
+.reveal h5 {
+    text-transform: none;
+}
+
+.reveal pre {
+    font-size: 0.4em;
+}
+
+li,
+p {
+    font-size: 26px;
+}
+
+.reveal ::selection {
+    color: #c91e1e;
+    background: #191919;
+}
+
+.hljs {
+    background: #191919;
+}
+
+.fragment.display {
+    display: none;
+}
+
+.fragment.display.visible {
+    display: flex;
+}
+
+::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    border: 1px solid;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    background-color: #c0c5ce;
+}
